@@ -327,7 +327,6 @@
         window.deleteDoc = deleteDoc;
         window.query = query;
         window.where = where;
-        window.crypto = crypto;
         window.setDoc = setDoc;
         window.getDocs = getDocs;
 
@@ -354,7 +353,7 @@
         
         let appInitialized = false;
 
-        function initializeApp() {
+        function initApplication() {
             if (appInitialized) return;
             
             // Login Anônimo ou com token
@@ -403,7 +402,7 @@
         }
         
         loginForm.addEventListener('submit', function(event) {
-            event.preventDefault();
+            event.preventDefault(); // Esta linha evita o comportamento padrão de recarregar a página
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
@@ -854,7 +853,7 @@
             }
         });
 
-        window.onload = initializeApp;
+        window.onload = initApplication;
     </script>
 
 </body>
