@@ -297,7 +297,7 @@
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, getDoc, addDoc, setDoc, updateDoc, deleteDoc, onSnapshot, collection, query, where, getDocs, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         
-        // Firebase Config
+        // Firebase Config - Substitua com a sua própria configuração
         const firebaseConfig = {
             apiKey: "AIzaSyDmqvcKtIsga4ZQWNDg4_2k493dqMQCDVg",
             authDomain: "teste-ebf38.firebaseapp.com",
@@ -308,33 +308,17 @@
             measurementId: "G-2MD5CFD51E"
         };
         
+        // Inicializa o Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         const auth = getAuth(app);
         setLogLevel('debug'); // Ativa logs do Firestore
 
-        // Variáveis globais para serem usadas no script
-        window.db = db;
-        window.auth = auth;
-        window.onAuthStateChanged = onAuthStateChanged;
-        window.signInAnonymously = signInAnonymously;
-        window.signInWithCustomToken = signInWithCustomToken;
-        window.signOut = signOut;
-        window.addDoc = addDoc;
-        window.collection = collection;
-        window.onSnapshot = onSnapshot;
-        window.doc = doc;
-        window.deleteDoc = deleteDoc;
-        window.query = query;
-        window.where = where;
-        window.setDoc = setDoc;
-        window.getDocs = getDocs;
+        const globalAppId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const globalInitialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+        let globalUserId = null;
 
-        window.globalUserId = null;
-        window.globalAppId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        window.globalInitialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-
-        // Autenticação
+        // Elementos do DOM
         const loginForm = document.getElementById('login-form');
         const loginPage = document.getElementById('login-page');
         const appPage = document.getElementById('app-page');
@@ -342,7 +326,7 @@
         const userIdDisplay = document.getElementById('user-id-display');
         const logoutButton = document.getElementById('logout-btn');
 
-        // Lista de usuários e senhas
+        // Lista de usuários e senhas (pode ser expandida)
         const users = [
             { username: 'admin', password: 'rafael22' },
             { username: 'gerente', password: 'senha123' }
@@ -350,59 +334,35 @@
 
         let transportadosData = [];
         let motoristasData = [];
-        
-        let appInitialized = false;
 
-        function initApplication() {
-            if (appInitialized) return;
-            
-            // Login Anônimo ou com token
+        // Inicia a aplicação após o carregamento da página
+        window.onload = () => {
             onAuthStateChanged(auth, async (user) => {
                 if (user) {
-                    window.globalUserId = user.uid;
-                    userIdDisplay.innerText = `ID do Usuário: ${window.globalUserId}`;
-                    loginPage.classList.add('hidden');
-                    appPage.classList.remove('hidden');
-                    
-                    // Inicia listeners para as coleções
+                    globalUserId = user.uid;
+                    userIdDisplay.innerText = `ID do Usuário: ${globalUserId}`;
+                    // Sincroniza os dados do Firestore
                     startFirestoreListeners();
                 } else {
-                    window.globalUserId = null;
+                    // Oculta a página principal se o usuário não estiver autenticado
                     loginPage.classList.remove('hidden');
                     appPage.classList.add('hidden');
                 }
             });
             
-            if (window.globalInitialAuthToken) {
-                signInWithCustomToken(auth, window.globalInitialAuthToken).catch((error) => {
+            if (globalInitialAuthToken) {
+                signInWithCustomToken(auth, globalInitialAuthToken).catch((error) => {
                     console.error("Erro ao fazer login com token customizado:", error);
                     signInAnonymously(auth);
                 });
             } else {
                 signInAnonymously(auth);
             }
-            appInitialized = true;
-        }
-        
-        // Listener para os dados do Firestore
-        function startFirestoreListeners() {
-            // Listener para Transportados
-            const transportadosRef = collection(db, 'artifacts', window.globalAppId, 'public', 'data', 'transportados');
-            onSnapshot(transportadosRef, (snapshot) => {
-                transportadosData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                rebuildTransportadosLookups();
-            });
+        };
 
-            // Listener para Motoristas
-            const motoristasRef = collection(db, 'artifacts', window.globalAppId, 'public', 'data', 'motoristas');
-            onSnapshot(motoristasRef, (snapshot) => {
-                motoristasData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                rebuildMotoristasLookups();
-            });
-        }
-        
+        // Autenticação de Login
         loginForm.addEventListener('submit', function(event) {
-            event.preventDefault(); // Esta linha evita o comportamento padrão de recarregar a página
+            event.preventDefault();
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
@@ -420,6 +380,23 @@
             signOut(auth);
         });
 
+        // Listeners do Firestore para dados em tempo real
+        function startFirestoreListeners() {
+            // Listener para Transportados
+            const transportadosRef = collection(db, 'artifacts', globalAppId, 'public', 'data', 'transportados');
+            onSnapshot(transportadosRef, (snapshot) => {
+                transportadosData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                rebuildTransportadosLookups();
+            });
+
+            // Listener para Motoristas
+            const motoristasRef = collection(db, 'artifacts', globalAppId, 'public', 'data', 'motoristas');
+            onSnapshot(motoristasRef, (snapshot) => {
+                motoristasData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                rebuildMotoristasLookups();
+            });
+        }
+        
         let matriculaToNome = {};
         let nomeToMatricula = {};
 
@@ -516,36 +493,20 @@
                 return;
             }
             
-            // Add UTF-8 BOM to fix special characters in Excel
             const bom = '\uFEFF'; 
-
-            const keys = Object.keys(dataArray[0]);
-            
-            const headers = keys.map(key => {
-                return key.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase());
-            });
-
-            const rows = dataArray.map(obj => {
-                return keys.map(key => `"${(obj[key] || '').toString().replace(/"/g, '""')}"`).join(';');
-            });
-            
+            const headers = Object.keys(dataArray[0]).map(key => key.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase()));
+            const rows = dataArray.map(obj => headers.map(header => `"${(obj[header.replace(/\s/g, '').replace(/^./, (str) => str.toLowerCase())] || '').toString().replace(/"/g, '""')}"`).join(';'));
             const csvContent = `${headers.join(';')}\n${rows.join('\n')}`;
-            
             const blob = new Blob([bom + csvContent], { type: 'text/csv;charset=utf-8;' });
             const url = URL.createObjectURL(blob);
-            
             const link = document.createElement('a');
             link.setAttribute('href', url);
-            
             const now = new Date();
             const dateString = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}_${now.getHours().toString().padStart(2, '0')}-${now.getMinutes().toString().padStart(2, '0')}-${now.getSeconds().toString().padStart(2, '0')}`;
             link.setAttribute('download', `lancamentos_de_corridas_${dateString}.csv`);
-            
             document.body.appendChild(link);
             link.click();
-            
             document.body.removeChild(link);
-
             showWarning('Relatório CSV baixado com sucesso!');
         }
 
@@ -603,7 +564,7 @@
                 if (existing) {
                     showWarning('A matrícula ou o nome já existe.');
                 } else {
-                    const transportadosRef = collection(db, 'artifacts', window.globalAppId, 'public', 'data', 'transportados');
+                    const transportadosRef = collection(db, 'artifacts', globalAppId, 'public', 'data', 'transportados');
                     await addDoc(transportadosRef, { matricula: newMatricula, nome: newNome });
                     newMatriculaInput.value = '';
                     newNomeInput.value = '';
@@ -621,7 +582,7 @@
                 return;
             }
             const promises = Array.from(checkboxes).map(cb => {
-                const transportadoDocRef = doc(db, 'artifacts', window.globalAppId, 'public', 'data', 'transportados', cb.dataset.id);
+                const transportadoDocRef = doc(db, 'artifacts', globalAppId, 'public', 'data', 'transportados', cb.dataset.id);
                 return deleteDoc(transportadoDocRef);
             });
             await Promise.all(promises);
@@ -637,7 +598,7 @@
                 if (existing) {
                     showWarning('O nome do motorista já existe.');
                 } else {
-                    const motoristasRef = collection(db, 'artifacts', window.globalAppId, 'public', 'data', 'motoristas');
+                    const motoristasRef = collection(db, 'artifacts', globalAppId, 'public', 'data', 'motoristas');
                     await addDoc(motoristasRef, { nome: newNome });
                     newNomeInput.value = '';
                     showWarning('Motorista adicionado com sucesso!');
@@ -654,7 +615,7 @@
                 return;
             }
             const promises = Array.from(checkboxes).map(cb => {
-                const motoristaDocRef = doc(db, 'artifacts', window.globalAppId, 'public', 'data', 'motoristas', cb.dataset.id);
+                const motoristaDocRef = doc(db, 'artifacts', globalAppId, 'public', 'data', 'motoristas', cb.dataset.id);
                 return deleteDoc(motoristaDocRef);
             });
             await Promise.all(promises);
@@ -725,7 +686,7 @@
                 observacao: form['observacao'].value
             };
 
-            const lancamentosRef = collection(db, 'artifacts', window.globalAppId, 'public', 'data', 'lancamentos');
+            const lancamentosRef = collection(db, 'artifacts', globalAppId, 'public', 'data', 'lancamentos');
             await addDoc(lancamentosRef, newEntry);
 
             showWarning('Lançamento salvo com sucesso!');
@@ -769,7 +730,7 @@
 
         // Evento do botão de download
         document.getElementById('download-csv').addEventListener('click', async function() {
-            const lancamentosRef = collection(db, 'artifacts', window.globalAppId, 'public', 'data', 'lancamentos');
+            const lancamentosRef = collection(db, 'artifacts', globalAppId, 'public', 'data', 'lancamentos');
             const snapshot = await getDocs(lancamentosRef);
             const allData = snapshot.docs.map(doc => doc.data());
 
@@ -852,9 +813,6 @@
                 }
             }
         });
-
-        window.onload = initApplication;
     </script>
-
 </body>
 </html>
