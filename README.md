@@ -32,55 +32,309 @@
     </style>
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
-    <!-- Firebase SDKs -->
-    <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-      import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-      import { getFirestore, doc, getDoc, addDoc, setDoc, updateDoc, deleteDoc, onSnapshot, collection, query, where, addDoc, getDocs, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+    <!-- Container do Login -->
+    <div id="login-page" class="bg-white p-6 md:p-8 rounded-2xl shadow-xl w-full max-w-sm border border-gray-200">
+        <h1 class="text-2xl md:text-3xl font-bold text-center text-gray-800 mb-6 md:mb-8">Login</h1>
+        <form id="login-form" class="space-y-4">
+            <div>
+                <label for="username" class="block text-sm font-medium text-gray-700">Usuário:</label>
+                <input type="text" id="username" name="username" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+            </div>
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700">Senha:</label>
+                <input type="password" id="password" name="password" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+            </div>
+            <button type="submit" class="w-full px-6 py-3 bg-blue-600 text-white font-bold rounded-lg shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
+                Entrar
+            </button>
+            <p id="login-message" class="text-red-500 text-sm text-center mt-2 hidden">Usuário ou senha inválidos.</p>
+        </form>
+    </div>
 
-      // Firebase Config - SUBSTITUA PELA SUA CONFIGURAÇÃO
-     const firebaseConfig = {
-  apiKey: "AIzaSyDmqvcKtIsga4ZQWNDg4_2k493dqMQCDVg",
-  authDomain: "teste-ebf38.firebaseapp.com",
-  projectId: "teste-ebf38",
-  storageBucket: "teste-ebf38.firebasestorage.app",
-  messagingSenderId: "741884776297",
-  appId: "1:741884776297:web:a23450b4909581a1b237f8",
-  measurementId: "G-2MD5CFD51E"
-};
-
-
-      const app = initializeApp(firebaseConfig);
-      const db = getFirestore(app);
-      const auth = getAuth(app);
-      setLogLevel('debug'); // Ativa logs do Firestore
-
-      // Variáveis globais para serem usadas no script
-      window.db = db;
-      window.auth = auth;
-      window.onAuthStateChanged = onAuthStateChanged;
-      window.signInAnonymously = signInAnonymously;
-      window.signInWithCustomToken = signInWithCustomToken;
-      window.signOut = signOut;
-      window.addDoc = addDoc;
-      window.collection = collection;
-      window.onSnapshot = onSnapshot;
-      window.doc = doc;
-      window.deleteDoc = deleteDoc;
-      window.query = query;
-      window.orderBy = orderBy;
-      window.where = where;
-      window.crypto = crypto;
-      window.setDoc = setDoc;
-
-      window.globalUserId = null;
-      window.globalAppId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-      window.globalInitialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-    </script>
-    <script type="module">
-        import { getFirestore, collection, onSnapshot, addDoc, doc, deleteDoc, query } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        import { getAuth, onAuthStateChanged, signInWithCustomToken, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    <!-- Container Principal do Aplicativo -->
+    <div id="app-page" class="bg-white p-6 md:p-8 rounded-2xl shadow-xl w-full max-w-full md:max-w-5xl border border-gray-200 hidden">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl md:text-3xl font-bold text-gray-800">Lançamento de Corridas</h1>
+            <button id="logout-btn" class="px-4 py-2 bg-gray-300 text-gray-800 font-medium rounded-lg hover:bg-gray-400">Sair</button>
+        </div>
         
+        <p id="user-id-display" class="text-sm text-gray-500 text-center mb-4"></p>
+        
+        <!-- Main Form -->
+        <form id="form-corrida" class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-6 md:mb-8">
+            
+            <!-- Motorista -->
+            <div>
+                <label for="motorista" class="block text-sm font-medium text-gray-700">Motorista:</label>
+                <input type="text" id="motorista" name="motorista" list="motoristas-list" onblur="validateMotorista()" onfocus="this.classList.remove('error-border')" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                <datalist id="motoristas-list">
+                    <!-- Options will be populated by JS -->
+                </datalist>
+            </div>
+
+            <!-- Matrícula do transportado -->
+            <div>
+                <label for="matricula" class="block text-sm font-medium text-gray-700">Matrícula do transportado:</label>
+                <input type="text" id="matricula" name="matricula" onblur="autofillTransportado()" onfocus="this.classList.remove('error-border')" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+            </div>
+
+            <!-- Transportado -->
+            <div>
+                <label for="transportado" class="block text-sm font-medium text-gray-700">Transportado:</label>
+                <input type="text" id="transportado" name="transportado" onblur="autofillMatricula()" onfocus="this.classList.remove('error-border')" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+            </div>
+
+            <!-- Solicitante -->
+            <div>
+                <label for="solicitante" class="block text-sm font-medium text-gray-700">Solicitante:</label>
+                <input type="text" id="solicitante" name="solicitante" onfocus="this.classList.remove('error-border')" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+            </div>
+
+            <!-- Data -->
+            <div>
+                <label for="data" class="block text-sm font-medium text-gray-700">Data:</label>
+                <input type="date" id="data" name="data" onfocus="this.classList.remove('error-border')" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+            </div>
+
+            <!-- Origem -->
+            <div>
+                <label for="origem" class="block text-sm font-medium text-gray-700">Origem:</label>
+                <input type="text" id="origem" name="origem" onfocus="this.classList.remove('error-border')" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+            </div>
+
+            <!-- Destino -->
+            <div>
+                <label for="destino" class="block text-sm font-medium text-gray-700">Destino:</label>
+                <input type="text" id="destino" name="destino" onfocus="this.classList.remove('error-border')" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+            </div>
+            
+            <!-- Partida -->
+            <div>
+                <label for="partida" class="block text-sm font-medium text-gray-700">Partida:</label>
+                <input type="time" id="partida" name="partida" onfocus="this.classList.remove('error-border')" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+            </div>
+
+            <!-- Chegada -->
+            <div>
+                <label for="chegada" class="block text-sm font-medium text-gray-700">Chegada:</label>
+                <input type="time" id="chegada" name="chegada" onfocus="this.classList.remove('error-border')" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+            </div>
+
+            <!-- Valor -->
+            <div>
+                <label for="valor" class="block text-sm font-medium text-gray-700">Valor:</label>
+                <div class="relative mt-1">
+                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">R$</span>
+                    <input type="text" id="valor" name="valor" oninput="formatCurrencyInput(this)" onfocus="this.classList.remove('error-border')" class="block w-full px-3 py-2 pl-9 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out" value="0,00">
+                </div>
+            </div>
+
+            <!-- Valor Extra -->
+            <div>
+                <label for="valor-extra" class="block text-sm font-medium text-gray-700">Valor Extra:</label>
+                <div class="relative mt-1">
+                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">R$</span>
+                    <input type="text" id="valor-extra" name="valor-extra" oninput="formatCurrencyInput(this)" onfocus="this.classList.remove('error-border')" class="block w-full px-3 py-2 pl-9 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out" value="0,00">
+                </div>
+            </div>
+
+            <!-- Observação (Span full width) -->
+            <div class="md:col-span-2">
+                <label for="observacao" class="block text-sm font-medium text-gray-700">Observação:</label>
+                <textarea id="observacao" name="observacao" rows="4" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out"></textarea>
+            </div>
+            
+            <!-- Submit Button (Span full width) -->
+            <div class="md:col-span-2 flex flex-col md:flex-row justify-between gap-4 mt-4">
+                <button type="submit" class="w-full md:w-1/2 px-6 py-3 bg-blue-600 text-white font-bold rounded-lg shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
+                    Salvar Lançamento
+                </button>
+                <button type="button" id="download-csv" class="w-full md:w-1/2 px-6 py-3 bg-green-600 text-white font-bold rounded-lg shadow-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
+                    Baixar Relatório CSV
+                </button>
+            </div>
+        </form>
+
+        <hr class="my-6 md:my-8 border-gray-300">
+        
+        <!-- Buttons to open management modals -->
+        <div class="flex flex-col md:flex-row justify-center gap-4">
+            <button type="button" id="open-transportados-modal" class="px-6 py-3 bg-purple-600 text-white font-bold rounded-lg shadow-lg hover:bg-purple-700 focus:outline-none focus:ring-4 focus:ring-purple-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
+                Gerenciar Transportados
+            </button>
+            <button type="button" id="open-motoristas-modal" class="px-6 py-3 bg-indigo-600 text-white font-bold rounded-lg shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
+                Gerenciar Motoristas
+            </button>
+        </div>
+    </div>
+
+    <!-- Transportados Management Modal -->
+    <div id="transportados-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white p-6 md:p-8 rounded-2xl shadow-2xl modal-content max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl md:text-2xl font-bold text-gray-800">Gerenciar Transportados</h2>
+                <button id="close-transportados-modal" class="text-gray-500 hover:text-gray-800 text-xl font-bold">&times;</button>
+            </div>
+
+            <!-- Sorting Controls -->
+            <div class="flex flex-col md:flex-row gap-4 items-start md:items-center mb-4 md:mb-6">
+                <span class="text-sm font-medium text-gray-700">Ordenar por:</span>
+                <select id="sort-transportados-key" class="w-full md:w-auto border border-gray-300 rounded-lg py-1 px-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="nome">Nome</option>
+                    <option value="matricula">Matrícula</option>
+                </select>
+                <select id="sort-transportados-order" class="w-full md:w-auto border border-gray-300 rounded-lg py-1 px-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="asc">A-Z</option>
+                    <option value="desc">Z-A</option>
+                </select>
+            </div>
+            
+            <!-- Add new transportado form -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end mb-6">
+                <div>
+                    <label for="new-matricula" class="block text-sm font-medium text-gray-700">Nova Matrícula:</label>
+                    <input type="text" id="new-matricula" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <div>
+                    <label for="new-nome" class="block text-sm font-medium text-gray-700">Novo Transportado:</label>
+                    <input type="text" id="new-nome" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <button type="button" id="add-transportado" class="px-6 py-2 bg-purple-600 text-white font-bold rounded-lg shadow-lg hover:bg-purple-700 focus:outline-none focus:ring-4 focus:ring-purple-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
+                    Adicionar
+                </button>
+            </div>
+
+            <!-- Transportados table -->
+            <div class="overflow-x-auto rounded-lg shadow-md border border-gray-200">
+                <table class="min-w-full divide-y divide-gray-200" id="transportados-table">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <input type="checkbox" id="selectAllTransportados" class="rounded-sm">
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Matrícula</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nome</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <!-- Itens da lista serão renderizados aqui pelo JS -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="flex justify-end mt-4">
+                <button type="button" id="delete-selected-transportados" class="px-4 py-2 bg-red-600 text-white font-bold rounded-lg shadow-lg hover:bg-red-700">
+                    Excluir Selecionados
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Motoristas Management Modal -->
+    <div id="motoristas-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white p-6 md:p-8 rounded-2xl shadow-2xl modal-content max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl md:text-2xl font-bold text-gray-800">Gerenciar Motoristas</h2>
+                <button id="close-motoristas-modal" class="text-gray-500 hover:text-gray-800 text-xl font-bold">&times;</button>
+            </div>
+            
+            <!-- Sorting Controls -->
+            <div class="flex flex-col md:flex-row gap-4 items-start md:items-center mb-4 md:mb-6">
+                <span class="text-sm font-medium text-gray-700">Ordenar por:</span>
+                <select id="sort-motoristas-order" class="w-full md:w-auto border border-gray-300 rounded-lg py-1 px-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="asc">A-Z</option>
+                    <option value="desc">Z-A</option>
+                </select>
+            </div>
+
+            <!-- Add new motorista form -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-end mb-6">
+                <div>
+                    <label for="new-motorista-nome" class="block text-sm font-medium text-gray-700">Novo Motorista:</label>
+                    <input type="text" id="new-motorista-nome" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <button type="button" id="add-motorista" class="px-6 py-2 bg-indigo-600 text-white font-bold rounded-lg shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
+                    Adicionar
+                </button>
+            </div>
+
+            <!-- Motoristas table -->
+            <div class="overflow-x-auto rounded-lg shadow-md border border-gray-200">
+                <table class="min-w-full divide-y divide-gray-200" id="motoristas-table">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <input type="checkbox" id="selectAllMotoristas" class="rounded-sm">
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nome</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <!-- Itens da lista serão renderizados aqui pelo JS -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="flex justify-end mt-4">
+                <button type="button" id="delete-selected-motoristas" class="px-4 py-2 bg-red-600 text-white font-bold rounded-lg shadow-lg hover:bg-red-700">
+                    Excluir Selecionados
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Modal for Messages (instead of alert) -->
+    <div id="message-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg shadow-2xl max-w-sm w-full">
+            <h2 class="text-xl font-bold mb-4">Aviso</h2>
+            <p id="message-content" class="text-gray-700 mb-4"></p>
+            <div class="flex justify-end">
+                <button id="close-modal" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, addDoc, setDoc, updateDoc, deleteDoc, onSnapshot, collection, query, where, getDocs, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        
+        // Firebase Config
+        const firebaseConfig = {
+            apiKey: "AIzaSyDmqvcKtIsga4ZQWNDg4_2k493dqMQCDVg",
+            authDomain: "teste-ebf38.firebaseapp.com",
+            projectId: "teste-ebf38",
+            storageBucket: "teste-ebf38.firebasestorage.app",
+            messagingSenderId: "741884776297",
+            appId: "1:741884776297:web:a23450b4909581a1b237f8",
+            measurementId: "G-2MD5CFD51E"
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        setLogLevel('debug'); // Ativa logs do Firestore
+
+        // Variáveis globais para serem usadas no script
+        window.db = db;
+        window.auth = auth;
+        window.onAuthStateChanged = onAuthStateChanged;
+        window.signInAnonymously = signInAnonymously;
+        window.signInWithCustomToken = signInWithCustomToken;
+        window.signOut = signOut;
+        window.addDoc = addDoc;
+        window.collection = collection;
+        window.onSnapshot = onSnapshot;
+        window.doc = doc;
+        window.deleteDoc = deleteDoc;
+        window.query = query;
+        window.where = where;
+        window.crypto = crypto;
+        window.setDoc = setDoc;
+        window.getDocs = getDocs;
+
+        window.globalUserId = null;
+        window.globalAppId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        window.globalInitialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
         // Autenticação
         const loginForm = document.getElementById('login-form');
         const loginPage = document.getElementById('login-page');
@@ -97,10 +351,7 @@
 
         let transportadosData = [];
         let motoristasData = [];
-
-        // Inicializa o app e Firestore
-        const db = getFirestore();
-        const auth = getAuth();
+        
         let appInitialized = false;
 
         function initializeApp() {
@@ -133,7 +384,7 @@
             }
             appInitialized = true;
         }
-
+        
         // Listener para os dados do Firestore
         function startFirestoreListeners() {
             // Listener para Transportados
