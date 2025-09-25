@@ -149,14 +149,31 @@
                 <button type="submit" class="w-full md:w-1/2 px-6 py-3 bg-blue-600 text-white font-bold rounded-lg shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
                     Salvar Lançamento
                 </button>
-                <button type="button" id="download-csv" class="w-full md:w-1/2 px-6 py-3 bg-green-600 text-white font-bold rounded-lg shadow-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
-                    Baixar Relatório CSV
-                </button>
             </div>
         </form>
 
         <hr class="my-6 md:my-8 border-gray-300">
         
+        <!-- Relatório CSV Section -->
+        <div class="flex flex-col gap-4 mb-6">
+            <h2 class="text-xl font-bold text-gray-800">Gerar Relatório CSV</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label for="start-date" class="block text-sm font-medium text-gray-700">Data de Início:</label>
+                    <input type="date" id="start-date" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                </div>
+                <div>
+                    <label for="end-date" class="block text-sm font-medium text-gray-700">Data de Fim:</label>
+                    <input type="date" id="end-date" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                </div>
+            </div>
+            <button type="button" id="download-csv" class="w-full px-6 py-3 bg-green-600 text-white font-bold rounded-lg shadow-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
+                Baixar Relatório CSV
+            </button>
+        </div>
+
+        <hr class="my-6 md:my-8 border-gray-300">
+
         <!-- Buttons to open management modals -->
         <div class="flex flex-col md:flex-row justify-center gap-4">
             <button type="button" id="open-transportados-modal" class="px-6 py-3 bg-purple-600 text-white font-bold rounded-lg shadow-lg hover:bg-purple-700 focus:outline-none focus:ring-4 focus:ring-purple-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
@@ -495,7 +512,14 @@
             
             const bom = '\uFEFF'; 
             const headers = Object.keys(dataArray[0]).map(key => key.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase()));
-            const rows = dataArray.map(obj => headers.map(header => `"${(obj[header.replace(/\s/g, '').replace(/^./, (str) => str.toLowerCase())] || '').toString().replace(/"/g, '""')}"`).join(';'));
+            const rows = dataArray.map(obj => headers.map(header => {
+                const key = header.replace(/\s/g, '').replace(/^./, (str) => str.toLowerCase());
+                let value = obj[key] || '';
+                if (key === 'valor' || key === 'valorExtra') {
+                    value = `R$ ${value.toFixed(2).replace('.', ',')}`;
+                }
+                return `"${value.toString().replace(/"/g, '""')}"`;
+            }).join(';'));
             const csvContent = `${headers.join(';')}\n${rows.join('\n')}`;
             const blob = new Blob([bom + csvContent], { type: 'text/csv;charset=utf-8;' });
             const url = URL.createObjectURL(blob);
@@ -730,10 +754,28 @@
 
         // Evento do botão de download
         document.getElementById('download-csv').addEventListener('click', async function() {
-            const lancamentosRef = collection(db, 'artifacts', globalAppId, 'public', 'data', 'lancamentos');
-            const snapshot = await getDocs(lancamentosRef);
-            const allData = snapshot.docs.map(doc => doc.data());
+            const startDate = document.getElementById('start-date').value;
+            const endDate = document.getElementById('end-date').value;
 
+            if (startDate && endDate && new Date(startDate) > new Date(endDate)) {
+                showWarning('A data de início não pode ser posterior à data de fim.');
+                return;
+            }
+
+            const lancamentosRef = collection(db, 'artifacts', globalAppId, 'public', 'data', 'lancamentos');
+            let q = lancamentosRef;
+            
+            // Apply date filters if provided
+            if (startDate) {
+                q = query(q, where('data', '>=', startDate));
+            }
+            if (endDate) {
+                q = query(q, where('data', '<=', endDate));
+            }
+
+            const snapshot = await getDocs(q);
+            const allData = snapshot.docs.map(doc => doc.data());
+            
             exportAllToCsv(allData);
         });
 
