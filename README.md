@@ -66,7 +66,7 @@
             <!-- Motorista -->
             <div>
                 <label for="motorista" class="block text-sm font-medium text-gray-700">Motorista:</label>
-                <input type="text" id="motorista" name="motorista" list="motoristas-list" onblur="validateMotorista()" onfocus="this.classList.remove('error-border')" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                <input type="text" id="motorista" name="motorista" list="motoristas-list" onfocus="this.classList.remove('error-border')" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
                 <datalist id="motoristas-list">
                     <!-- Options will be populated by JS -->
                 </datalist>
@@ -75,13 +75,13 @@
             <!-- Matrícula do transportado -->
             <div>
                 <label for="matricula" class="block text-sm font-medium text-gray-700">Matrícula do transportado:</label>
-                <input type="text" id="matricula" name="matricula" onblur="autofillTransportado()" onfocus="this.classList.remove('error-border')" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                <input type="text" id="matricula" name="matricula" onfocus="this.classList.remove('error-border')" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
             </div>
 
             <!-- Transportado -->
             <div>
                 <label for="transportado" class="block text-sm font-medium text-gray-700">Transportado:</label>
-                <input type="text" id="transportado" name="transportado" onblur="autofillMatricula()" onfocus="this.classList.remove('error-border')" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                <input type="text" id="transportado" name="transportado" onfocus="this.classList.remove('error-border')" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
             </div>
 
             <!-- Solicitante -->
@@ -311,8 +311,8 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, addDoc, setDoc, updateDoc, deleteDoc, onSnapshot, collection, query, where, getDocs, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, addDoc, deleteDoc, onSnapshot, collection, query, where, getDocs, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         
         // Firebase Config - Substitua com a sua própria configuração
         const firebaseConfig = {
@@ -329,10 +329,9 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         const auth = getAuth(app);
-        setLogLevel('debug'); // Ativa logs do Firestore
+        setLogLevel('debug');
 
         const globalAppId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const globalInitialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
         let globalUserId = null;
 
         // Elementos do DOM
@@ -351,7 +350,35 @@
 
         let transportadosData = [];
         let motoristasData = [];
-
+        
+        // Mapeamentos para preenchimento automático
+        let matriculaToNome = {};
+        let nomeToMatricula = {};
+        const matriculaInput = document.getElementById('matricula');
+        const transportadoInput = document.getElementById('transportado');
+        const motoristaInput = document.getElementById('motorista');
+        
+        // Lógica de preenchimento automático para os campos "Matrícula" e "Transportado"
+        function handleAutofill(field) {
+            if (field === 'matricula') {
+                const matricula = matriculaInput.value.trim();
+                const nome = matriculaToNome[matricula];
+                if (nome) {
+                    transportadoInput.value = nome;
+                } else {
+                    transportadoInput.value = '';
+                }
+            } else if (field === 'transportado') {
+                const nome = transportadoInput.value.trim().toLowerCase();
+                const matricula = nomeToMatricula[nome];
+                if (matricula) {
+                    matriculaInput.value = matricula;
+                } else {
+                    matriculaInput.value = '';
+                }
+            }
+        }
+        
         // Inicia a aplicação após o carregamento da página
         window.onload = () => {
             onAuthStateChanged(auth, async (user) => {
@@ -367,14 +394,10 @@
                 }
             });
             
-            if (globalInitialAuthToken) {
-                signInWithCustomToken(auth, globalInitialAuthToken).catch((error) => {
-                    console.error("Erro ao fazer login com token customizado:", error);
-                    signInAnonymously(auth);
-                });
-            } else {
-                signInAnonymously(auth);
-            }
+            // O login anônimo é para acesso ao Firestore, independente do seu formulário
+            signInAnonymously(auth).catch((error) => {
+                console.error("Erro ao fazer login anônimo:", error);
+            });
         };
 
         // Autenticação de Login
@@ -414,9 +437,6 @@
             });
         }
         
-        let matriculaToNome = {};
-        let nomeToMatricula = {};
-
         function rebuildTransportadosLookups(sortKey = 'nome', sortOrder = 'asc') {
             transportadosData.sort((a, b) => {
                 let valA = a[sortKey];
@@ -459,50 +479,7 @@
         function hideWarning() {
             document.getElementById('message-modal').classList.add('hidden');
         }
-
-        // Funções de preenchimento automático para transportados
-        function autofillTransportado() {
-            const matriculaInput = document.getElementById('matricula');
-            const transportadoInput = document.getElementById('transportado');
-            const matricula = matriculaInput.value.trim();
-            const nome = matriculaToNome[matricula];
-
-            if (matricula === '') {
-                transportadoInput.value = '';
-            } else if (nome) {
-                transportadoInput.value = nome;
-            } else {
-                transportadoInput.value = '';
-                showWarning('Matrícula não encontrada.');
-            }
-        }
-
-        function autofillMatricula() {
-            const matriculaInput = document.getElementById('matricula');
-            const transportadoInput = document.getElementById('transportado');
-            const nome = transportadoInput.value.trim().toLowerCase();
-            const matricula = nomeToMatricula[nome];
-
-            if (nome === '') {
-                matriculaInput.value = '';
-            } else if (matricula) {
-                matriculaInput.value = matricula;
-            } else {
-                matriculaInput.value = '';
-                showWarning('Nome não encontrado.');
-            }
-        }
         
-        // Validação do motorista
-        function validateMotorista() {
-            const motoristaInput = document.getElementById('motorista');
-            const nome = motoristaInput.value.trim();
-            const found = motoristasData.some(item => item.nome === nome);
-            if (nome !== '' && !found) {
-                showWarning('Motorista não encontrado na lista.');
-            }
-        }
-
         // Funções para manipulação de dados e CSV
         function exportAllToCsv(dataArray) {
             if (dataArray.length === 0) {
@@ -567,12 +544,12 @@
         }
 
         function populateMotoristasDatalist() {
-            const datalist = document.getElementById('motoristas-list');
-            datalist.innerHTML = '';
+            const motoristaDatalist = document.getElementById('motoristas-list');
+            motoristaDatalist.innerHTML = '';
             motoristasData.forEach(item => {
                 const option = document.createElement('option');
                 option.value = item.nome;
-                datalist.appendChild(option);
+                motoristaDatalist.appendChild(option);
             });
         }
 
@@ -755,7 +732,7 @@
         // Evento do botão de download
         document.getElementById('download-csv').addEventListener('click', async function() {
             const startDate = document.getElementById('start-date').value;
-            const endDate = document.getElementById('end-date').value;
+            const endDate = document = document.getElementById('end-date').value;
 
             if (startDate && endDate && new Date(startDate) > new Date(endDate)) {
                 showWarning('A data de início não pode ser posterior à data de fim.');
