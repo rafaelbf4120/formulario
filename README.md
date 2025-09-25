@@ -229,14 +229,14 @@
 
             <!-- Transportados table -->
             <div class="overflow-x-auto rounded-lg shadow-md border border-gray-200">
-                <table class="min-w-full divide-y divide-gray-200" id="transportados-table">
+                <table class="min-w-full table-auto" id="transportados-table">
                     <thead class="bg-gray-50">
                         <tr>
                             <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 <input type="checkbox" id="selectAllTransportados" class="rounded-sm">
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Matrícula</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nome</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4">Matrícula</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-3/4">Nome</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
@@ -282,13 +282,13 @@
 
             <!-- Motoristas table -->
             <div class="overflow-x-auto rounded-lg shadow-md border border-gray-200">
-                <table class="min-w-full divide-y divide-gray-200" id="motoristas-table">
+                <table class="min-w-full table-auto" id="motoristas-table">
                     <thead class="bg-gray-50">
                         <tr>
                             <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 <input type="checkbox" id="selectAllMotoristas" class="rounded-sm">
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nome</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full">Nome</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
