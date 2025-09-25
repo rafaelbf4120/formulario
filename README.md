@@ -1,4 +1,4 @@
-<index.html>
+<INDEX.HTML>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
