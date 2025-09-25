@@ -75,13 +75,19 @@
             <!-- Matrícula do transportado -->
             <div>
                 <label for="matricula" class="block text-sm font-medium text-gray-700">Matrícula do transportado:</label>
-                <input type="text" id="matricula" name="matricula" onfocus="this.classList.remove('error-border')" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                <input type="text" id="matricula" name="matricula" list="transportados-matricula-list" onfocus="this.classList.remove('error-border')" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                <datalist id="transportados-matricula-list">
+                    <!-- Options populated by JS -->
+                </datalist>
             </div>
 
             <!-- Transportado -->
             <div>
                 <label for="transportado" class="block text-sm font-medium text-gray-700">Transportado:</label>
-                <input type="text" id="transportado" name="transportado" onfocus="this.classList.remove('error-border')" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                <input type="text" id="transportado" name="transportado" list="transportados-nome-list" onfocus="this.classList.remove('error-border')" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                <datalist id="transportados-nome-list">
+                    <!-- Options populated by JS -->
+                </datalist>
             </div>
 
             <!-- Solicitante -->
@@ -125,7 +131,7 @@
                 <label for="valor" class="block text-sm font-medium text-gray-700">Valor:</label>
                 <div class="relative mt-1">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3 pr-2 text-gray-400">R$</span>
-                    <input type="text" id="valor" name="valor" oninput="formatCurrencyInput(this)" onfocus="this.classList.remove('error-border')" class="block w-full px-3 py-2 pl-9 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out text-right" value="0,00">
+                    <input type="text" id="valor" name="valor" class="block w-full px-3 py-2 pl-9 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out text-right">
                 </div>
             </div>
 
@@ -134,7 +140,7 @@
                 <label for="valor-extra" class="block text-sm font-medium text-gray-700">Valor Extra:</label>
                 <div class="relative mt-1">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3 pr-2 text-gray-400">R$</span>
-                    <input type="text" id="valor-extra" name="valor-extra" oninput="formatCurrencyInput(this)" onfocus="this.classList.remove('error-border')" class="block w-full px-3 py-2 pl-9 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out text-right" value="0,00">
+                    <input type="text" id="valor-extra" name="valor-extra" class="block w-full px-3 py-2 pl-9 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out text-right">
                 </div>
             </div>
 
@@ -343,7 +349,9 @@
         const logoutButton = document.getElementById('logout-btn');
         const matriculaInput = document.getElementById('matricula');
         const transportadoInput = document.getElementById('transportado');
-        const motoristaInput = document.getElementById('motorista');
+        const valorInput = document.getElementById('valor');
+        const valorExtraInput = document.getElementById('valor-extra');
+
 
         // Lista de usuários e senhas (pode ser expandida)
         const users = [
@@ -368,6 +376,7 @@
                     transportadoInput.classList.remove('error-border');
                 } else {
                     transportadoInput.value = '';
+                    showWarning('Matrícula não encontrada.');
                 }
             } else if (field === 'transportado') {
                 const nome = transportadoInput.value.trim().toLowerCase();
@@ -377,15 +386,26 @@
                     matriculaInput.classList.remove('error-border');
                 } else {
                     matriculaInput.value = '';
+                    showWarning('Transportado não encontrado.');
                 }
             }
         }
         
         // Adiciona os event listeners após o carregamento da página
         window.onload = () => {
-             // Vincula o evento `blur` (ao sair do campo) para a lógica de preenchimento automático
+             // Vincula os eventos blur (ao sair do campo) para a lógica de preenchimento automático
             matriculaInput.addEventListener('blur', () => handleAutofill('matricula'));
             transportadoInput.addEventListener('blur', () => handleAutofill('transportado'));
+            
+            // Adiciona event listeners para os campos de valores
+            valorInput.addEventListener('input', () => formatCurrencyInput(valorInput));
+            valorExtraInput.addEventListener('input', () => formatCurrencyInput(valorExtraInput));
+
+            valorInput.addEventListener('focus', () => { if (valorInput.value === '0,00') valorInput.value = ''; });
+            valorExtraInput.addEventListener('focus', () => { if (valorExtraInput.value === '0,00') valorExtraInput.value = ''; });
+
+            valorInput.addEventListener('blur', () => { if (valorInput.value === '') valorInput.value = '0,00'; });
+            valorExtraInput.addEventListener('blur', () => { if (valorExtraInput.value === '') valorExtraInput.value = '0,00'; });
 
             onAuthStateChanged(auth, async (user) => {
                 if (user) {
@@ -532,6 +552,7 @@
                 `;
                 tableBody.appendChild(row);
             });
+            populateTransportadosDatalist();
         }
         
         function renderMotoristasList() {
@@ -546,6 +567,25 @@
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.nome}</td>
                 `;
                 tableBody.appendChild(row);
+            });
+            populateMotoristasDatalist();
+        }
+
+        function populateTransportadosDatalist() {
+            const matriculaDatalist = document.getElementById('transportados-matricula-list');
+            const nomeDatalist = document.getElementById('transportados-nome-list');
+            
+            matriculaDatalist.innerHTML = '';
+            nomeDatalist.innerHTML = '';
+
+            transportadosData.forEach(item => {
+                const matriculaOption = document.createElement('option');
+                matriculaOption.value = item.matricula;
+                matriculaDatalist.appendChild(matriculaOption);
+                
+                const nomeOption = document.createElement('option');
+                nomeOption.value = item.nome;
+                nomeDatalist.appendChild(nomeOption);
             });
         }
 
@@ -633,7 +673,6 @@
         function formatCurrencyInput(input) {
             let value = input.value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
             if (value === '') {
-                input.value = '';
                 return;
             }
             
