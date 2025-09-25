@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<index.html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -341,6 +341,9 @@
         const loginMessage = document.getElementById('login-message');
         const userIdDisplay = document.getElementById('user-id-display');
         const logoutButton = document.getElementById('logout-btn');
+        const matriculaInput = document.getElementById('matricula');
+        const transportadoInput = document.getElementById('transportado');
+        const motoristaInput = document.getElementById('motorista');
 
         // Lista de usuários e senhas (pode ser expandida)
         const users = [
@@ -354,9 +357,6 @@
         // Mapeamentos para preenchimento automático
         let matriculaToNome = {};
         let nomeToMatricula = {};
-        const matriculaInput = document.getElementById('matricula');
-        const transportadoInput = document.getElementById('transportado');
-        const motoristaInput = document.getElementById('motorista');
         
         // Lógica de preenchimento automático para os campos "Matrícula" e "Transportado"
         function handleAutofill(field) {
@@ -365,6 +365,7 @@
                 const nome = matriculaToNome[matricula];
                 if (nome) {
                     transportadoInput.value = nome;
+                    transportadoInput.classList.remove('error-border');
                 } else {
                     transportadoInput.value = '';
                 }
@@ -373,14 +374,19 @@
                 const matricula = nomeToMatricula[nome];
                 if (matricula) {
                     matriculaInput.value = matricula;
+                    matriculaInput.classList.remove('error-border');
                 } else {
                     matriculaInput.value = '';
                 }
             }
         }
         
-        // Inicia a aplicação após o carregamento da página
+        // Adiciona os event listeners após o carregamento da página
         window.onload = () => {
+             // Vincula o evento `blur` (ao sair do campo) para a lógica de preenchimento automático
+            matriculaInput.addEventListener('blur', () => handleAutofill('matricula'));
+            transportadoInput.addEventListener('blur', () => handleAutofill('transportado'));
+
             onAuthStateChanged(auth, async (user) => {
                 if (user) {
                     globalUserId = user.uid;
