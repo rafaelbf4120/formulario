@@ -797,15 +797,69 @@ document.getElementById('download-csv').addEventListener('click', async function
     // Busca os dados
     try {
         const snapshot = await getDocs(q);
-        const allData = snapshot.docs.map(doc => doc.data());
+        const  = snapshot.docs.map(doc => doc.data());
 
-        console.log("Dados recebidos do Firestore:", allData); // <-- pra debug
+        console.log("Dados recebidos do Firestore:", ); // <-- pra debug
 
         if (allData.length === 0) {
             showWarning('Nenhum dado encontrado para este período.');
             return;
         }
 
+    const orderedKeys = [
+    'motorista',
+    'matricula',
+    'transportado',
+    'data',
+    'origem',
+    'partida',
+    'destino',
+    'chegada',
+    'valor',
+    'valorExtra',
+    'observacao'
+];
+
+    // Cabeçalhos bonitos pro CSV
+    const headers = [
+    'Motorista',
+    'Matrícula',
+    'Transportado',
+    'Data',
+    'Origem',
+    'Partida',
+    'Destino',
+    'Chegada',
+    'Valor',
+    'Valor Extra',
+    'Observação'
+];
+
+    const rows = allData.map(obj => orderedKeys.map(key => {
+    let value = obj[key] ?? '';
+    if (key === 'valor' || key === 'valorExtra') {
+        value = `R$ ${parseFloat(value || 0).toFixed(2).replace('.', ',')}`;
+    }
+    return `"${value.toString().replace(/"/g, '""')}"`;
+}).join(';'));
+
+    // Cria o conteúdo final do CSV
+const csvContent = `${headers.join(';')}\n${rows.join('\n')}`;
+const bom = '\uFEFF';
+const blob = new Blob([bom + csvContent], { type: 'text/csv;charset=utf-8;' });
+const url = URL.createObjectURL(blob);
+const link = document.createElement('a');
+link.href = url;
+
+    const now = new Date();
+const dateString = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}_${now.getHours().toString().padStart(2, '0')}-${now.getMinutes().toString().padStart(2, '0')}-${now.getSeconds().toString().padStart(2, '0')}`;
+link.download = `lancamentos_de_corridas_${dateString}.csv`;
+
+document.body.appendChild(link);
+link.click();
+document.body.removeChild(link);
+
+showWarning('Relatório CSV baixado com sucesso!');
         // Gerar CSV normalmente
         const bom = '\uFEFF';
         const headers = Object.keys(allData[0]);
