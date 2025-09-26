@@ -777,7 +777,7 @@
         // Evento do botão de download
         document.getElementById('download-csv').addEventListener('click', async function() {
             const startDate = document.getElementById('start-date').value;
-            const endDate = document = document.getElementById('end-date').value;
+            const endDate = document.getElementById('end-date').value;
 
             if (startDate && endDate && new Date(startDate) > new Date(endDate)) {
                 showWarning('A data de início não pode ser posterior à data de fim.');
