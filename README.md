@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<index.html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -795,71 +795,27 @@ document.getElementById('download-csv').addEventListener('click', async function
     let q = filtros.length > 0 ? query(lancamentosRef, ...filtros) : lancamentosRef;
 
     // Busca os dados
-// ... dentro do event listener para 'download-csv'
+    try {
+        const snapshot = await getDocs(q);
+        const allData = snapshot.docs.map(doc => doc.data());
 
-// Busca os dados
-try {
-    const snapshot = await getDocs(q);
-    const allData = snapshot.docs.map(doc => doc.data());
+        console.log("Dados recebidos do Firestore:", allData); // <-- pra debug
 
-    console.log("Dados recebidos do Firestore:", allData);
-
-    if (allData.length === 0) {
-        showWarning('Nenhum dado encontrado para este período.');
-        return;
-    }
-
-    // NOVA ORDEM DESEJADA
-    const desiredOrder = [
-        'motorista', 'solicitante', 'matricula', 'transportado', 'data', 
-        'origem', 'partida', 'destino', 'chegada', 
-        'valor', 'valorExtra', 'observacao'
-    ];
-    
-    // Mapeia os cabeçalhos para o formato legível (capitaliza a primeira letra)
-    const headers = desiredOrder.map(key => 
-        key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')
-    );
-
-    // Gerar CSV
-  
-    if (allData.length === 0) {
-    showWarning('Nenhum dado encontrado para este período.');
-    return;
-}
-
-    const desiredOrder = [
-    'motorista', 'solicitante', 'matricula', 'transportado', 'data', 
-    'origem', 'partida', 'destino', 'chegada', 
-    'valor', 'valorExtra', 'observacao'
-];
-
-
-    const headers = desiredOrder.map(key => 
-    key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')
-);
-
-    const bom = '\uFEFF'; // Necessário para UTF-8 no Excel
-    const rows = allData.map(obj => desiredOrder.map(key => {
-        
-        let value = obj[key] ?? '';
-
-    if (key === 'valor' || key === 'valorExtra') {
-        // Trata valores nulos/vazios
-        if (value === null || value === '') {
-            value = '0,00'; 
-        } else {
-
-            value = `R$ ${parseFloat(value).toFixed(2).replace('.', ',')}`;
+        if (allData.length === 0) {
+            showWarning('Nenhum dado encontrado para este período.');
+            return;
         }
-    }
 
-    return `"${value.toString().replace(/"/g, '""')}"`;
-}).join(';'));
-
-const csvContent = `${headers.join(';')}\n${rows.join('\n')}`;
-
-// ... o resto do código para criar o Blob, Link e baixar continua
+        // Gerar CSV normalmente
+        const bom = '\uFEFF';
+        const headers = Object.keys(allData[0]);
+        const rows = allData.map(obj => headers.map(key => {
+            let value = obj[key] ?? '';
+            if (key === 'valor' || key === 'valorExtra') {
+                value = `R$ ${parseFloat(value).toFixed(2).replace('.', ',')}`;
+            }
+            return `"${value.toString().replace(/"/g, '""')}"`;
+        }).join(';'));
 
         const csvContent = `${headers.join(';')}\n${rows.join('\n')}`;
         const blob = new Blob([bom + csvContent], { type: 'text/csv;charset=utf-8;' });
