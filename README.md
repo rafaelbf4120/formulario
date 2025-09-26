@@ -806,35 +806,6 @@ document.getElementById('download-csv').addEventListener('click', async function
             return;
         }
 
-    const orderedKeys = [
-    'motorista',
-    'matricula',
-    'transportado',
-    'data',
-    'origem',
-    'partida',
-    'destino',
-    'chegada',
-    'valor',
-    'valorExtra',
-    'observacao'
-];
-
-    // Cabeçalhos bonitos pro CSV
-    const headers = [
-    'Motorista',
-    'Matrícula',
-    'Transportado',
-    'Data',
-    'Origem',
-    'Partida',
-    'Destino',
-    'Chegada',
-    'Valor',
-    'Valor Extra',
-    'Observação'
-];
-
         // Gerar CSV normalmente
         const bom = '\uFEFF';
         const headers = Object.keys(allData[0]);
