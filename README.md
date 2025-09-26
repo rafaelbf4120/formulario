@@ -58,6 +58,7 @@
             <button id="logout-btn" class="px-4 py-2 bg-gray-300 text-gray-800 font-medium rounded-lg hover:bg-gray-400">Sair</button>
         </div>
         
+        <p id="user-id-display" class="text-sm text-gray-500 text-center mb-4"></p>
         
         <!-- Main Form -->
         <form id="form-corrida" class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-6 md:mb-8">
@@ -344,7 +345,7 @@
         const loginPage = document.getElementById('login-page');
         const appPage = document.getElementById('app-page');
         const loginMessage = document.getElementById('login-message');
-        const userIdDisplay = document.getElementById('-display');
+        const userIdDisplay = document.getElementById('user-id-display');
         const logoutButton = document.getElementById('logout-btn');
         const matriculaInput = document.getElementById('matricula');
         const transportadoInput = document.getElementById('transportado');
