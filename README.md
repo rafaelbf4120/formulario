@@ -785,15 +785,20 @@
             }
 
             const lancamentosRef = collection(db, 'artifacts', globalAppId, 'public', 'data', 'lancamentos');
-            let q = lancamentosRef;
-            
-            // Apply date filters if provided
-            if (startDate) {
-                q = query(q, where('data', '>=', startDate));
-            }
-            if (endDate) {
-                q = query(q, where('data', '<=', endDate));
-            }
+        let q = lancamentosRef;
+const filtros = [];
+
+if (startDate) {
+    filtros.push(where('data', '>=', startDate));
+}
+if (endDate) {
+    filtros.push(where('data', '<=', endDate));
+}
+
+if (filtros.length > 0) {
+    q = query(lancamentosRef, ...filtros);
+}
+
 
             const snapshot = await getDocs(q);
             const allData = snapshot.docs.map(doc => doc.data());
