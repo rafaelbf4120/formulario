@@ -30,7 +30,7 @@
         }
     </style>
 </head>
-<body class="bg-gray-100 flex items-start justify-center min-h-screen pt-12 pb-12">
+<body class="bg-gray-100 flex items-start justify-center min-h-screen p-4">
     
         <div id="login-page" class="bg-white p-6 md:p-8 rounded-2xl shadow-xl w-full max-w-sm border border-gray-200">
         <h1 class="text-2xl md:text-3xl font-bold text-center text-gray-800 mb-6 md:mb-8">Login</h1>
@@ -50,7 +50,7 @@
         </form>
     </div>
 
-            <div id="app-page" class="bg-white p-6 md:p-8 rounded-2xl shadow-xl w-full max-w-full md:max-w-7xl border border-gray-200 hidden">
+            <div id="app-page" class="bg-white p-6 md:p-8 rounded-2xl shadow-xl w-full max-w-full lg:max-w-5xl border border-gray-200 hidden">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl md:text-3xl font-bold text-gray-800">Lançamento de Corridas</h1>
             <button id="logout-btn" class="px-4 py-2 bg-gray-300 text-gray-800 font-medium rounded-lg hover:bg-gray-400">Sair</button>
@@ -58,7 +58,7 @@
         
         <p id="user-id-display" class="text-sm text-transparent text-center mb-4"></p>
         
-                <form id="form-corrida" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6 md:mb-8">
+                <form id="form-corrida" class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-6 md:mb-8">
             
                         <div>
                 <label for="motorista" class="block text-sm font-medium text-gray-700">Motorista:</label>
@@ -85,7 +85,7 @@
                 <label for="solicitante" class="block text-sm font-medium text-gray-700">Solicitante:</label>
                 <input type="text" id="solicitante" name="solicitante" onfocus="this.classList.remove('error-border')" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
             </div>
-            
+
                         <div>
                 <label for="data" class="block text-sm font-medium text-gray-700">Data:</label>
                 <input type="date" id="data" name="data" onfocus="this.classList.remove('error-border')" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
@@ -126,14 +126,17 @@
                     <input type="text" id="valor-extra" name="valor-extra" class="block w-full px-3 py-2 pl-9 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out text-right">
                 </div>
             </div>
+            
+                        <div class="hidden md:block"></div>
 
-                        <div class="md:col-span-2 lg:col-span-4">
+
+                        <div class="md:col-span-2">
                 <label for="observacao" class="block text-sm font-medium text-gray-700">Observação:</label>
                 <textarea id="observacao" name="observacao" rows="4" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out"></textarea>
             </div>
             
-                        <div class="md:col-span-2 lg:col-span-4 flex flex-col md:flex-row justify-end gap-4 mt-4">
-                <button type="submit" class="w-full md:w-1/3 lg:w-1/4 px-6 py-3 bg-blue-600 text-white font-bold rounded-lg shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
+                        <div class="md:col-span-2 flex flex-col md:flex-row justify-end gap-4 mt-4">
+                <button type="submit" class="w-full md:w-1/2 lg:w-1/3 px-6 py-3 bg-blue-600 text-white font-bold rounded-lg shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
                     Salvar Lançamento
                 </button>
             </div>
@@ -143,17 +146,17 @@
         
                 <div class="flex flex-col gap-4 mb-6">
             <h2 class="text-xl font-bold text-gray-800">Gerar Relatório CSV</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="lg:col-span-1">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
                     <label for="start-date" class="block text-sm font-medium text-gray-700">Data de Início:</label>
                     <input type="date" id="start-date" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
                 </div>
-                <div class="lg:col-span-1">
+                <div>
                     <label for="end-date" class="block text-sm font-medium text-gray-700">Data de Fim:</label>
                     <input type="date" id="end-date" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
                 </div>
-                <div class="md:col-span-2 lg:col-span-2 flex items-end">
-                    <button type="button" id="download-csv" class="w-full px-6 py-3 bg-green-600 text-white font-bold rounded-lg shadow-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
+                                <div class="md:flex md:items-end">
+                    <button type="button" id="download-csv" class="w-full px-6 py-3 bg-green-600 text-white font-bold rounded-lg shadow-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-opacity-50 transition duration-150 ease-in-out md:py-2.5">
                         Baixar Relatório CSV
                     </button>
                 </div>
@@ -192,15 +195,15 @@
             </div>
             
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end mb-6">
-                <div>
+                <div class="md:col-span-1">
                     <label for="new-matricula" class="block text-sm font-medium text-gray-700">Nova Matrícula:</label>
                     <input type="text" id="new-matricula" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                 </div>
-                <div>
+                <div class="md:col-span-1">
                     <label for="new-nome" class="block text-sm font-medium text-gray-700">Novo Transportado:</label>
                     <input type="text" id="new-nome" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                 </div>
-                <button type="button" id="add-transportado" class="px-6 py-2 bg-purple-600 text-white font-bold rounded-lg shadow-lg hover:bg-purple-700 focus:outline-none focus:ring-4 focus:ring-purple-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
+                                <button type="button" id="add-transportado" class="px-6 py-2 bg-purple-600 text-white font-bold rounded-lg shadow-lg hover:bg-purple-700 focus:outline-none focus:ring-4 focus:ring-purple-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
                     Adicionar
                 </button>
             </div>
@@ -243,8 +246,8 @@
                 </select>
             </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-end mb-6">
-                <div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end mb-6">
+                <div class="md:col-span-2">
                     <label for="new-motorista-nome" class="block text-sm font-medium text-gray-700">Novo Motorista:</label>
                     <input type="text" id="new-motorista-nome" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                 </div>
