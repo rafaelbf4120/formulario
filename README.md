@@ -802,41 +802,62 @@ document.getElementById('download-csv').addEventListener('click', async function
         console.log("Dados recebidos do Firestore:", allData); // <-- pra debug
 
         if (allData.length === 0) {
-            showWarning('Nenhum dado encontrado para este período.');
-            return;
-        }
+            // Ordem fixa das colunas
+const orderedKeys = [
+    'motorista',
+    'matricula',
+    'transportado',
+    'data',
+    'origem',
+    'partida',
+    'destino',
+    'chegada',
+    'valor',
+    'valorExtra',
+    'observacao'
+];
 
-        // Gerar CSV normalmente
-        const bom = '\uFEFF';
-        const headers = Object.keys(allData[0]);
-        const rows = allData.map(obj => headers.map(key => {
-            let value = obj[key] ?? '';
-            if (key === 'valor' || key === 'valorExtra') {
-                value = `R$ ${parseFloat(value).toFixed(2).replace('.', ',')}`;
-            }
-            return `"${value.toString().replace(/"/g, '""')}"`;
-        }).join(';'));
+// Cabeçalhos bonitos pro CSV
+const headers = [
+    'Motorista',
+    'Matrícula',
+    'Transportado',
+    'Data',
+    'Origem',
+    'Partida',
+    'Destino',
+    'Chegada',
+    'Valor',
+    'Valor Extra',
+    'Observação'
+];
 
-        const csvContent = `${headers.join(';')}\n${rows.join('\n')}`;
-        const blob = new Blob([bom + csvContent], { type: 'text/csv;charset=utf-8;' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-
-        const now = new Date();
-        const dateString = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}_${now.getHours().toString().padStart(2, '0')}-${now.getMinutes().toString().padStart(2, '0')}-${now.getSeconds().toString().padStart(2, '0')}`;
-        link.download = `lancamentos_de_corridas_${dateString}.csv`;
-
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-
-        showWarning('Relatório CSV baixado com sucesso!');
-    } catch (err) {
-        console.error("Erro ao buscar dados:", err);
-        showWarning('Erro ao gerar relatório. Veja o console para mais detalhes.');
+// Monta as linhas do CSV
+const rows = allData.map(obj => orderedKeys.map(key => {
+    let value = obj[key] ?? '';
+    if (key === 'valor' || key === 'valorExtra') {
+        value = `R$ ${parseFloat(value || 0).toFixed(2).replace('.', ',')}`;
     }
-});
+    return `"${value.toString().replace(/"/g, '""')}"`;
+}).join(';'));
+
+// Cria o conteúdo final do CSV
+const csvContent = `${headers.join(';')}\n${rows.join('\n')}`;
+const bom = '\uFEFF';
+const blob = new Blob([bom + csvContent], { type: 'text/csv;charset=utf-8;' });
+const url = URL.createObjectURL(blob);
+const link = document.createElement('a');
+link.href = url;
+
+const now = new Date();
+const dateString = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}_${now.getHours().toString().padStart(2, '0')}-${now.getMinutes().toString().padStart(2, '0')}-${now.getSeconds().toString().padStart(2, '0')}`;
+link.download = `lancamentos_de_corridas_${dateString}.csv`;
+
+document.body.appendChild(link);
+link.click();
+document.body.removeChild(link);
+
+showWarning('Relatório CSV baixado com sucesso!');
 
 
 
