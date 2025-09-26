@@ -822,24 +822,44 @@ try {
     );
 
     // Gerar CSV
-    const bom = '\uFEFF';
-    
-    // GERA AS LINHAS NA ORDEM DESEJADA
-    const rows = allData.map(obj => desiredOrder.map(key => {
-        let value = obj[key] ?? '';
-        if (key === 'valor' || key === 'valorExtra') {
-            // Garante que o valor nulo ou vazio seja tratado antes de formatar
-            if (value === null || value === '') {
-                value = '0,00'; // Define como '0,00' se não houver valor
-            } else {
-                value = `R$ ${parseFloat(value).toFixed(2).replace('.', ',')}`;
-            }
-        }
-        return `"${value.toString().replace(/"/g, '""')}"`;
-    }).join(';'));
+  
+    if (allData.length === 0) {
+    showWarning('Nenhum dado encontrado para este período.');
+    return;
+}
 
-    const csvContent = `${headers.join(';')}\n${rows.join('\n')}`;
-// ... o resto do código para baixar o arquivo continua igual
+    const desiredOrder = [
+    'motorista', 'solicitante', 'matricula', 'transportado', 'data', 
+    'origem', 'partida', 'destino', 'chegada', 
+    'valor', 'valorExtra', 'observacao'
+];
+
+
+    const headers = desiredOrder.map(key => 
+    key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')
+);
+
+    const bom = '\uFEFF'; // Necessário para UTF-8 no Excel
+    const rows = allData.map(obj => desiredOrder.map(key => {
+        
+        let value = obj[key] ?? '';
+
+    if (key === 'valor' || key === 'valorExtra') {
+        // Trata valores nulos/vazios
+        if (value === null || value === '') {
+            value = '0,00'; 
+        } else {
+
+            value = `R$ ${parseFloat(value).toFixed(2).replace('.', ',')}`;
+        }
+    }
+
+    return `"${value.toString().replace(/"/g, '""')}"`;
+}).join(';'));
+
+const csvContent = `${headers.join(';')}\n${rows.join('\n')}`;
+
+// ... o resto do código para criar o Blob, Link e baixar continua
 
         const csvContent = `${headers.join(';')}\n${rows.join('\n')}`;
         const blob = new Blob([bom + csvContent], { type: 'text/csv;charset=utf-8;' });
