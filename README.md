@@ -795,27 +795,51 @@ document.getElementById('download-csv').addEventListener('click', async function
     let q = filtros.length > 0 ? query(lancamentosRef, ...filtros) : lancamentosRef;
 
     // Busca os dados
-    try {
-        const snapshot = await getDocs(q);
-        const allData = snapshot.docs.map(doc => doc.data());
+// ... dentro do event listener para 'download-csv'
 
-        console.log("Dados recebidos do Firestore:", allData); // <-- pra debug
+// Busca os dados
+try {
+    const snapshot = await getDocs(q);
+    const allData = snapshot.docs.map(doc => doc.data());
 
-        if (allData.length === 0) {
-            showWarning('Nenhum dado encontrado para este período.');
-            return;
-        }
+    console.log("Dados recebidos do Firestore:", allData);
 
-        // Gerar CSV normalmente
-        const bom = '\uFEFF';
-        const headers = Object.keys(allData[0]);
-        const rows = allData.map(obj => headers.map(key => {
-            let value = obj[key] ?? '';
-            if (key === 'valor' || key === 'valorExtra') {
+    if (allData.length === 0) {
+        showWarning('Nenhum dado encontrado para este período.');
+        return;
+    }
+
+    // NOVA ORDEM DESEJADA
+    const desiredOrder = [
+        'motorista', 'solicitante', 'matricula', 'transportado', 'data', 
+        'origem', 'partida', 'destino', 'chegada', 
+        'valor', 'valorExtra', 'observacao'
+    ];
+    
+    // Mapeia os cabeçalhos para o formato legível (capitaliza a primeira letra)
+    const headers = desiredOrder.map(key => 
+        key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')
+    );
+
+    // Gerar CSV
+    const bom = '\uFEFF';
+    
+    // GERA AS LINHAS NA ORDEM DESEJADA
+    const rows = allData.map(obj => desiredOrder.map(key => {
+        let value = obj[key] ?? '';
+        if (key === 'valor' || key === 'valorExtra') {
+            // Garante que o valor nulo ou vazio seja tratado antes de formatar
+            if (value === null || value === '') {
+                value = '0,00'; // Define como '0,00' se não houver valor
+            } else {
                 value = `R$ ${parseFloat(value).toFixed(2).replace('.', ',')}`;
             }
-            return `"${value.toString().replace(/"/g, '""')}"`;
-        }).join(';'));
+        }
+        return `"${value.toString().replace(/"/g, '""')}"`;
+    }).join(';'));
+
+    const csvContent = `${headers.join(';')}\n${rows.join('\n')}`;
+// ... o resto do código para baixar o arquivo continua igual
 
         const csvContent = `${headers.join(';')}\n${rows.join('\n')}`;
         const blob = new Blob([bom + csvContent], { type: 'text/csv;charset=utf-8;' });
