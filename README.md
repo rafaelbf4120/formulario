@@ -784,54 +784,60 @@ document.getElementById('download-csv').addEventListener('click', async function
         return;
     }
 
-    // Pega a coleção
     const lancamentosRef = collection(db, 'artifacts', globalAppId, 'public', 'data', 'lancamentos');
 
-    // Cria filtros se existirem
+    // Monta filtros
     let filtros = [];
     if (startDate) filtros.push(where('data', '>=', startDate));
     if (endDate) filtros.push(where('data', '<=', endDate));
 
-    // Aplica filtros se tiver
+    // Monta query final
     let q = filtros.length > 0 ? query(lancamentosRef, ...filtros) : lancamentosRef;
 
-    // Busca dados
-    const snapshot = await getDocs(q);
-    const allData = snapshot.docs.map(doc => doc.data());
+    // Busca os dados
+    try {
+        const snapshot = await getDocs(q);
+        const allData = snapshot.docs.map(doc => doc.data());
 
-    // Se não tiver dados, mostra aviso
-    if (allData.length === 0) {
-        showWarning('Nenhum dado encontrado para este período.');
-        return;
-    }
+        console.log("Dados recebidos do Firestore:", allData); // <-- pra debug
 
-    // Gera CSV
-    const bom = '\uFEFF';
-    const headers = Object.keys(allData[0]); // usa as chaves originais sem mexer
-    const rows = allData.map(obj => headers.map(key => {
-        let value = obj[key] ?? '';
-        if (key === 'valor' || key === 'valorExtra') {
-            value = `R$ ${parseFloat(value).toFixed(2).replace('.', ',')}`;
+        if (allData.length === 0) {
+            showWarning('Nenhum dado encontrado para este período.');
+            return;
         }
-        return `"${value.toString().replace(/"/g, '""')}"`;
-    }).join(';'));
 
-    const csvContent = `${headers.join(';')}\n${rows.join('\n')}`;
-    const blob = new Blob([bom + csvContent], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
+        // Gerar CSV normalmente
+        const bom = '\uFEFF';
+        const headers = Object.keys(allData[0]);
+        const rows = allData.map(obj => headers.map(key => {
+            let value = obj[key] ?? '';
+            if (key === 'valor' || key === 'valorExtra') {
+                value = `R$ ${parseFloat(value).toFixed(2).replace('.', ',')}`;
+            }
+            return `"${value.toString().replace(/"/g, '""')}"`;
+        }).join(';'));
 
-    const now = new Date();
-    const dateString = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}_${now.getHours().toString().padStart(2, '0')}-${now.getMinutes().toString().padStart(2, '0')}-${now.getSeconds().toString().padStart(2, '0')}`;
-    link.download = `lancamentos_de_corridas_${dateString}.csv`;
+        const csvContent = `${headers.join(';')}\n${rows.join('\n')}`;
+        const blob = new Blob([bom + csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
 
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+        const now = new Date();
+        const dateString = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}_${now.getHours().toString().padStart(2, '0')}-${now.getMinutes().toString().padStart(2, '0')}-${now.getSeconds().toString().padStart(2, '0')}`;
+        link.download = `lancamentos_de_corridas_${dateString}.csv`;
 
-    showWarning('Relatório CSV baixado com sucesso!');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        showWarning('Relatório CSV baixado com sucesso!');
+    } catch (err) {
+        console.error("Erro ao buscar dados:", err);
+        showWarning('Erro ao gerar relatório. Veja o console para mais detalhes.');
+    }
 });
+
 
 
         // Evento para fechar o modal de aviso
