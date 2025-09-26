@@ -775,36 +775,64 @@
         });
 
         // Evento do botão de download
-        document.getElementById('download-csv').addEventListener('click', async function() {
-            const startDate = document.getElementById('start-date').value;
-            const endDate = document.getElementById('end-date').value;
+document.getElementById('download-csv').addEventListener('click', async function() {
+    const startDate = document.getElementById('start-date').value;
+    const endDate = document.getElementById('end-date').value;
 
-            if (startDate && endDate && new Date(startDate) > new Date(endDate)) {
-                showWarning('A data de início não pode ser posterior à data de fim.');
-                return;
-            }
+    if (startDate && endDate && new Date(startDate) > new Date(endDate)) {
+        showWarning('A data de início não pode ser posterior à data de fim.');
+        return;
+    }
 
-            const lancamentosRef = collection(db, 'artifacts', globalAppId, 'public', 'data', 'lancamentos');
-        let q = lancamentosRef;
-const filtros = [];
+    // Pega a coleção
+    const lancamentosRef = collection(db, 'artifacts', globalAppId, 'public', 'data', 'lancamentos');
 
-if (startDate) {
-    filtros.push(where('data', '>=', startDate));
-}
-if (endDate) {
-    filtros.push(where('data', '<=', endDate));
-}
+    // Cria filtros se existirem
+    let filtros = [];
+    if (startDate) filtros.push(where('data', '>=', startDate));
+    if (endDate) filtros.push(where('data', '<=', endDate));
 
-if (filtros.length > 0) {
-    q = query(lancamentosRef, ...filtros);
-}
+    // Aplica filtros se tiver
+    let q = filtros.length > 0 ? query(lancamentosRef, ...filtros) : lancamentosRef;
 
+    // Busca dados
+    const snapshot = await getDocs(q);
+    const allData = snapshot.docs.map(doc => doc.data());
 
-            const snapshot = await getDocs(q);
-            const allData = snapshot.docs.map(doc => doc.data());
-            
-            exportAllToCsv(allData);
-        });
+    // Se não tiver dados, mostra aviso
+    if (allData.length === 0) {
+        showWarning('Nenhum dado encontrado para este período.');
+        return;
+    }
+
+    // Gera CSV
+    const bom = '\uFEFF';
+    const headers = Object.keys(allData[0]); // usa as chaves originais sem mexer
+    const rows = allData.map(obj => headers.map(key => {
+        let value = obj[key] ?? '';
+        if (key === 'valor' || key === 'valorExtra') {
+            value = `R$ ${parseFloat(value).toFixed(2).replace('.', ',')}`;
+        }
+        return `"${value.toString().replace(/"/g, '""')}"`;
+    }).join(';'));
+
+    const csvContent = `${headers.join(';')}\n${rows.join('\n')}`;
+    const blob = new Blob([bom + csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+
+    const now = new Date();
+    const dateString = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}_${now.getHours().toString().padStart(2, '0')}-${now.getMinutes().toString().padStart(2, '0')}-${now.getSeconds().toString().padStart(2, '0')}`;
+    link.download = `lancamentos_de_corridas_${dateString}.csv`;
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    showWarning('Relatório CSV baixado com sucesso!');
+});
+
 
         // Evento para fechar o modal de aviso
         document.getElementById('close-modal').addEventListener('click', function() {
