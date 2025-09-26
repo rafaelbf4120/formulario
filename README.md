@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<index.html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -318,7 +318,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, addDoc, deleteDoc, onSnapshot, collection, doc, query, where, getDoc, getDocs, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, addDoc, deleteDoc, onSnapshot, collection, doc, query, where, getDocs, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         
         // Firebase Config - Substitua com a sua própria configuração
         const firebaseConfig = {
@@ -352,6 +352,12 @@
         const valorInput = document.getElementById('valor');
         const valorExtraInput = document.getElementById('valor-extra');
 
+
+        // Lista de usuários e senhas (pode ser expandida)
+        const users = [
+            { username: 'admin', password: 'rafael22' },
+            { username: 'gerente', password: 'senha123' }
+        ];
 
         let transportadosData = [];
         let motoristasData = [];
@@ -420,25 +426,17 @@
             });
         };
 
-        // Autenticação de Login com Firebase Firestore
-        loginForm.addEventListener('submit', async function(event) {
+        // Autenticação de Login
+        loginForm.addEventListener('submit', function(event) {
             event.preventDefault();
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
-            // O ID do documento é o nome de usuário
-            const userDocRef = doc(db, 'artifacts', globalAppId, 'public', 'data', 'users', username);
-            const docSnap = await getDoc(userDocRef);
+            const foundUser = users.find(user => user.username === username && user.password === password);
 
-            if (docSnap.exists()) {
-                const userData = docSnap.data();
-                if (userData.password === password) {
-                    loginPage.classList.add('hidden');
-                    appPage.classList.remove('hidden');
-                    loginMessage.classList.add('hidden');
-                } else {
-                    loginMessage.classList.remove('hidden');
-                }
+            if (foundUser) {
+                loginPage.classList.add('hidden');
+                appPage.classList.remove('hidden');
             } else {
                 loginMessage.classList.remove('hidden');
             }
