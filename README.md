@@ -366,7 +366,8 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
         // === CONFIGURAÇÃO DE USUÁRIOS ===
         const users = [
             { username: 'admin', password: 'rafael22' },
-            { username: 'gerente', password: 'senha123' }
+            { username: 'gerente', password: 'senha123' },
+            { username: 'João da Silva', password: 'admin' }
         ];
         
         // Mapeamento de usuários para nome de motorista fixo e permissão
