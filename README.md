@@ -41,7 +41,7 @@
             <div>
                 <label for="password" class="block text-sm font-medium text-gray-700">Senha:</label>
                 <input type="password" id="password" name="password" class="mt-1 
-block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
             </div>
             <button type="submit" class="w-full px-6 py-3 bg-blue-600 text-white font-bold rounded-lg shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
                 Entrar
@@ -143,8 +143,7 @@ for="observacao" class="block text-sm font-medium text-gray-700">Observação:</
                 <textarea id="observacao" name="observacao" rows="4" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out"></textarea>
             </div>
             
-            <div class="md:col-span-2 flex flex-col md:flex-row justify-between 
-gap-4 mt-4">
+            <div class="md:col-span-2 flex justify-center mt-4">
                 <button type="submit" class="w-full md:w-1/2 px-6 py-3 bg-blue-600 text-white font-bold rounded-lg shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
                     Salvar Lançamento
                 </button>
@@ -352,6 +351,7 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
         const loginMessage = document.getElementById('login-message');
         const userIdDisplay = document.getElementById('user-id-display');
         const logoutButton = document.getElementById('logout-btn');
+        const motoristaInput = document.getElementById('motorista'); // NOVO: Campo Motorista
 
         const matriculaInputHidden = document.getElementById('matricula'); 
         const transportadoInputHidden = document.getElementById('transportado');
@@ -362,10 +362,18 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
         const valorInput = document.getElementById('valor');
         const valorExtraInput = document.getElementById('valor-extra');
 
+        // === CONFIGURAÇÃO DE USUÁRIOS ===
         const users = [
-            { username: 'admin', password: 'rafael22' },
-            { username: 'gerente', password: 'senha123' }
+            { username: 'admin', password: 'admin' },
+            { username: 'Admin', password: 'admin' }
         ];
+        
+        // Mapeamento de usuários para nome de motorista fixo
+        const motoristaUsers = {
+            'teste': { nome: 'Teste Número 01', id: 'mot-001' },
+            // Adicione outros usuários que devem ser fixos e não editáveis aqui
+        };
+
         let transportadosData = [];
         let motoristasData = [];
         
@@ -383,6 +391,30 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
         function hideWarning() {
             document.getElementById('message-modal').classList.add('hidden');
         }
+        
+        // NOVO: Função para definir o nome do motorista e bloquear o campo
+        function setMotoristaReadOnly(username) {
+            const userData = motoristaUsers[username];
+            
+            if (userData) {
+                // 1. Define o nome
+                motoristaInput.value = userData.nome;
+                
+                // 2. Torna o campo somente leitura e altera estilo
+                motoristaInput.setAttribute('readonly', 'readonly');
+                motoristaInput.classList.remove('bg-gray-50');
+                motoristaInput.classList.add('bg-gray-200'); // Estilo visual de bloqueado
+                
+                motoristaInput.dataset.userId = userData.id;
+            } else {
+                // Se o usuário não estiver na lista fixa, o campo fica editável normalmente
+                motoristaInput.value = '';
+                motoristaInput.removeAttribute('readonly');
+                motoristaInput.classList.remove('bg-gray-200');
+                motoristaInput.classList.add('bg-gray-50');
+            }
+        }
+
 
         // Função para checar duplicidade na tela (em tempo real)
         function checkPassageiroDuplicidade(sourceInput) {
@@ -406,7 +438,7 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
             const currentKey = `${currentMatricula}_${currentNome.toLowerCase()}`;
             let isDuplicated = false;
 
-            // Limpa bordas de todas as linhas que podem ter sido corrigidas
+            // Limpa bordas de todas as linhas que podem ter sido corrigidas (preventivamente)
             rows.forEach(r => {
                 r.querySelector('input[name="matriculas[]"]').classList.remove('error-border');
                 r.querySelector('input[name="transportados[]"]').classList.remove('error-border');
@@ -534,8 +566,6 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
 
         // Adiciona os event listeners após o carregamento da página
         window.onload = () => {
-            // ... (restante do código de login/setup)
-            
             // Funcao para vincular os listeners de autofill/validacao a todos os campos de passageiro
             function bindPassageiroListeners() {
                 // Usa Event Delegation no container principal para pegar todos os inputs de passageiros
@@ -603,6 +633,9 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
             if (foundUser) {
                 loginPage.classList.add('hidden');
                 appPage.classList.remove('hidden');
+                
+                // NOVO: Define o motorista e bloqueia o campo
+                setMotoristaReadOnly(username);
             } else {
                 loginMessage.classList.remove('hidden');
             }
