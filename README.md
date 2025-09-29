@@ -53,11 +53,12 @@ text-center mt-2 hidden">Usuário ou senha inválidos.</p>
     </div>
 
     <div id="app-page" class="bg-white p-6 md:p-8 rounded-2xl shadow-xl w-full max-w-full md:max-w-5xl border border-gray-200 hidden">
-        <div class="flex justify-between items-center mb-6">
-            <h1 class="text-2xl md:text-3xl font-bold text-gray-800">Lançamento de Corridas</h1>
-            <button id="logout-btn" class="px-4 py-2 bg-gray-300 text-gray-800 font-medium rounded-lg hover:bg-gray-400">Sair</button>
-        
-</div>
+        <div class="flex justify-between items-center mb-6 relative">
+            <div class="flex-grow flex justify-center">
+                <h1 class="text-2xl md:text-3xl font-bold text-gray-800">Lançamento de Corridas</h1>
+            </div>
+            <button id="logout-btn" class="absolute top-0 right-0 px-4 py-2 bg-gray-300 text-gray-800 font-medium rounded-lg hover:bg-gray-400">Sair</button>
+        </div>
         
         <p id="user-id-display" class="text-sm text-transparent text-center mb-4"></p>
         
@@ -321,11 +322,14 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
     </div>
 
     <script type="module">
+        // ... (Seu código JavaScript completo e corrigido, que foi fornecido na resposta anterior)
+        // Por questões de brevidade, apenas o código JS modificado das funções é mostrado abaixo.
+        // O restante do código JS permanece o mesmo da correção anterior.
         
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-import { getFirestore, addDoc, deleteDoc, onSnapshot, collection, doc, query, where, getDocs, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-// Firebase Config - Substitua com a sua própria configuração
+        import { getFirestore, addDoc, deleteDoc, onSnapshot, collection, doc, query, where, getDocs, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        // Firebase Config - Substitua com a sua própria configuração
         const firebaseConfig = {
             apiKey: "AIzaSyDmqvcKtIsga4ZQWNDg4_2k493dqMQCDVg",
             authDomain: "teste-ebf38.firebaseapp.com",
@@ -333,21 +337,20 @@ import { getFirestore, addDoc, deleteDoc, onSnapshot, collection, doc, query, wh
             storageBucket: "teste-ebf38.firebasestorage.app",
             messagingSenderId: "741884776297",
             appId: "1:741884776297:web:a23450b4909581a1b237f8",
-  
-          measurementId: "G-2MD5CFD51E"
+            measurementId: "G-2MD5CFD51E"
         };
-// Inicializa o Firebase
+        // Inicializa o Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-const auth = getAuth(app);
+        const auth = getAuth(app);
         setLogLevel('debug');
 
         const globalAppId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
         let globalUserId = null;
-// Elementos do DOM
+        // Elementos do DOM
         const loginForm = document.getElementById('login-form');
         const loginPage = document.getElementById('login-page');
-const appPage = document.getElementById('app-page');
+        const appPage = document.getElementById('app-page');
         const loginMessage = document.getElementById('login-message');
         const userIdDisplay = document.getElementById('user-id-display');
         const logoutButton = document.getElementById('logout-btn');
@@ -362,31 +365,29 @@ const appPage = document.getElementById('app-page');
 
         const valorInput = document.getElementById('valor');
         const valorExtraInput = document.getElementById('valor-extra');
-// Lista de usuários e senhas (pode ser expandida)
+        // Lista de usuários e senhas (pode ser expandida)
         const users = [
             { username: 'admin', password: 'rafael22' },
             { username: 'gerente', password: 'senha123' }
         ];
-let transportadosData = [];
+        let transportadosData = [];
         let motoristasData = [];
         
         // Mapeamentos para preenchimento automático
-let matriculaToNome = {};
+        let matriculaToNome = {};
         let nomeToMatricula = {};
-        
-        // Contador para campos dinâmicos de passageiros
-        let passageiroCount = 0;
 
         // Função para criar os campos de Matrícula e Nome
         function createPassageiroInput(index, isRequired = true) {
             const fieldset = document.createElement('div');
             fieldset.className = 'passageiro-row grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6';
-            fieldset.id = `passageiro-row-${index}`;
+            // O ID é necessário para remoção, mas o LABEL usa o índice dinâmico
+            fieldset.dataset.index = index; 
             fieldset.innerHTML = `
                 <div>
                     <label for="matricula-${index}" class="block text-sm font-medium text-gray-700">Matrícula (P${index + 1}):</label>
                     <input type="text" id="matricula-${index}" name="matriculas[]" list="transportados-matricula-list"
-                        onfocus="this.classList.remove('error-border')" data-index="${index}" data-type="matricula"
+                        onfocus="this.classList.remove('error-border')"
                         class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
                 </div>
 
@@ -394,10 +395,10 @@ let matriculaToNome = {};
                     <div class="flex-grow">
                         <label for="transportado-${index}" class="block text-sm font-medium text-gray-700">Transportado (P${index + 1}):</label>
                         <input type="text" id="transportado-${index}" name="transportados[]" list="transportados-nome-list"
-                            onfocus="this.classList.remove('error-border')" data-index="${index}" data-type="nome"
+                            onfocus="this.classList.remove('error-border')"
                             class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
                     </div>
-                    ${!isRequired ? `<button type="button" class="ml-2 px-3 py-2 bg-red-500 text-white font-bold rounded-lg shadow-md hover:bg-red-600 remove-passageiro-btn" data-index="${index}">-</button>` : ''}
+                    ${!isRequired ? `<button type="button" class="ml-2 px-3 py-2 bg-red-500 text-white font-bold rounded-lg shadow-md hover:bg-red-600 remove-passageiro-btn">-</button>` : ''}
                 </div>
             `;
             
@@ -432,17 +433,34 @@ let matriculaToNome = {};
             }
         }
         
+        // Função para reordenar a numeração (P1, P2, P3...) após remoção ou adição
+        function updatePassageiroLabels() {
+            const rows = document.querySelectorAll('#passageiros-campos-container .passageiro-row');
+            rows.forEach((row, index) => {
+                const pNum = index + 1;
+                
+                // Atualiza os labels
+                row.querySelector(`label[for^="matricula-"]`).textContent = `Matrícula (P${pNum}):`;
+                row.querySelector(`label[for^="transportado-"]`).textContent = `Transportado (P${pNum}):`;
+                
+                // Atualiza o listener de remoção
+                const removeBtn = row.querySelector('.remove-passageiro-btn');
+                if (removeBtn) {
+                    removeBtn.onclick = () => {
+                        row.remove();
+                        updatePassageiroLabels(); // Chama recursivamente para reordenar o restante
+                    };
+                }
+            });
+        }
+
         function addPassageiroRow(isRequired = false) {
-            const newRow = createPassageiroInput(passageiroCount, isRequired);
+            // Usamos um timestamp como um ID temporário único
+            const newIndex = Date.now(); 
+            const newRow = createPassageiroInput(newIndex, isRequired);
             passageirosContainer.appendChild(newRow);
             
-            if (!isRequired) {
-                newRow.querySelector('.remove-passageiro-btn').addEventListener('click', function() {
-                    newRow.remove();
-                    // Garante que o contador não volte, apenas que os índices fiquem corretos no POST
-                });
-            }
-            passageiroCount++;
+            updatePassageiroLabels(); // Garante a numeração correta
         }
 
         // Adiciona os event listeners após o carregamento da página
@@ -457,31 +475,31 @@ let matriculaToNome = {};
             
             // Adiciona event listeners para os campos de valores
             valorInput.addEventListener('input', () => formatCurrencyInput(valorInput));
-valorExtraInput.addEventListener('input', () => formatCurrencyInput(valorExtraInput));
+            valorExtraInput.addEventListener('input', () => formatCurrencyInput(valorExtraInput));
 
             valorInput.addEventListener('focus', () => { if (valorInput.value === '0,00') valorInput.value = ''; });
-valorExtraInput.addEventListener('focus', () => { if (valorExtraInput.value === '0,00') valorExtraInput.value = ''; });
-valorInput.addEventListener('blur', () => { if (valorInput.value === '') valorInput.value = '0,00'; });
-valorExtraInput.addEventListener('blur', () => { if (valorExtraInput.value === '') valorExtraInput.value = '0,00'; });
-onAuthStateChanged(auth, async (user) => {
+            valorExtraInput.addEventListener('focus', () => { if (valorExtraInput.value === '0,00') valorExtraInput.value = ''; });
+            valorInput.addEventListener('blur', () => { if (valorInput.value === '') valorInput.value = '0,00'; });
+            valorExtraInput.addEventListener('blur', () => { if (valorExtraInput.value === '') valorExtraInput.value = '0,00'; });
+            onAuthStateChanged(auth, async (user) => {
                 if (user) {
                     globalUserId = user.uid;
                     userIdDisplay.innerText = `ID do Usuário: ${globalUserId}`;
                     // Sincroniza os dados do Firestore
       
-              startFirestoreListeners();
+                    startFirestoreListeners();
                 } else {
                     // Oculta a página principal se o usuário não estiver autenticado
                     loginPage.classList.remove('hidden');
                   
-  appPage.classList.add('hidden');
+                    appPage.classList.add('hidden');
                 }
             });
-// O login anônimo é para acesso ao Firestore, independente do seu formulário
+            // O login anônimo é para acesso ao Firestore, independente do seu formulário
             signInAnonymously(auth).catch((error) => {
                 console.error("Erro ao fazer login anônimo:", error);
             });
-};
+        };
 
         // Autenticação de Login
         loginForm.addEventListener('submit', function(event) {
@@ -493,30 +511,30 @@ onAuthStateChanged(auth, async (user) => {
 
             if (foundUser) {
        
-         loginPage.classList.add('hidden');
+                loginPage.classList.add('hidden');
                 appPage.classList.remove('hidden');
             } else {
                 loginMessage.classList.remove('hidden');
             }
         });
-logoutButton.addEventListener('click', () => {
+        logoutButton.addEventListener('click', () => {
             signOut(auth);
         });
-// Listeners do Firestore para dados em tempo real
+        // Listeners do Firestore para dados em tempo real
         function startFirestoreListeners() {
             // Listener para Transportados
             const transportadosRef = collection(db, 'artifacts', globalAppId, 'public', 'data', 'transportados');
-onSnapshot(transportadosRef, (snapshot) => {
+            onSnapshot(transportadosRef, (snapshot) => {
                 transportadosData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                 rebuildTransportadosLookups();
             });
-// Listener para Motoristas
+            // Listener para Motoristas
             const motoristasRef = collection(db, 'artifacts', globalAppId, 'public', 'data', 'motoristas');
-onSnapshot(motoristasRef, (snapshot) => {
+            onSnapshot(motoristasRef, (snapshot) => {
                 motoristasData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                 rebuildMotoristasLookups();
             });
-}
+        }
         
         function rebuildTransportadosLookups(sortKey = 'nome', sortOrder = 'asc') {
             transportadosData.sort((a, b) => {
@@ -525,18 +543,18 @@ onSnapshot(motoristasRef, (snapshot) => {
 
                 if (sortOrder === 'asc') {
     
-                return valA.localeCompare(valB, undefined, { numeric: true });
+                    return valA.localeCompare(valB, undefined, { numeric: true });
                 } else {
                     return valB.localeCompare(valA, undefined, { numeric: true });
                 }
             });
-matriculaToNome = {};
+            matriculaToNome = {};
             nomeToMatricula = {};
             transportadosData.forEach(item => {
                 matriculaToNome[item.matricula] = item.nome;
                 nomeToMatricula[item.nome.toLowerCase()] = item.matricula;
             });
-renderTransportadosList();
+            renderTransportadosList();
         }
 
         function rebuildMotoristasLookups(sortOrder = 'asc') {
@@ -545,91 +563,91 @@ renderTransportadosList();
                     return a.nome.localeCompare(b.nome);
                 } else {
              
-       return b.nome.localeCompare(a.nome);
+                    return b.nome.localeCompare(a.nome);
                 }
             });
-renderMotoristasList();
+            renderMotoristasList();
             populateMotoristasDatalist();
         }
 
         // Funções para gerenciar o modal de aviso
         function showWarning(message) {
             document.getElementById('message-content').innerText = message;
-document.getElementById('message-modal').classList.remove('hidden');
+            document.getElementById('message-modal').classList.remove('hidden');
         }
 
         function hideWarning() {
             document.getElementById('message-modal').classList.add('hidden');
-}
+        }
         
         // Funções para manipulação de dados e CSV
         function exportAllToCsv(dataArray) {
             if (dataArray.length === 0) {
                 showWarning('Não há dados para exportar.');
-return;
+                return;
             }
             
             const bom = '\uFEFF';
-const headers = Object.keys(dataArray[0]).map(key => key.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase()));
-const rows = dataArray.map(obj => headers.map(header => {
+            const headers = Object.keys(dataArray[0]).map(key => key.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase()));
+            const rows = dataArray.map(obj => headers.map(header => {
                 const key = header.replace(/\s/g, '').replace(/^./, (str) => str.toLowerCase());
                 let value = obj[key] || '';
                 if (key === 'valor' || key === 'valorExtra') {
                     value = `R$ ${value.toFixed(2).replace('.', ',')}`;
  
-               }
+                }
                 return `"${value.toString().replace(/"/g, '""')}"`;
             }).join(';'));
             const csvContent = `${headers.join(';')}\n${rows.join('\n')}`;
             const blob = new Blob([bom + csvContent], { type: 'text/csv;charset=utf-8;' });
             const url = URL.createObjectURL(blob);
    
-         const link = document.createElement('a');
+            const link = document.createElement('a');
             link.setAttribute('href', url);
             const now = new Date();
             const dateString = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}_${now.getHours().toString().padStart(2, '0')}-${now.getMinutes().toString().padStart(2, '0')}-${now.getSeconds().toString().padStart(2, '0')}`;
-link.setAttribute('download', `lancamentos_de_corridas_${dateString}.csv`);
+            link.setAttribute('download', `lancamentos_de_corridas_${dateString}.csv`);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
             showWarning('Relatório CSV baixado com sucesso!');
-}
+        }
 
         // Funções de renderização de listas
         function renderTransportadosList() {
             const tableBody = document.querySelector('#transportados-table tbody');
-tableBody.innerHTML = '';
+            tableBody.innerHTML = '';
             transportadosData.forEach((item, index) => {
                 const row = document.createElement('tr');
                 row.className = 'bg-white hover:bg-gray-50 transition-colors duration-100';
                 row.dataset.id = item.id;
                 row.innerHTML = `
                   
-  <td class="p-4"><input type="checkbox" data-id="${item.id}" class="transportado-checkbox rounded-sm"></td>
+                    <td class="p-4"><input type="checkbox" data-id="${item.id}" class="transportado-checkbox rounded-sm"></td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.matricula}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.nome}</td>
                 `;
                 tableBody.appendChild(row);
            
- });
+            });
             populateTransportadosDatalist();
         }
         
         function renderMotoristasList() {
             const tableBody = document.querySelector('#motoristas-table tbody');
-tableBody.innerHTML = '';
+            tableBody.innerHTML = '';
             motoristasData.forEach((item, index) => {
                 const row = document.createElement('tr');
                 row.className = 'bg-white hover:bg-gray-50 transition-colors duration-100';
                 row.dataset.id = item.id;
                 row.innerHTML = `
                   
-  <td class="p-4"><input type="checkbox" data-id="${item.id}" class="motorista-checkbox rounded-sm"></td>
+                    <td class="p-4"><input type="checkbox" data-id="${item.id}" class="motorista-checkbox rounded-sm"></td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.nome}</td>
                 `;
                 tableBody.appendChild(row);
             });
-populateMotoristasDatalist();
+            populateMotoristasDatalist();
         }
 
         function populateTransportadosDatalist() {
@@ -648,27 +666,27 @@ populateMotoristasDatalist();
             
             matriculaDatalist.innerHTML = '';
             nomeDatalist.innerHTML = '';
-transportadosData.forEach(item => {
+            transportadosData.forEach(item => {
                 const matriculaOption = document.createElement('option');
                 matriculaOption.value = item.matricula;
                 matriculaDatalist.appendChild(matriculaOption);
                 
                 const nomeOption = document.createElement('option');
           
-      nomeOption.value = item.nome;
+                nomeOption.value = item.nome;
                 nomeDatalist.appendChild(nomeOption);
             });
-}
+        }
 
         function populateMotoristasDatalist() {
             const motoristaDatalist = document.getElementById('motoristas-list');
-motoristaDatalist.innerHTML = '';
+            motoristaDatalist.innerHTML = '';
             motoristasData.forEach(item => {
                 const option = document.createElement('option');
                 option.value = item.nome;
                 motoristaDatalist.appendChild(option);
             });
-}
+        }
 
         // Funções de gerenciamento de dados
         document.getElementById('add-transportado').addEventListener('click', async function() {
@@ -678,21 +696,21 @@ motoristaDatalist.innerHTML = '';
             const newNome = newNomeInput.value.trim();
 
             if (newMatricula && newNome) 
-{
+            {
                 const existing = transportadosData.find(item => item.matricula === newMatricula || item.nome.toLowerCase() === newNome.toLowerCase());
                 if (existing) {
                     showWarning('A matrícula ou o nome já existe.');
                 } else {
            
-         const transportadosRef = collection(db, 'artifacts', globalAppId, 'public', 'data', 'transportados');
+                    const transportadosRef = collection(db, 'artifacts', globalAppId, 'public', 'data', 'transportados');
                     await addDoc(transportadosRef, { matricula: newMatricula, nome: newNome });
                     newMatriculaInput.value = '';
-newNomeInput.value = '';
+                    newNomeInput.value = '';
                     showWarning('Transportado adicionado com sucesso!');
                 }
             } else {
                 showWarning('Por favor, preencha a matrícula e o nome.');
-}
+            }
         });
 
         document.getElementById('delete-selected-transportados').addEventListener('click', async function() {
@@ -702,14 +720,14 @@ newNomeInput.value = '';
                 return;
             }
       
-      const promises = Array.from(checkboxes).map(cb => {
+            const promises = Array.from(checkboxes).map(cb => {
                 const transportadoDocRef = doc(db, 'artifacts', globalAppId, 'public', 'data', 'transportados', cb.dataset.id);
                 return deleteDoc(transportadoDocRef);
             });
             await Promise.all(promises);
             showWarning(`${checkboxes.length} transportados excluídos com sucesso!`);
       
-  });
+        });
 
         document.getElementById('add-motorista').addEventListener('click', async function() {
             const newNomeInput = document.getElementById('new-motorista-nome');
@@ -719,19 +737,19 @@ newNomeInput.value = '';
                 const existing = motoristasData.find(item => item.nome.toLowerCase() === newNome.toLowerCase());
                 if (existing) {
          
-           showWarning('O nome do motorista já existe.');
+                    showWarning('O nome do motorista já existe.');
                 } else {
                     const motoristasRef = collection(db, 'artifacts', globalAppId, 'public', 'data', 'motoristas');
                     await addDoc(motoristasRef, { nome: newNome });
              
-       newNomeInput.value = '';
+                    newNomeInput.value = '';
                     showWarning('Motorista adicionado com sucesso!');
                 }
             } else {
                 showWarning('Por favor, preencha o nome do motorista.');
             }
     
-    });
+        });
 
         document.getElementById('delete-selected-motoristas').addEventListener('click', async function() {
             const checkboxes = document.querySelectorAll('#motoristas-table .motorista-checkbox:checked');
@@ -740,69 +758,69 @@ newNomeInput.value = '';
                 return;
             }
           
-  const promises = Array.from(checkboxes).map(cb => {
+            const promises = Array.from(checkboxes).map(cb => {
                 const motoristaDocRef = doc(db, 'artifacts', globalAppId, 'public', 'data', 'motoristas', cb.dataset.id);
                 return deleteDoc(motoristaDocRef);
             });
             await Promise.all(promises);
             showWarning(`${checkboxes.length} motoristas excluídos com sucesso!`);
         });
-// Funções de formatação de moeda
+        // Funções de formatação de moeda
         function formatCurrencyInput(input) {
             let value = input.value.replace(/\D/g, '');
-// Remove todos os caracteres não numéricos
+            // Remove todos os caracteres não numéricos
             if (value === '') {
                 return;
-}
+            }
             
             value = value.padStart(3, '0');
-// Garante pelo menos 3 dígitos (ex: '1' vira '001')
+            // Garante pelo menos 3 dígitos (ex: '1' vira '001')
             
             const integerPart = value.slice(0, -2);
-const decimalPart = value.slice(-2);
+            const decimalPart = value.slice(-2);
             
             const formattedInteger = parseInt(integerPart, 10).toLocaleString('pt-BR');
             input.value = `${formattedInteger},${decimalPart}`;
-}
+        }
         
         // Conversor de valor formatado para número puro
         function parseCurrencyValue(value) {
             return parseFloat(value.replace(/\./g, '').replace(',', '.'));
-}
+        }
 
-        // Evento de envio do formulário
+        // Evento de envio do formulário (Lógica para Múltiplos Passageiros, Duplicidade e Validação)
         document.getElementById('form-corrida').addEventListener('submit', async function(event) {
             event.preventDefault();
 
             const form = event.target;
             const requiredFields = [
                 'motorista', 'solicitante', 'data',
-  'origem', 'partida', 'destino', 'chegada',
+                'origem', 'partida', 'destino', 'chegada',
                 'valor'
             ];
             
-            // Coleta de dados dos campos dinâmicos de passageiros
             const matriculasInputs = document.querySelectorAll('#passageiros-campos-container input[name="matriculas[]"]');
             const transportadosInputs = document.querySelectorAll('#passageiros-campos-container input[name="transportados[]"]');
 
             const passageirosData = [];
             let isFormValid = true;
-            let hasPrimaryPassageiro = false;
+            
+            // Conjunto para verificar duplicidade: { 'matricula_nome' }
+            const passageirosSet = new Set();
+            let hasError = false; 
 
             // 1. Validação dos campos únicos obrigatórios
             for (const field of requiredFields) {
                 const input = form[field];
-                
-if (input.value.trim() === '') {
+                if (input.value.trim() === '') {
                     isFormValid = false;
                     input.classList.add('error-border');
                 } else {
                     input.classList.remove('error-border');
-                
-}
+                }
             }
             
-            // 2. Coleta e validação dos passageiros (o primeiro é obrigatório)
+            // 2. Coleta, validação e verificação de duplicidade dos passageiros
             for (let i = 0; i < matriculasInputs.length; i++) {
                 const matriculaInput = matriculasInputs[i];
                 const nomeInput = transportadosInputs[i];
@@ -816,12 +834,22 @@ if (input.value.trim() === '') {
                 
                 // Se o par tiver dados preenchidos
                 if (matricula !== '' && nome !== '') {
-                    passageirosData.push({ matricula: matricula, nome: nome });
-                    if (i === 0) {
-                        hasPrimaryPassageiro = true;
+                    const key = `${matricula}_${nome.toLowerCase()}`;
+                    
+                    // *** VALIDAÇÃO DE DUPLICIDADE ***
+                    if (passageirosSet.has(key)) {
+                        isFormValid = false;
+                        hasError = true;
+                        matriculaInput.classList.add('error-border');
+                        nomeInput.classList.add('error-border');
+                        showWarning(`Passageiro duplicado encontrado: Matrícula ${matricula} e Nome ${nome}.`);
+                        return; // Para a submissão imediatamente
                     }
+                    
+                    passageirosSet.add(key);
+                    passageirosData.push({ matricula: matricula, nome: nome });
                 } 
-                // Se apenas um dos campos estiver preenchido (erro)
+                // Se apenas um dos campos estiver preenchido (erro de campo obrigatório)
                 else if (matricula !== '' || nome !== '') {
                     isFormValid = false;
                     if (matricula === '') matriculaInput.classList.add('error-border');
@@ -829,7 +857,7 @@ if (input.value.trim() === '') {
                 }
             }
             
-            // Valida se o primeiro passageiro (que preenche os campos do CSV) está preenchido
+            // 3. Valida se pelo menos um passageiro (o primeiro) está preenchido
             if (!passageirosData[0]) {
                 isFormValid = false;
                 // Adiciona a borda de erro nos campos do primeiro passageiro se estiverem vazios
@@ -839,7 +867,9 @@ if (input.value.trim() === '') {
 
 
             if (!isFormValid) {
-                showWarning('Por favor, preencha todos os campos obrigatórios e verifique os dados dos passageiros (Matrícula e Nome são obrigatórios para cada passageiro).');
+                if (!hasError) { // Só mostra o aviso genérico se o aviso de duplicidade não foi acionado
+                    showWarning('Por favor, preencha todos os campos obrigatórios e verifique os dados dos passageiros (Matrícula e Nome são obrigatórios para cada passageiro).');
+                }
                 return;
             }
 
@@ -851,258 +881,255 @@ if (input.value.trim() === '') {
             const passageirosExtras = passageirosData.length > 1 ? passageirosData.slice(1) : null;
 
             const newEntry = {
-         
-       motorista: form['motorista'].value,
-                matricula: form['matricula'].value, // Primeiro passageiro (para compatibilidade CSV)
-                transportado: form['transportado'].value, // Primeiro passageiro (para compatibilidade CSV)
+                motorista: form['motorista'].value,
+                matricula: form['matricula'].value, 
+                transportado: form['transportado'].value, 
                 passageiros_extras: passageirosExtras, // Novo campo para passageiros adicionais
                 solicitante: form['solicitante'].value,
                 data: form['data'].value,
                 origem: form['origem'].value,
-       
-         partida: form['partida'].value,
+                partida: form['partida'].value,
                 destino: form['destino'].value,
                 chegada: form['chegada'].value,
                 valor: parseCurrencyValue(form['valor'].value),
                 valorExtra: form['valor-extra'].value ?
-parseCurrencyValue(form['valor-extra'].value) : null,
+                    parseCurrencyValue(form['valor-extra'].value) : null,
                 observacao: form['observacao'].value
             };
-const lancamentosRef = collection(db, 'artifacts', globalAppId, 'public', 'data', 'lancamentos');
+
+            const lancamentosRef = collection(db, 'artifacts', globalAppId, 'public', 'data', 'lancamentos');
             await addDoc(lancamentosRef, newEntry);
 
             showWarning('Lançamento salvo com sucesso!');
             form.reset();
             document.getElementById('valor').value = '0,00';
-document.getElementById('valor-extra').value = '0,00';
+            document.getElementById('valor-extra').value = '0,00';
             
             // Limpa e reinicializa os campos de passageiros
             passageirosContainer.innerHTML = '';
-            passageiroCount = 0;
             addPassageiroRow(true); // Adiciona o primeiro de volta
         });
 
         // Evento de navegação com a tecla "Enter"
         const inputs = document.querySelectorAll('#form-corrida input:not([readonly]), #form-corrida textarea');
-inputs.forEach(input => {
+        inputs.forEach(input => {
             input.addEventListener('keydown', function(event) {
                 if (event.key === 'Enter') {
                     event.preventDefault();
 
                     const currentInputIndex = Array.from(inputs).indexOf(this);
                     let 
-nextInput = null;
+                    nextInput = null;
 
                     for (let i = currentInputIndex + 1; i < inputs.length; i++) {
                         if (inputs[i].value.trim() === '') {
                             nextInput = inputs[i];
          
-                   break;
+                            break;
                         }
                     }
 
                     if (!nextInput) {
                
-         for (let i = 0; i < inputs.length; i++) {
+                        for (let i = 0; i < inputs.length; i++) {
                              if (inputs[i].value.trim() === '') {
                                  nextInput = inputs[i];
               
-                   break;
+                                break;
                              }
                         }
                     }
 
         
-            if (nextInput) {
+                    if (nextInput) {
                         nextInput.focus();
-}
+                    }
                 }
             });
-});
+        });
 
         // Evento do botão de download
-document.getElementById('download-csv').addEventListener('click', async function() {
-    const startDate = document.getElementById('start-date').value;
-    const endDate = document.getElementById('end-date').value;
+        document.getElementById('download-csv').addEventListener('click', async function() {
+            const startDate = document.getElementById('start-date').value;
+            const endDate = document.getElementById('end-date').value;
 
-    if (startDate && endDate && new Date(startDate) > new Date(endDate)) {
-        showWarning('A data de início não pode ser posterior à data de fim.');
-        return;
-    }
-
-    const lancamentosRef = collection(db, 'artifacts', globalAppId, 'public', 'data', 'lancamentos');
-
-    // Monta filtros
-    let filtros = [];
-    if (startDate) filtros.push(where('data', 
-'>=', startDate));
-    if (endDate) filtros.push(where('data', '<=', endDate));
-
-    // Monta query final
-    let q = filtros.length > 0 ? query(lancamentosRef, ...filtros) : lancamentosRef;
-
-    // Busca os dados
-    try {
-        const snapshot = await getDocs(q);
-        const allData = snapshot.docs.map(doc => doc.data());
-
-        console.log("Dados recebidos do Firestore:", allData);
-// <-- pra debug
-
-        if (allData.length === 0) {
-            showWarning('Nenhum dado encontrado para este período.');
-return;
-        }
-
-        // Gerar CSV normalmente
-        const bom = '\uFEFF';
-        
-        // Ajusta cabeçalhos para incluir dados de passageiros extras de forma simples (se houver)
-        let allHeaders = new Set();
-        allData.forEach(obj => {
-            Object.keys(obj).forEach(key => allHeaders.add(key));
-        });
-        
-        // Remove passageiros_extras temporariamente para reprocessamento
-        allHeaders.delete('passageiros_extras'); 
-
-        let finalHeaders = Array.from(allHeaders);
-        
-        // Se houver passageiros extras, adiciona colunas dinâmicas para eles
-        let maxPassageirosExtras = 0;
-        allData.forEach(obj => {
-            if (obj.passageiros_extras && Array.isArray(obj.passageiros_extras)) {
-                maxPassageirosExtras = Math.max(maxPassageirosExtras, obj.passageiros_extras.length);
+            if (startDate && endDate && new Date(startDate) > new Date(endDate)) {
+                showWarning('A data de início não pode ser posterior à data de fim.');
+                return;
             }
-        });
 
-        for (let i = 0; i < maxPassageirosExtras; i++) {
-            finalHeaders.push(`matricula_extra_${i+1}`);
-            finalHeaders.push(`transportado_extra_${i+1}`);
-        }
-        
-        // Coloca a observação por último
-        const obsIndex = finalHeaders.indexOf('observacao');
-        if (obsIndex > -1) {
-            finalHeaders.splice(obsIndex, 1);
-            finalHeaders.push('observacao');
-        }
+            const lancamentosRef = collection(db, 'artifacts', globalAppId, 'public', 'data', 'lancamentos');
 
-const headers = finalHeaders;
-        const rows = allData.map(obj => headers.map(key => {
-            let value = obj[key] ?? '';
-            
-            // Trata as colunas de passageiros extras
-            if (key.startsWith('matricula_extra_') || key.startsWith('transportado_extra_')) {
-                const parts = key.split('_');
-                const index = parseInt(parts[2]) - 1; // index 0, 1, 2...
-                const type = parts[0]; // matricula ou transportado
-                
-                if (obj.passageiros_extras && obj.passageiros_extras[index]) {
-                    value = obj.passageiros_extras[index][type];
-                } else {
-                    value = '';
+            // Monta filtros
+            let filtros = [];
+            if (startDate) filtros.push(where('data', 
+                '>=', startDate));
+            if (endDate) filtros.push(where('data', '<=', endDate));
+
+            // Monta query final
+            let q = filtros.length > 0 ? query(lancamentosRef, ...filtros) : lancamentosRef;
+
+            // Busca os dados
+            try {
+                const snapshot = await getDocs(q);
+                const allData = snapshot.docs.map(doc => doc.data());
+
+                console.log("Dados recebidos do Firestore:", allData);
+
+                if (allData.length === 0) {
+                    showWarning('Nenhum dado encontrado para este período.');
+                    return;
                 }
-            }
 
-            if (key === 'valor' || key === 'valorExtra') {
-                value = `R$ ${parseFloat(value).toFixed(2).replace('.', ',')}`;
-            }
-            return `"${value.toString().replace(/"/g, '""')}"`;
+                // Gerar CSV normalmente
+                const bom = '\uFEFF';
+                
+                // Ajusta cabeçalhos para incluir dados de passageiros extras de forma simples (se houver)
+                let allHeaders = new Set();
+                allData.forEach(obj => {
+                    Object.keys(obj).forEach(key => allHeaders.add(key));
+                });
+                
+                // Remove passageiros_extras temporariamente para reprocessamento
+                allHeaders.delete('passageiros_extras'); 
+
+                let finalHeaders = Array.from(allHeaders);
+                
+                // Se houver passageiros extras, adiciona colunas dinâmicas para eles
+                let maxPassageirosExtras = 0;
+                allData.forEach(obj => {
+                    if (obj.passageiros_extras && Array.isArray(obj.passageiros_extras)) {
+                        maxPassageirosExtras = Math.max(maxPassageirosExtras, obj.passageiros_extras.length);
+                    }
+                });
+
+                for (let i = 0; i < maxPassageirosExtras; i++) {
+                    finalHeaders.push(`matricula_extra_${i+1}`);
+                    finalHeaders.push(`transportado_extra_${i+1}`);
+                }
+                
+                // Coloca a observação por último
+                const obsIndex = finalHeaders.indexOf('observacao');
+                if (obsIndex > -1) {
+                    finalHeaders.splice(obsIndex, 1);
+                    finalHeaders.push('observacao');
+                }
+
+                const headers = finalHeaders;
+                const rows = allData.map(obj => headers.map(key => {
+                    let value = obj[key] ?? '';
+                    
+                    // Trata as colunas de passageiros extras
+                    if (key.startsWith('matricula_extra_') || key.startsWith('transportado_extra_')) {
+                        const parts = key.split('_');
+                        const index = parseInt(parts[2]) - 1; // index 0, 1, 2...
+                        const type = parts[0]; // matricula ou transportado
+                        
+                        if (obj.passageiros_extras && obj.passageiros_extras[index]) {
+                            value = obj.passageiros_extras[index][type];
+                        } else {
+                            value = '';
+                        }
+                    }
+
+                    if (key === 'valor' || key === 'valorExtra') {
+                        value = `R$ ${parseFloat(value).toFixed(2).replace('.', ',')}`;
+                    }
+                    return `"${value.toString().replace(/"/g, '""')}"`;
       
-  }).join(';'));
+                }).join(';'));
 
-        const csvContent = `${headers.join(';')}\n${rows.join('\n')}`;
-        const blob = new Blob([bom + csvContent], { type: 'text/csv;charset=utf-8;' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
+                const csvContent = `${headers.join(';')}\n${rows.join('\n')}`;
+                const blob = new Blob([bom + csvContent], { type: 'text/csv;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
 
-        const now = new Date();
-        const dateString = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}_${now.getHours().toString().padStart(2, '0')}-${now.getMinutes().toString().padStart(2, '0')}-${now.getSeconds().toString().padStart(2, '0')}`;
+                const now = new Date();
+                const dateString = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}_${now.getHours().toString().padStart(2, '0')}-${now.getMinutes().toString().padStart(2, '0')}-${now.getSeconds().toString().padStart(2, '0')}`;
        
- link.download = `lancamentos_de_corridas_${dateString}.csv`;
+                link.download = `lancamentos_de_corridas_${dateString}.csv`;
 
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
 
-        showWarning('Relatório CSV baixado com sucesso!');
-} catch (err) {
-        console.error("Erro ao buscar dados:", err);
-showWarning('Erro ao gerar relatório. Veja o console para mais detalhes.');
-    }
-});
-// Evento para fechar o modal de aviso
+                showWarning('Relatório CSV baixado com sucesso!');
+            } catch (err) {
+                console.error("Erro ao buscar dados:", err);
+                showWarning('Erro ao gerar relatório. Veja o console para mais detalhes.');
+            }
+        });
+        // Evento para fechar o modal de aviso
         document.getElementById('close-modal').addEventListener('click', function() {
             hideWarning();
         });
-// Eventos para abrir e fechar os modais
+        // Eventos para abrir e fechar os modais
         document.getElementById('open-transportados-modal').addEventListener('click', function() {
             document.getElementById('transportados-modal').classList.remove('hidden');
         });
-document.getElementById('close-transportados-modal').addEventListener('click', function() {
+        document.getElementById('close-transportados-modal').addEventListener('click', function() {
             document.getElementById('transportados-modal').classList.add('hidden');
             document.getElementById('selectAllTransportados').checked = false;
             document.querySelectorAll('.transportado-checkbox').forEach(cb => cb.checked = false);
         });
-document.getElementById('open-motoristas-modal').addEventListener('click', function() {
+        document.getElementById('open-motoristas-modal').addEventListener('click', function() {
             document.getElementById('motoristas-modal').classList.remove('hidden');
         });
-document.getElementById('close-motoristas-modal').addEventListener('click', function() {
+        document.getElementById('close-motoristas-modal').addEventListener('click', function() {
             document.getElementById('motoristas-modal').classList.add('hidden');
             document.getElementById('selectAllMotoristas').checked = false;
             document.querySelectorAll('.motorista-checkbox').forEach(cb => cb.checked = false);
         });
-// Eventos para alteração de ordenação
+        // Eventos para alteração de ordenação
         document.getElementById('sort-transportados-key').addEventListener('change', function() {
             const sortKey = this.value;
             const sortOrder = document.getElementById('sort-transportados-order').value;
             rebuildTransportadosLookups(sortKey, sortOrder);
         });
-document.getElementById('sort-transportados-order').addEventListener('change', function() {
+        document.getElementById('sort-transportados-order').addEventListener('change', function() {
             const sortKey = document.getElementById('sort-transportados-key').value;
             const sortOrder = this.value;
             rebuildTransportadosLookups(sortKey, sortOrder);
         });
-document.getElementById('sort-motoristas-order').addEventListener('change', function() {
+        document.getElementById('sort-motoristas-order').addEventListener('change', function() {
             const sortOrder = this.value;
             rebuildMotoristasLookups(sortOrder);
         });
-// Adiciona event listeners para os checkboxes de seleção
+        // Adiciona event listeners para os checkboxes de seleção
         document.getElementById('transportados-table').addEventListener('change', function(event) {
             if (event.target.id === 'selectAllTransportados') {
                 const checkboxes = document.querySelectorAll('.transportado-checkbox');
                 checkboxes.forEach(checkbox => checkbox.checked = event.target.checked);
             }
         });
-document.getElementById('motoristas-table').addEventListener('change', function(event) {
+        document.getElementById('motoristas-table').addEventListener('change', function(event) {
             if (event.target.id === 'selectAllMotoristas') {
                 const checkboxes = document.querySelectorAll('.motorista-checkbox');
                 checkboxes.forEach(checkbox => checkbox.checked = event.target.checked);
             }
         });
-// Evento para selecionar a linha clicando em qualquer lugar da tabela
+        // Evento para selecionar a linha clicando em qualquer lugar da tabela
         document.getElementById('transportados-table').addEventListener('click', function(event) {
             const row = event.target.closest('tr');
             if (row) {
                 const checkbox = row.querySelector('.transportado-checkbox');
                 if (checkbox && event.target !== checkbox) {
          
-           checkbox.checked = !checkbox.checked;
+                    checkbox.checked = !checkbox.checked;
                 }
             }
         });
-document.getElementById('motoristas-table').addEventListener('click', function(event) {
+        document.getElementById('motoristas-table').addEventListener('click', function(event) {
             const row = event.target.closest('tr');
             if (row) {
                 const checkbox = row.querySelector('.motorista-checkbox');
                 if (checkbox && event.target !== checkbox) {
                     checkbox.checked = !checkbox.checked;
       
-          }
+                }
             }
         });
-</script>
+    </script>
 </body>
 </html>
