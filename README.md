@@ -658,9 +658,6 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
             populateMotoristasDatalist();
         }
 
-        // Funções para gerenciar o modal de aviso
-        // (A função showWarning foi definida acima)
-
         // Funções de formatação de moeda
         function formatCurrencyInput(input) {
             let value = input.value.replace(/\D/g, '');
@@ -804,9 +801,8 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
             passageirosContainer.innerHTML = '';
             addPassageiroRow(true); // Adiciona o primeiro de volta
         });
-        
-        // ... (código para CSV e Modais) ...
 
+        // Funções de renderização e CRUD de modais (mantidas para funcionalidade completa)
         function renderTransportadosList() {
             const tableBody = document.querySelector('#transportados-table tbody');
             tableBody.innerHTML = '';
