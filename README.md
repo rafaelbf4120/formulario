@@ -367,14 +367,17 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
         const users = [
             { username: 'admin', password: 'rafael22' },
             { username: 'gerente', password: 'senha123' },
-            { username: 'João da Silva', password: 'admin' }
+            { username: 'motorista1', password: 'teste' } // Exemplo de motorista comum
         ];
         
         // Mapeamento de usuários para nome de motorista fixo e permissão
         const motoristaUsers = {
-            'admin': { nome: 'Administrador Principal', is_admin: true }, 
-            'gerente': { nome: 'Gerente Operacional', is_admin: true }, 
-            'usuario_comum': { nome: 'João da Silva', is_admin: false }, // Exemplo de motorista comum
+            // ADMIN e GERENTE: Têm permissão de admin, MAS NÃO TÊM NOME FIXO (is_motorista_fixo: false)
+            'admin': { nome: 'Administrador Principal', is_admin: true, is_motorista_fixo: false }, 
+            'gerente': { nome: 'Gerente Operacional', is_admin: true, is_motorista_fixo: false }, 
+            
+            // MOTORISTA COMUM: Não tem permissão de admin, MAS TEM NOME FIXO (is_motorista_fixo: true)
+            'motorista1': { nome: 'João da Silva', is_admin: false, is_motorista_fixo: true }, 
         };
 
         let transportadosData = [];
@@ -399,28 +402,34 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
         function setMotoristaReadOnly(username) {
             const userData = motoristaUsers[username];
             
-            // Gerencia a visibilidade do botão Gerenciar Motoristas
+            // 1. Gerencia a visibilidade do botão Gerenciar Motoristas
             if (userData && userData.is_admin) {
                 openMotoristasBtn.classList.remove('hidden');
             } else {
                 openMotoristasBtn.classList.add('hidden');
             }
-
-            if (userData) {
-                // 1. Define o nome
+            
+            // 2. Lógica para preencher/bloquear o campo Motorista
+            if (userData && userData.is_motorista_fixo) {
+                // Se for um motorista fixo: BLOQUEIA E PREENCHE
                 motoristaInput.value = userData.nome;
                 
-                // 2. Torna o campo somente leitura e altera estilo
+                // Torna o campo somente leitura e altera estilo
                 motoristaInput.setAttribute('readonly', 'readonly');
                 motoristaInput.classList.remove('bg-gray-50');
-                motoristaInput.classList.add('bg-gray-200'); // Estilo visual de bloqueado
-                
+                motoristaInput.classList.add('bg-gray-200'); 
             } else {
-                // Se o usuário não estiver na lista fixa, o campo fica editável normalmente
-                motoristaInput.value = '';
+                // Se for Admin, Gerente ou outro usuário sem nome fixo: DEIXA EDITÁVEL
                 motoristaInput.removeAttribute('readonly');
                 motoristaInput.classList.remove('bg-gray-200');
                 motoristaInput.classList.add('bg-gray-50');
+                
+                // Pré-preenche com o nome de usuário (útil para admins/gerentes)
+                if (userData) {
+                     motoristaInput.value = userData.nome;
+                } else {
+                     motoristaInput.value = '';
+                }
             }
         }
 
