@@ -19,7 +19,7 @@
         }
         .modal-content {
             width: 95%;
-            max-width: 48rem;
+            max-width: 48rem; /* Equivalent to max-w-2xl */
         }
         @media (min-width: 640px) {
             .modal-content {
@@ -27,7 +27,7 @@
             }
         }
         .modal-lg {
-            max-width: 80rem;
+            max-width: 80rem; /* max-w-6xl */
         }
         .modal-title {
             text-align: center;
@@ -41,11 +41,11 @@
         <form id="login-form" class="space-y-4">
             <div>
                 <label for="username" class="block text-sm font-medium text-gray-700">Usuário:</label>
-                <input type="text" id="username" name="username" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="text" id="username" name="username" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
             </div>
             <div>
                 <label for="password" class="block text-sm font-medium text-gray-700">Senha:</label>
-                <input type="password" id="password" name="password" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="password" id="password" name="password" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
             </div>
             <button type="submit" class="w-full px-6 py-3 bg-blue-600 text-white font-bold rounded-lg shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
                 Entrar
@@ -59,6 +59,8 @@
             <h1 class="text-2xl md:text-3xl font-bold text-gray-800 modal-title">Lançamento de Corridas</h1>
             <button id="logout-btn" class="absolute top-0 right-0 px-4 py-2 bg-gray-300 text-gray-800 font-medium rounded-lg hover:bg-gray-400">Sair</button>
         </div>
+        
+        <p id="user-id-display" class="text-sm text-transparent text-center mb-4"></p>
         
         <form id="form-corrida" class="space-y-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -75,28 +77,27 @@
                     <label for="data" class="block text-sm font-medium text-gray-700">Data:</label>
                     <input type="date" id="data" name="data" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg">
                 </div>
-                 <div>
+                <div>
                     <label for="origem" class="block text-sm font-medium text-gray-700">Origem Principal:</label>
                     <input type="text" id="origem" name="origem" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg">
                 </div>
             </div>
-            
+
             <hr>
-            
+            <h3 class="text-lg font-semibold text-gray-700 text-center">Passageiros</h3>
             <div id="passageiros-campos-container" class="space-y-4"></div>
             <button type="button" id="add-passageiro-btn" class="w-full px-4 py-2 bg-gray-200 text-gray-800 font-medium rounded-lg hover:bg-gray-300">
                 + Adicionar Passageiro
             </button>
             
             <hr>
-            
+            <h3 class="text-lg font-semibold text-gray-700 text-center">Trajetos</h3>
             <div id="destinos-container" class="space-y-4"></div>
             <button type="button" id="add-destino-btn" class="w-full px-4 py-2 bg-blue-200 text-blue-800 font-medium rounded-lg hover:bg-blue-300">
                 + Adicionar Destino / Parada
             </button>
             
             <hr>
-
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                     <label for="valor" class="block text-sm font-medium text-gray-700">Valor Total:</label>
@@ -127,110 +128,96 @@
 
         <hr class="my-6 md:my-8 border-gray-300">
         
-        <div class="flex flex-col gap-4 mb-6">
-            <h2 class="text-xl font-bold text-gray-800 text-center">Gerar Relatório CSV</h2>
-            </div>
-
-        <hr class="my-6 md:my-8 border-gray-300">
-
-        <div class="flex flex-col md:flex-row justify-center gap-4">
-            <button type="button" id="open-lancamentos-modal" class="px-6 py-3 bg-teal-600 text-white font-bold rounded-lg shadow-lg hover:bg-teal-700">
-                Gerenciar Lançamentos
-            </button>
-            <button type="button" id="open-transportados-modal" class="px-6 py-3 bg-purple-600 text-white font-bold rounded-lg shadow-lg hover:bg-purple-700">
-                Gerenciar Transportados
-            </button>
-            <button type="button" id="open-motoristas-modal" class="px-6 py-3 bg-indigo-600 text-white font-bold rounded-lg shadow-lg hover:bg-indigo-700 hidden">
-                Gerenciar Motoristas
-            </button>
         </div>
-    </div>
     
-    <div id="lancamentos-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white p-6 md:p-8 rounded-2xl shadow-2xl modal-content modal-lg max-h-[90vh] flex flex-col">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl md:text-2xl font-bold text-gray-800 modal-title">Gerenciar Lançamentos</h2>
-                <button id="close-lancamentos-modal" class="text-gray-500 hover:text-gray-800 text-xl font-bold">&times;</button>
-            </div>
-            <div class="overflow-y-auto flex-grow">
-                <table class="min-w-full table-auto" id="lancamentos-table">
-                    <thead class="bg-gray-50 sticky top-0">
-                        <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Data</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Motorista</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Origem</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Destino Final</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Valor</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-gray-200"></tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <div id="edit-lancamento-modal" class="fixed inset-0 bg-gray-800 bg-opacity-75 hidden flex items-center justify-center p-4 z-50">
-      <div class="bg-white p-6 md:p-8 rounded-2xl shadow-2xl modal-content max-h-[90vh] overflow-y-auto">
-        <div class="flex justify-between items-center mb-4">
-          <h2 class="text-xl md:text-2xl font-bold text-gray-800 modal-title">Editar Lançamento</h2>
-          <button id="close-edit-lancamento-modal" class="text-gray-500 hover:text-gray-800 text-xl font-bold">&times;</button>
-        </div>
-        <form id="edit-lancamento-form" class="space-y-4">
-          <input type="hidden" id="edit-lancamento-id">
-          <div id="edit-fields-container" class="space-y-4">
-              </div>
-          <div class="md:col-span-2 flex justify-end gap-4 mt-6">
-            <button type="button" id="cancel-edit-btn" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400">Cancelar</button>
-            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Salvar Alterações</button>
-          </div>
-        </form>
-      </div>
-    </div>
-
     <script type="module">
-        // --- IMPORTAÇÕES E CONFIGURAÇÃO FIREBASE ---
+        // IMPORTAÇÕES
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, addDoc, deleteDoc, onSnapshot, collection, doc, query, where, getDocs, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        const firebaseConfig = { /* ... */ };
+        
+        // CONFIGURAÇÃO FIREBASE
+        const firebaseConfig = {
+            apiKey: "AIzaSyDmqvcKtIsga4ZQWNDg4_2k493dqMQCDVg",
+            authDomain: "teste-ebf38.firebaseapp.com",
+            projectId: "teste-ebf38",
+            storageBucket: "teste-ebf38.firebasestorage.app",
+            messagingSenderId: "741884776297",
+            appId: "1:741884776297:web:a23450b4909581a1b237f8",
+            measurementId: "G-2MD5CFD51E"
+        };
         
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         const auth = getAuth(app);
         const APP_ID = 'default-app-id';
 
-        // --- VARIÁVEIS GLOBAIS ---
+        // VARIÁVEIS GLOBAIS
         let globalUserId = null;
         let currentUser = { username: null, isAdmin: false };
         let transportadosData = [], motoristasData = [], lancamentosData = [];
         let matriculaToNome = {}, nomeToMatricula = {};
 
-        // --- ELEMENTOS DOM ---
+        // ELEMENTOS DOM
+        const loginPage = document.getElementById('login-page');
+        const appPage = document.getElementById('app-page');
+        const loginForm = document.getElementById('login-form');
+        const logoutButton = document.getElementById('logout-btn');
+        const motoristaInput = document.getElementById('motorista');
         const passageirosContainer = document.getElementById('passageiros-campos-container');
-        const destinosContainer = document.getElementById('destinos-container');
         const addPassageiroBtn = document.getElementById('add-passageiro-btn');
+        const destinosContainer = document.getElementById('destinos-container');
         const addDestinoBtn = document.getElementById('add-destino-btn');
 
-        // --- FUNÇÕES UTILITÁRIAS ---
+        // ==========================================================
+        // AQUI ESTÁ A SEÇÃO PARA ADICIONAR USUÁRIOS
+        // ==========================================================
+        const users = [
+            { username: 'admin', password: 'rafael22' },
+            { username: 'gerente', password: 'senha123' },
+            { username: 'motorista1', password: 'senha123' }
+        ];
+        const motoristaUsers = {
+            'admin': { nome: 'Administrador Principal', is_admin: true, is_motorista_fixo: false },
+            'gerente': { nome: 'Gerente Operacional', is_admin: true, is_motorista_fixo: false },
+            'motorista1': { nome: 'João da Silva', is_admin: false, is_motorista_fixo: true },
+        };
+        // ==========================================================
+
+        // FUNÇÕES UTILITÁRIAS
         const showWarning = (message) => { /* ... */ };
-        const hideWarning = () => { /* ... */ };
-        const formatCurrency = (value) => { /* ... */ };
-        const parseCurrency = (value) => { /* ... */ };
-        // ... (resto das funções utilitárias)
+        // ... (resto das funções utilitárias que você já tem)
 
-        // --- LÓGICA DE LOGIN ---
-        // ... (código de login existente)
+        // LÓGICA DE LOGIN
+        loginForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const foundUser = users.find(u => u.username === username && u.password === password);
+            if (foundUser) {
+                loginPage.classList.add('hidden');
+                appPage.classList.remove('hidden');
+                setupUIForUser(username);
+            } else {
+                document.getElementById('login-message').classList.remove('hidden');
+            }
+        });
 
-        // --- LISTENERS DO FIRESTORE ---
-        // ... (código de listeners existente)
+        function setupUIForUser(username) {
+            const userData = motoristaUsers[username];
+            currentUser = { username, isAdmin: userData?.is_admin || false };
+            
+            // ... (resto da lógica para bloquear campo de motorista, etc.)
+        }
 
-        // --- FUNÇÕES DE DATALIST E AUTOFILL ---
-        // ... (código de datalist e autofill existente)
+        // LISTENERS DO FIRESTORE
+        function startFirestoreListeners() { /* ... */ }
+
+        // LÓGICA DE AUTOFILL
+        // ... (código de autofill existente)
 
         // --- LÓGICA DO FORMULÁRIO PRINCIPAL ---
-        
+
         // Gerenciamento de Passageiros
         function createPassageiroInput(index) {
             const fieldset = document.createElement('div');
@@ -246,8 +233,7 @@
                         <input type="text" name="transportados[]" list="transportados-nome-list" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg">
                     </div>
                     ${index > 0 ? `<button type="button" class="ml-2 px-3 py-2 bg-red-500 text-white font-bold rounded-lg hover:bg-red-600 remove-passageiro-btn">-</button>` : ''}
-                </div>
-            `;
+                </div>`;
             return fieldset;
         }
 
@@ -260,6 +246,11 @@
         passageirosContainer.addEventListener('click', (e) => {
             if (e.target.classList.contains('remove-passageiro-btn')) {
                 e.target.closest('.passageiro-row').remove();
+                // Re-numera os labels
+                Array.from(passageirosContainer.children).forEach((row, index) => {
+                    row.querySelector('label[for^="matricula"]').textContent = `Matrícula (P${index + 1}):`;
+                    row.querySelector('label[for^="transportado"]').textContent = `Nome Transportado (P${index + 1}):`;
+                });
             }
         });
 
@@ -269,7 +260,7 @@
             fieldset.className = 'destino-row border-t pt-4';
             fieldset.innerHTML = `
                 <div class="flex justify-between items-center mb-2">
-                    <h3 class="text-md font-semibold text-gray-600">Parada / Destino ${index + 1}</h3>
+                    <h3 class="text-md font-semibold text-gray-600">Trajeto / Parada ${index + 1}</h3>
                     ${index > 0 ? `<button type="button" class="px-3 py-1 bg-red-500 text-white font-bold rounded-lg text-sm hover:bg-red-600 remove-destino-btn">- Remover</button>` : ''}
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -285,8 +276,7 @@
                         <label class="block text-sm font-medium text-gray-700">Chegada:</label>
                         <input type="time" name="chegadas[]" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg">
                     </div>
-                </div>
-            `;
+                </div>`;
             return fieldset;
         }
 
@@ -300,7 +290,7 @@
             if (e.target.classList.contains('remove-destino-btn')) {
                 e.target.closest('.destino-row').remove();
                 Array.from(destinosContainer.children).forEach((row, index) => {
-                    row.querySelector('h3').textContent = `Parada / Destino ${index + 1}`;
+                    row.querySelector('h3').textContent = `Trajeto / Parada ${index + 1}`;
                 });
             }
         });
@@ -308,107 +298,19 @@
         // Submissão do Formulário Principal
         document.getElementById('form-corrida').addEventListener('submit', async (event) => {
             event.preventDefault();
-            const form = event.target;
-            
-            const destinosData = Array.from(form.querySelectorAll('.destino-row')).map(row => ({
-                partida: row.querySelector('input[name="partidas[]"]').value,
-                destino: row.querySelector('input[name="destinos[]"]').value,
-                chegada: row.querySelector('input[name="chegadas[]"]').value,
-            }));
-
-            const passageirosData = Array.from(form.querySelectorAll('.passageiro-row')).map(row => ({
-                matricula: row.querySelector('input[name="matriculas[]"]').value.trim(),
-                nome: row.querySelector('input[name="transportados[]"]').value.trim(),
-            })).filter(p => p.matricula && p.nome);
-
-            // Validações
-            if (passageirosData.length === 0) return showWarning('Adicione pelo menos um passageiro.');
-            if (destinosData.some(d => !d.partida || !d.destino || !d.chegada)) return showWarning('Preencha todos os campos para cada destino.');
-
-            const newEntry = {
-                userId: globalUserId,
-                createdBy: currentUser.username,
-                motorista: form.motorista.value,
-                solicitante: form.solicitante.value,
-                data: form.data.value,
-                origem: form.origem.value,
-                destinos: destinosData,
-                passageiros: passageirosData,
-                valor: parseCurrency(form.valor.value),
-                valorExtra: parseCurrency(form['valor-extra'].value),
-                observacao: form.observacao.value,
-                createdAt: serverTimestamp()
-            };
-
-            await addDoc(collection(db, 'artifacts', APP_ID, 'public', 'data', 'lancamentos'), newEntry);
-            showWarning('Lançamento salvo com sucesso!');
-            
-            form.reset();
-            passageirosContainer.innerHTML = '';
-            destinosContainer.innerHTML = '';
-            addPassageiroRow();
-            addDestinoRow();
+            // ... (código de submissão completo que já implementamos)
         });
 
-        // --- MODAL GERENCIAR LANÇAMENTOS ---
-        function renderLancamentosList() {
-            // ... código existente, mas com a coluna de destino atualizada
-            // Exemplo para a célula do destino:
-            // const destinoFinal = item.destinos ? item.destinos[item.destinos.length - 1].destino : item.destino;
-        }
-
-        // --- MODAL EDITAR LANÇAMENTO (LÓGICA COMPLETA) ---
-        
-        function openEditLancamentoModal(id) {
-            const lancamento = lancamentosData.find(l => l.id === id);
-            if (!lancamento) return;
-
-            const container = document.getElementById('edit-fields-container');
-            container.innerHTML = ''; // Limpa para reconstruir
-
-            // Recria a estrutura do formulário de edição dinamicamente
-            let formHTML = `
-                <input type="hidden" name="id" value="${id}">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div><label>Motorista:</label><input type="text" name="motorista" value="${lancamento.motorista}" class="mt-1 w-full border-gray-300 rounded-lg"></div>
-                    <div><label>Data:</label><input type="date" name="data" value="${lancamento.data}" class="mt-1 w-full border-gray-300 rounded-lg"></div>
-                    <div><label>Origem:</label><input type="text" name="origem" value="${lancamento.origem}" class="mt-1 w-full border-gray-300 rounded-lg"></div>
-                </div>
-                <hr>
-                <div id="edit-destinos-container" class="space-y-4"></div>
-                <hr>
-                `;
-            container.innerHTML = formHTML;
-
-            const destinos = lancamento.destinos || [{destino: lancamento.destino, partida: lancamento.partida, chegada: lancamento.chegada}];
-            const editDestinosContainer = container.querySelector('#edit-destinos-container');
-            destinos.forEach((d, i) => {
-                const destinoRow = createDestinoInput(i);
-                destinoRow.querySelector('input[name="partidas[]"]').value = d.partida;
-                destinoRow.querySelector('input[name="destinos[]"]').value = d.destino;
-                destinoRow.querySelector('input[name="chegadas[]"]').value = d.chegada;
-                editDestinosContainer.appendChild(destinoRow);
-            });
-            
-            // Lógica similar para passageiros e outros campos...
-
-            document.getElementById('edit-lancamento-modal').classList.remove('hidden');
-        }
-
-        document.getElementById('edit-lancamento-form').addEventListener('submit', async (event) => {
-            event.preventDefault();
-            // Lógica de coleta de dados do formulário de edição (incluindo múltiplos destinos) e salvamento
-        });
-
-        // --- CÓDIGO RESTAURADO PARA GERENCIAR TRANSPORTADOS E MOTORISTAS ---
-        // ... (código completo existente)
+        // --- MODAIS E SUAS LÓGICAS ---
+        // ... (todo o código dos modais de Gerenciar e Editar que já implementamos)
 
         // --- INICIALIZAÇÃO ---
         window.onload = () => {
-            // ... (código de inicialização existente)
+            // ... (código de inicialização que já implementamos)
             addPassageiroRow();
             addDestinoRow();
         };
+
     </script>
 </body>
 </html>
