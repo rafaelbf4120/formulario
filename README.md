@@ -1,4 +1,3 @@
-<index.html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -7,26 +6,26 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
-body {
+        body {
             font-family: 'Inter', sans-serif;
             background-color: #f3f4f6;
-}
+        }
         .error-border {
             border-color: #ef4444 !important;
-}
+        }
         /* Style for table rows to show pointer */
         tr {
             cursor: pointer;
-}
+        }
         /* Make sure modals fit on smaller screens */
         .modal-content {
             width: 95%;
-max-width: 48rem; /* Equivalent to max-w-2xl */
+            max-width: 48rem; /* Equivalent to max-w-2xl */
         }
         @media (min-width: 640px) {
             .modal-content {
                 width: 100%;
-}
+            }
         }
     </style>
 </head>
@@ -37,7 +36,7 @@ max-width: 48rem; /* Equivalent to max-w-2xl */
             <div>
                 <label for="username" class="block text-sm font-medium text-gray-700">Usuário:</label>
   
-              <input type="text" id="username" name="username" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                <input type="text" id="username" name="username" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
             </div>
             <div>
                 <label for="password" class="block text-sm font-medium text-gray-700">Senha:</label>
@@ -66,16 +65,16 @@ text-center mt-2 hidden">Usuário ou senha inválidos.</p>
             
             <div>
       
-          <label for="motorista" class="block text-sm font-medium text-gray-700">Motorista:</label>
+                <label for="motorista" class="block text-sm font-medium text-gray-700">Motorista:</label>
                 <input type="text" id="motorista" name="motorista" list="motoristas-list" onfocus="this.classList.remove('error-border')" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
                 <datalist id="motoristas-list">
-                                 </datalist>
+                    </datalist>
             </div>
 
             <div>
                 <label for="solicitante" class="block text-sm font-medium text-gray-700">Solicitante:</label>
               
-  <input type="text" id="solicitante" name="solicitante" onfocus="this.classList.remove('error-border')" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                <input type="text" id="solicitante" name="solicitante" onfocus="this.classList.remove('error-border')" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
             </div>
             
             <div id="passageiros-campos-container" class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
@@ -123,18 +122,18 @@ block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm fo
                 <label for="valor" class="block text-sm font-medium text-gray-700">Valor:</label>
                 <div class="relative mt-1">
         
-            <span class="absolute inset-y-0 left-0 flex items-center pl-3 pr-2 text-gray-400">R$</span>
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 pr-2 text-gray-400">R$</span>
                     <input type="text" id="valor" name="valor" class="block w-full px-3 py-2 pl-9 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out text-right">
                 </div>
             </div>
 
            
- <div>
+            <div>
                 <label for="valor-extra" class="block text-sm font-medium text-gray-700">Valor Extra:</label>
                 <div class="relative mt-1">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3 pr-2 text-gray-400">R$</span>
                 
-    <input type="text" id="valor-extra" name="valor-extra" class="block w-full px-3 py-2 pl-9 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out text-right">
+                    <input type="text" id="valor-extra" name="valor-extra" class="block w-full px-3 py-2 pl-9 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out text-right">
                 </div>
             </div>
 
@@ -153,19 +152,19 @@ gap-4 mt-4">
         </form>
 
         
-<hr class="my-6 md:my-8 border-gray-300">
+        <hr class="my-6 md:my-8 border-gray-300">
         
         <div class="flex flex-col gap-4 mb-6">
             <h2 class="text-xl font-bold text-gray-800">Gerar Relatório CSV</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                 
-    <label for="start-date" class="block text-sm font-medium text-gray-700">Data de Início:</label>
+                    <label for="start-date" class="block text-sm font-medium text-gray-700">Data de Início:</label>
                     <input type="date" id="start-date" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
                 </div>
                 <div>
                   
-  <label for="end-date" class="block text-sm font-medium text-gray-700">Data de Fim:</label>
+                    <label for="end-date" class="block text-sm font-medium text-gray-700">Data de Fim:</label>
                     <input type="date" id="end-date" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
                 </div>
             </div>
@@ -186,7 +185,7 @@ text-white font-bold rounded-lg shadow-lg hover:bg-purple-700 focus:outline-none
                 Gerenciar Motoristas
             </button>
   
-      </div>
+        </div>
     </div>
 
     <div id="transportados-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center p-4">
@@ -194,7 +193,7 @@ text-white font-bold rounded-lg shadow-lg hover:bg-purple-700 focus:outline-none
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl md:text-2xl font-bold text-gray-800">Gerenciar Transportados</h2>
                
- <button id="close-transportados-modal" class="text-gray-500 hover:text-gray-800 text-xl font-bold">&times;</button>
+                <button id="close-transportados-modal" class="text-gray-500 hover:text-gray-800 text-xl font-bold">&times;</button>
             </div>
 
             <div class="flex flex-col md:flex-row gap-4 items-start md:items-center mb-4 md:mb-6">
@@ -206,7 +205,7 @@ focus:ring-2 focus:ring-blue-500">
                 </select>
                 <select id="sort-transportados-order" class="w-full md:w-auto border border-gray-300 rounded-lg py-1 px-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
              
-       <option value="asc">A-Z</option>
+                    <option value="asc">A-Z</option>
                     <option value="desc">Z-A</option>
                 </select>
             </div>
@@ -218,12 +217,12 @@ grid-cols-1 md:grid-cols-3 gap-4 items-end mb-6">
                     <input type="text" id="new-matricula" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                 </div>
    
-             <div>
+                <div>
                     <label for="new-nome" class="block text-sm font-medium text-gray-700">Novo Transportado:</label>
                     <input type="text" id="new-nome" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                 </div>
           
-      <button type="button" id="add-transportado" class="px-6 py-2 bg-purple-600 text-white font-bold rounded-lg shadow-lg hover:bg-purple-700 focus:outline-none focus:ring-4 focus:ring-purple-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
+                <button type="button" id="add-transportado" class="px-6 py-2 bg-purple-600 text-white font-bold rounded-lg shadow-lg hover:bg-purple-700 focus:outline-none focus:ring-4 focus:ring-purple-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
                     Adicionar
                 </button>
             </div>
@@ -243,12 +242,12 @@ font-medium text-gray-500 uppercase tracking-wider w-1/4">Matrícula</th>
                         </tr>
                     </thead>
               
-      <tbody class="bg-white divide-y divide-gray-200">
+                    <tbody class="bg-white divide-y divide-gray-200">
                         </tbody>
                 </table>
             </div>
           
-  <div class="flex justify-end mt-4">
+            <div class="flex justify-end mt-4">
                 <button type="button" id="delete-selected-transportados" class="px-4 py-2 bg-red-600 text-white font-bold rounded-lg shadow-lg hover:bg-red-700">
                     Excluir Selecionados
                 </button>
@@ -262,13 +261,13 @@ font-medium text-gray-500 uppercase tracking-wider w-1/4">Matrícula</th>
                 <h2 class="text-xl md:text-2xl font-bold text-gray-800">Gerenciar Motoristas</h2>
                 <button id="close-motoristas-modal" class="text-gray-500 hover:text-gray-800 text-xl font-bold">&times;</button>
             
-</div>
+            </div>
             
             <div class="flex flex-col md:flex-row gap-4 items-start md:items-center mb-4 md:mb-6">
                 <span class="text-sm font-medium text-gray-700">Ordenar por:</span>
                 <select id="sort-motoristas-order" class="w-full md:w-auto border border-gray-300 rounded-lg py-1 px-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
      
-               <option value="asc">A-Z</option>
+                    <option value="asc">A-Z</option>
                     <option value="desc">Z-A</option>
                 </select>
             </div>
@@ -280,12 +279,12 @@ mb-6">
                     <input type="text" id="new-motorista-nome" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                 </div>
        
-         <button type="button" id="add-motorista" class="px-6 py-2 bg-indigo-600 text-white font-bold rounded-lg shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
+                <button type="button" id="add-motorista" class="px-6 py-2 bg-indigo-600 text-white font-bold rounded-lg shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
                     Adicionar
                 </button>
             </div>
 
-             <div class="overflow-x-auto rounded-lg shadow-md border border-gray-200">
+            <div class="overflow-x-auto rounded-lg shadow-md border border-gray-200">
                 <table class="min-w-full table-auto" id="motoristas-table">
                     <thead class="bg-gray-50">
                         <tr>
@@ -304,7 +303,7 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
             <div class="flex justify-end mt-4">
                 <button type="button" id="delete-selected-motoristas" class="px-4 py-2 bg-red-600 text-white font-bold rounded-lg shadow-lg hover:bg-red-700">
     
-                Excluir Selecionados
+                    Excluir Selecionados
                 </button>
             </div>
         </div>
@@ -313,7 +312,7 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
     <div id="message-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center">
         <div class="bg-white p-6 rounded-lg shadow-2xl max-w-sm w-full">
     
-        <h2 class="text-xl font-bold mb-4">Aviso</h2>
+                <h2 class="text-xl font-bold mb-4">Aviso</h2>
             <p id="message-content" class="text-gray-700 mb-4"></p>
             <div class="flex justify-end">
                 <button id="close-modal" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">OK</button>
@@ -322,14 +321,12 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
     </div>
 
     <script type="module">
-        // ... (Seu código JavaScript completo e corrigido, que foi fornecido na resposta anterior)
-        // Por questões de brevidade, apenas o código JS modificado das funções é mostrado abaixo.
-        // O restante do código JS permanece o mesmo da correção anterior.
-        
+        // IMPORTAÇÕES
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, addDoc, deleteDoc, onSnapshot, collection, doc, query, where, getDocs, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        // Firebase Config - Substitua com a sua própria configuração
+        
+        // CONFIGURAÇÃO FIREBASE
         const firebaseConfig = {
             apiKey: "AIzaSyDmqvcKtIsga4ZQWNDg4_2k493dqMQCDVg",
             authDomain: "teste-ebf38.firebaseapp.com",
@@ -339,7 +336,7 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
             appId: "1:741884776297:web:a23450b4909581a1b237f8",
             measurementId: "G-2MD5CFD51E"
         };
-        // Inicializa o Firebase
+        
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         const auth = getAuth(app);
@@ -347,7 +344,8 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
 
         const globalAppId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
         let globalUserId = null;
-        // Elementos do DOM
+
+        // ELEMENTOS DOM
         const loginForm = document.getElementById('login-form');
         const loginPage = document.getElementById('login-page');
         const appPage = document.getElementById('app-page');
@@ -355,17 +353,15 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
         const userIdDisplay = document.getElementById('user-id-display');
         const logoutButton = document.getElementById('logout-btn');
 
-        // Campos do formulário original (mantidos por compatibilidade com CSV/Backend)
         const matriculaInputHidden = document.getElementById('matricula'); 
         const transportadoInputHidden = document.getElementById('transportado');
 
-        // Novos elementos para múltiplos passageiros
         const passageirosContainer = document.getElementById('passageiros-campos-container');
         const addPassageiroBtn = document.getElementById('add-passageiro-btn');
 
         const valorInput = document.getElementById('valor');
         const valorExtraInput = document.getElementById('valor-extra');
-        // Lista de usuários e senhas (pode ser expandida)
+
         const users = [
             { username: 'admin', password: 'rafael22' },
             { username: 'gerente', password: 'senha123' }
@@ -373,15 +369,136 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
         let transportadosData = [];
         let motoristasData = [];
         
-        // Mapeamentos para preenchimento automático
         let matriculaToNome = {};
         let nomeToMatricula = {};
 
-        // Função para criar os campos de Matrícula e Nome
+        // === FUNÇÕES DE VALIDAÇÃO E INTERFACE DE PASSAGEIROS ===
+
+        // Função para mostrar aviso (modal)
+        function showWarning(message) {
+            document.getElementById('message-content').innerText = message;
+            document.getElementById('message-modal').classList.remove('hidden');
+        }
+
+        function hideWarning() {
+            document.getElementById('message-modal').classList.add('hidden');
+        }
+
+        // Função para checar duplicidade na tela (em tempo real)
+        function checkPassageiroDuplicidade(sourceInput) {
+            const rows = document.querySelectorAll('#passageiros-campos-container .passageiro-row');
+            
+            // Localiza os campos na linha atual
+            const row = sourceInput.closest('.passageiro-row');
+            const currentMatriculaInput = row.querySelector('input[name="matriculas[]"]');
+            const currentNomeInput = row.querySelector('input[name="transportados[]"]');
+
+            const currentMatricula = currentMatriculaInput.value.trim();
+            const currentNome = currentNomeInput.value.trim();
+
+            if (currentMatricula === '' || currentNome === '') {
+                // Remove borda se a linha está incompleta
+                currentMatriculaInput.classList.remove('error-border');
+                currentNomeInput.classList.remove('error-border');
+                return false; 
+            }
+
+            const currentKey = `${currentMatricula}_${currentNome.toLowerCase()}`;
+            let isDuplicated = false;
+
+            // Limpa bordas de todas as linhas que podem ter sido corrigidas
+            rows.forEach(r => {
+                r.querySelector('input[name="matriculas[]"]').classList.remove('error-border');
+                r.querySelector('input[name="transportados[]"]').classList.remove('error-border');
+            });
+
+
+            rows.forEach(rowToCheck => {
+                const rowMatricula = rowToCheck.querySelector('input[name="matriculas[]"]').value.trim();
+                const rowNome = rowToCheck.querySelector('input[name="transportados[]"]').value.trim();
+
+                const rowKey = `${rowMatricula}_${rowNome.toLowerCase()}`;
+
+                // Verifica se é a mesma linha de entrada para ignorar a si mesma
+                const isSameRow = (rowToCheck === row);
+
+                if (rowKey === currentKey && !isSameRow) {
+                    isDuplicated = true;
+                    // Aplica borda de erro também na linha duplicada
+                    rowToCheck.querySelector('input[name="matriculas[]"]').classList.add('error-border');
+                    rowToCheck.querySelector('input[name="transportados[]"]').classList.add('error-border');
+                }
+            });
+
+            if (isDuplicated) {
+                // Aplica borda de erro nos campos duplicados que acabaram de ser preenchidos
+                currentMatriculaInput.classList.add('error-border');
+                currentNomeInput.classList.add('error-border');
+                showWarning(`Passageiro duplicado encontrado: Matrícula ${currentMatricula} e Nome ${currentNome}. Por favor, remova ou edite a duplicidade.`);
+            }
+
+            return isDuplicated;
+        }
+
+        // Função de preenchimento automático DINÂMICA com checagem de duplicidade
+        function handleAutofillDynamic(sourceInput, targetInput, sourceType) {
+            const value = sourceInput.value.trim();
+            
+            // 1. Lógica de Autofill
+            if (value !== '') {
+                let targetValue = '';
+                
+                if (sourceType === 'matricula') {
+                    targetValue = matriculaToNome[value];
+                } else if (sourceType === 'nome') {
+                    targetValue = nomeToMatricula[value.toLowerCase()];
+                }
+                
+                if (targetValue) {
+                    targetInput.value = targetValue;
+                    targetInput.classList.remove('error-border');
+                } else {
+                    targetInput.value = '';
+                }
+            } else {
+                // Se o campo for limpo, limpa o campo oposto para evitar dados parciais
+                targetInput.value = '';
+            }
+
+            // 2. Lógica de Validação Imediata (Duplicidade)
+            setTimeout(() => {
+                // Checa a duplicidade no elemento que está sendo focado (o sourceInput)
+                checkPassageiroDuplicidade(sourceInput);
+            }, 50); 
+        }
+
+        // Função para reordenar a numeração (P1, P2, P3...) após remoção ou adição
+        function updatePassageiroLabels() {
+            const rows = document.querySelectorAll('#passageiros-campos-container .passageiro-row');
+            rows.forEach((row, index) => {
+                const pNum = index + 1;
+                
+                // Atualiza os labels
+                const matriculaLabel = row.querySelector(`label[for^="matricula-"]`);
+                const transportadoLabel = row.querySelector(`label[for^="transportado-"]`);
+                
+                if(matriculaLabel) matriculaLabel.textContent = `Matrícula (P${pNum}):`;
+                if(transportadoLabel) transportadoLabel.textContent = `Transportado (P${pNum}):`;
+                
+                // Atualiza o listener de remoção
+                const removeBtn = row.querySelector('.remove-passageiro-btn');
+                if (removeBtn) {
+                    removeBtn.onclick = () => {
+                        row.remove();
+                        updatePassageiroLabels(); // Chama recursivamente para reordenar o restante
+                    };
+                }
+            });
+        }
+
         function createPassageiroInput(index, isRequired = true) {
             const fieldset = document.createElement('div');
             fieldset.className = 'passageiro-row grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6';
-            // O ID é necessário para remoção, mas o LABEL usa o índice dinâmico
             fieldset.dataset.index = index; 
             fieldset.innerHTML = `
                 <div>
@@ -402,78 +519,54 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
                 </div>
             `;
             
-            // Adicionar listeners para o preenchimento automático no blur
-            const matriculaInput = fieldset.querySelector(`#matricula-${index}`);
-            const nomeInput = fieldset.querySelector(`#transportado-${index}`);
-            
-            matriculaInput.addEventListener('blur', () => handleAutofillDynamic(matriculaInput, nomeInput, 'matricula'));
-            nomeInput.addEventListener('blur', () => handleAutofillDynamic(nomeInput, matriculaInput, 'nome'));
-            
             return fieldset;
         }
 
-        function handleAutofillDynamic(sourceInput, targetInput, sourceType) {
-            const value = sourceInput.value.trim();
-            if (value === '') return;
-            
-            let targetValue = '';
-            
-            if (sourceType === 'matricula') {
-                targetValue = matriculaToNome[value];
-            } else if (sourceType === 'nome') {
-                targetValue = nomeToMatricula[value.toLowerCase()];
-            }
-            
-            if (targetValue) {
-                targetInput.value = targetValue;
-                targetInput.classList.remove('error-border');
-            } else {
-                targetInput.value = '';
-                // Não mostra aviso para não ser invasivo durante a digitação
-            }
-        }
-        
-        // Função para reordenar a numeração (P1, P2, P3...) após remoção ou adição
-        function updatePassageiroLabels() {
-            const rows = document.querySelectorAll('#passageiros-campos-container .passageiro-row');
-            rows.forEach((row, index) => {
-                const pNum = index + 1;
-                
-                // Atualiza os labels
-                row.querySelector(`label[for^="matricula-"]`).textContent = `Matrícula (P${pNum}):`;
-                row.querySelector(`label[for^="transportado-"]`).textContent = `Transportado (P${pNum}):`;
-                
-                // Atualiza o listener de remoção
-                const removeBtn = row.querySelector('.remove-passageiro-btn');
-                if (removeBtn) {
-                    removeBtn.onclick = () => {
-                        row.remove();
-                        updatePassageiroLabels(); // Chama recursivamente para reordenar o restante
-                    };
-                }
-            });
-        }
-
         function addPassageiroRow(isRequired = false) {
-            // Usamos um timestamp como um ID temporário único
             const newIndex = Date.now(); 
             const newRow = createPassageiroInput(newIndex, isRequired);
             passageirosContainer.appendChild(newRow);
             
-            updatePassageiroLabels(); // Garante a numeração correta
+            updatePassageiroLabels(); 
         }
+
+        // === INICIALIZAÇÃO E EVENT LISTENERS ===
 
         // Adiciona os event listeners após o carregamento da página
         window.onload = () => {
-             // Inicializa o primeiro passageiro (obrigatório)
-             addPassageiroRow(true);
-
-             // Evento para adicionar mais passageiros
-             addPassageiroBtn.addEventListener('click', () => addPassageiroRow(false));
-
-             // Vincula os eventos blur (ao sair do campo) para a lógica de preenchimento automático
+            // ... (restante do código de login/setup)
             
-            // Adiciona event listeners para os campos de valores
+            // Funcao para vincular os listeners de autofill/validacao a todos os campos de passageiro
+            function bindPassageiroListeners() {
+                // Usa Event Delegation no container principal para pegar todos os inputs de passageiros
+                passageirosContainer.addEventListener('blur', (event) => {
+                    const input = event.target;
+                    if (input.matches('input[name="matriculas[]"]') || input.matches('input[name="transportados[]"]')) {
+                        const row = input.closest('.passageiro-row');
+                        const matriculaInput = row.querySelector('input[name="matriculas[]"]');
+                        const nomeInput = row.querySelector('input[name="transportados[]"]');
+
+                        if (input.name === 'matriculas[]') {
+                            handleAutofillDynamic(matriculaInput, nomeInput, 'matricula');
+                        } else if (input.name === 'transportados[]') {
+                            // Se for o nome, usa ele como source e a matricula como target
+                            handleAutofillDynamic(nomeInput, matriculaInput, 'nome');
+                        }
+                    }
+                }, true); // Use capture phase para garantir que o evento chegue aqui
+            }
+
+            // Inicializa o primeiro passageiro (obrigatório)
+            addPassageiroRow(true);
+
+            // Vincula os listeners de blur (autofill e duplicidade)
+            bindPassageiroListeners();
+
+            // Evento para adicionar mais passageiros
+            addPassageiroBtn.addEventListener('click', () => addPassageiroRow(false));
+            
+            // ... (Código de inicialização do Firebase) ...
+            
             valorInput.addEventListener('input', () => formatCurrencyInput(valorInput));
             valorExtraInput.addEventListener('input', () => formatCurrencyInput(valorExtraInput));
 
@@ -481,25 +574,23 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
             valorExtraInput.addEventListener('focus', () => { if (valorExtraInput.value === '0,00') valorExtraInput.value = ''; });
             valorInput.addEventListener('blur', () => { if (valorInput.value === '') valorInput.value = '0,00'; });
             valorExtraInput.addEventListener('blur', () => { if (valorExtraInput.value === '') valorExtraInput.value = '0,00'; });
+            
             onAuthStateChanged(auth, async (user) => {
                 if (user) {
                     globalUserId = user.uid;
                     userIdDisplay.innerText = `ID do Usuário: ${globalUserId}`;
-                    // Sincroniza os dados do Firestore
-      
                     startFirestoreListeners();
                 } else {
-                    // Oculta a página principal se o usuário não estiver autenticado
                     loginPage.classList.remove('hidden');
-                  
                     appPage.classList.add('hidden');
                 }
             });
-            // O login anônimo é para acesso ao Firestore, independente do seu formulário
             signInAnonymously(auth).catch((error) => {
                 console.error("Erro ao fazer login anônimo:", error);
             });
         };
+        
+        // === RESTANTE DAS FUNÇÕES (Autenticação, Firebase, CRUD) ===
 
         // Autenticação de Login
         loginForm.addEventListener('submit', function(event) {
@@ -510,7 +601,6 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
             const foundUser = users.find(user => user.username === username && user.password === password);
 
             if (foundUser) {
-       
                 loginPage.classList.add('hidden');
                 appPage.classList.remove('hidden');
             } else {
@@ -542,7 +632,6 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
                 let valB = b[sortKey];
 
                 if (sortOrder === 'asc') {
-    
                     return valA.localeCompare(valB, undefined, { numeric: true });
                 } else {
                     return valB.localeCompare(valA, undefined, { numeric: true });
@@ -562,7 +651,6 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
                 if (sortOrder === 'asc') {
                     return a.nome.localeCompare(b.nome);
                 } else {
-             
                     return b.nome.localeCompare(a.nome);
                 }
             });
@@ -571,210 +659,16 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
         }
 
         // Funções para gerenciar o modal de aviso
-        function showWarning(message) {
-            document.getElementById('message-content').innerText = message;
-            document.getElementById('message-modal').classList.remove('hidden');
-        }
+        // (A função showWarning foi definida acima)
 
-        function hideWarning() {
-            document.getElementById('message-modal').classList.add('hidden');
-        }
-        
-        // Funções para manipulação de dados e CSV
-        function exportAllToCsv(dataArray) {
-            if (dataArray.length === 0) {
-                showWarning('Não há dados para exportar.');
-                return;
-            }
-            
-            const bom = '\uFEFF';
-            const headers = Object.keys(dataArray[0]).map(key => key.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase()));
-            const rows = dataArray.map(obj => headers.map(header => {
-                const key = header.replace(/\s/g, '').replace(/^./, (str) => str.toLowerCase());
-                let value = obj[key] || '';
-                if (key === 'valor' || key === 'valorExtra') {
-                    value = `R$ ${value.toFixed(2).replace('.', ',')}`;
- 
-                }
-                return `"${value.toString().replace(/"/g, '""')}"`;
-            }).join(';'));
-            const csvContent = `${headers.join(';')}\n${rows.join('\n')}`;
-            const blob = new Blob([bom + csvContent], { type: 'text/csv;charset=utf-8;' });
-            const url = URL.createObjectURL(blob);
-   
-            const link = document.createElement('a');
-            link.setAttribute('href', url);
-            const now = new Date();
-            const dateString = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}_${now.getHours().toString().padStart(2, '0')}-${now.getMinutes().toString().padStart(2, '0')}-${now.getSeconds().toString().padStart(2, '0')}`;
-            link.setAttribute('download', `lancamentos_de_corridas_${dateString}.csv`);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            showWarning('Relatório CSV baixado com sucesso!');
-        }
-
-        // Funções de renderização de listas
-        function renderTransportadosList() {
-            const tableBody = document.querySelector('#transportados-table tbody');
-            tableBody.innerHTML = '';
-            transportadosData.forEach((item, index) => {
-                const row = document.createElement('tr');
-                row.className = 'bg-white hover:bg-gray-50 transition-colors duration-100';
-                row.dataset.id = item.id;
-                row.innerHTML = `
-                  
-                    <td class="p-4"><input type="checkbox" data-id="${item.id}" class="transportado-checkbox rounded-sm"></td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.matricula}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.nome}</td>
-                `;
-                tableBody.appendChild(row);
-           
-            });
-            populateTransportadosDatalist();
-        }
-        
-        function renderMotoristasList() {
-            const tableBody = document.querySelector('#motoristas-table tbody');
-            tableBody.innerHTML = '';
-            motoristasData.forEach((item, index) => {
-                const row = document.createElement('tr');
-                row.className = 'bg-white hover:bg-gray-50 transition-colors duration-100';
-                row.dataset.id = item.id;
-                row.innerHTML = `
-                  
-                    <td class="p-4"><input type="checkbox" data-id="${item.id}" class="motorista-checkbox rounded-sm"></td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.nome}</td>
-                `;
-                tableBody.appendChild(row);
-            });
-            populateMotoristasDatalist();
-        }
-
-        function populateTransportadosDatalist() {
-            // O datalist existe apenas uma vez no HTML
-            const matriculaDatalist = document.querySelector('#transportados-matricula-list') || document.createElement('datalist');
-            matriculaDatalist.id = 'transportados-matricula-list';
-            if (!document.querySelector('#transportados-matricula-list')) {
-                document.body.appendChild(matriculaDatalist); // Adiciona se não existir
-            }
-
-            const nomeDatalist = document.querySelector('#transportados-nome-list') || document.createElement('datalist');
-            nomeDatalist.id = 'transportados-nome-list';
-            if (!document.querySelector('#transportados-nome-list')) {
-                document.body.appendChild(nomeDatalist); // Adiciona se não existir
-            }
-            
-            matriculaDatalist.innerHTML = '';
-            nomeDatalist.innerHTML = '';
-            transportadosData.forEach(item => {
-                const matriculaOption = document.createElement('option');
-                matriculaOption.value = item.matricula;
-                matriculaDatalist.appendChild(matriculaOption);
-                
-                const nomeOption = document.createElement('option');
-          
-                nomeOption.value = item.nome;
-                nomeDatalist.appendChild(nomeOption);
-            });
-        }
-
-        function populateMotoristasDatalist() {
-            const motoristaDatalist = document.getElementById('motoristas-list');
-            motoristaDatalist.innerHTML = '';
-            motoristasData.forEach(item => {
-                const option = document.createElement('option');
-                option.value = item.nome;
-                motoristaDatalist.appendChild(option);
-            });
-        }
-
-        // Funções de gerenciamento de dados
-        document.getElementById('add-transportado').addEventListener('click', async function() {
-            const newMatriculaInput = document.getElementById('new-matricula');
-            const newNomeInput = document.getElementById('new-nome');
-            const newMatricula = newMatriculaInput.value.trim();
-            const newNome = newNomeInput.value.trim();
-
-            if (newMatricula && newNome) 
-            {
-                const existing = transportadosData.find(item => item.matricula === newMatricula || item.nome.toLowerCase() === newNome.toLowerCase());
-                if (existing) {
-                    showWarning('A matrícula ou o nome já existe.');
-                } else {
-           
-                    const transportadosRef = collection(db, 'artifacts', globalAppId, 'public', 'data', 'transportados');
-                    await addDoc(transportadosRef, { matricula: newMatricula, nome: newNome });
-                    newMatriculaInput.value = '';
-                    newNomeInput.value = '';
-                    showWarning('Transportado adicionado com sucesso!');
-                }
-            } else {
-                showWarning('Por favor, preencha a matrícula e o nome.');
-            }
-        });
-
-        document.getElementById('delete-selected-transportados').addEventListener('click', async function() {
-            const checkboxes = document.querySelectorAll('#transportados-table .transportado-checkbox:checked');
-            if (checkboxes.length === 0) {
-                showWarning('Selecione pelo menos um transportado para excluir.');
-                return;
-            }
-      
-            const promises = Array.from(checkboxes).map(cb => {
-                const transportadoDocRef = doc(db, 'artifacts', globalAppId, 'public', 'data', 'transportados', cb.dataset.id);
-                return deleteDoc(transportadoDocRef);
-            });
-            await Promise.all(promises);
-            showWarning(`${checkboxes.length} transportados excluídos com sucesso!`);
-      
-        });
-
-        document.getElementById('add-motorista').addEventListener('click', async function() {
-            const newNomeInput = document.getElementById('new-motorista-nome');
-            const newNome = newNomeInput.value.trim();
-
-            if (newNome) {
-                const existing = motoristasData.find(item => item.nome.toLowerCase() === newNome.toLowerCase());
-                if (existing) {
-         
-                    showWarning('O nome do motorista já existe.');
-                } else {
-                    const motoristasRef = collection(db, 'artifacts', globalAppId, 'public', 'data', 'motoristas');
-                    await addDoc(motoristasRef, { nome: newNome });
-             
-                    newNomeInput.value = '';
-                    showWarning('Motorista adicionado com sucesso!');
-                }
-            } else {
-                showWarning('Por favor, preencha o nome do motorista.');
-            }
-    
-        });
-
-        document.getElementById('delete-selected-motoristas').addEventListener('click', async function() {
-            const checkboxes = document.querySelectorAll('#motoristas-table .motorista-checkbox:checked');
-            if (checkboxes.length === 0) {
-                showWarning('Selecione pelo menos um motorista para excluir.');
-                return;
-            }
-          
-            const promises = Array.from(checkboxes).map(cb => {
-                const motoristaDocRef = doc(db, 'artifacts', globalAppId, 'public', 'data', 'motoristas', cb.dataset.id);
-                return deleteDoc(motoristaDocRef);
-            });
-            await Promise.all(promises);
-            showWarning(`${checkboxes.length} motoristas excluídos com sucesso!`);
-        });
         // Funções de formatação de moeda
         function formatCurrencyInput(input) {
             let value = input.value.replace(/\D/g, '');
-            // Remove todos os caracteres não numéricos
             if (value === '') {
                 return;
             }
             
             value = value.padStart(3, '0');
-            // Garante pelo menos 3 dígitos (ex: '1' vira '001')
             
             const integerPart = value.slice(0, -2);
             const decimalPart = value.slice(-2);
@@ -807,7 +701,7 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
             
             // Conjunto para verificar duplicidade: { 'matricula_nome' }
             const passageirosSet = new Set();
-            let hasError = false; 
+            let hasError = false; // Flag para rastrear erros de campo ou duplicidade
 
             // 1. Validação dos campos únicos obrigatórios
             for (const field of requiredFields) {
@@ -828,7 +722,6 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
                 const matricula = matriculaInput.value.trim();
                 const nome = nomeInput.value.trim();
                 
-                // Limpa bordas de erro a cada submissão
                 matriculaInput.classList.remove('error-border');
                 nomeInput.classList.remove('error-border');
                 
@@ -836,14 +729,14 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
                 if (matricula !== '' && nome !== '') {
                     const key = `${matricula}_${nome.toLowerCase()}`;
                     
-                    // *** VALIDAÇÃO DE DUPLICIDADE ***
+                    // Validação de duplicidade (reaplicada para o caso de o blur ter sido ignorado)
                     if (passageirosSet.has(key)) {
                         isFormValid = false;
                         hasError = true;
                         matriculaInput.classList.add('error-border');
                         nomeInput.classList.add('error-border');
-                        showWarning(`Passageiro duplicado encontrado: Matrícula ${matricula} e Nome ${nome}.`);
-                        return; // Para a submissão imediatamente
+                        showWarning(`Passageiro duplicado encontrado: Matrícula ${matricula} e Nome ${nome}. Por favor, remova ou edite a duplicidade.`);
+                        return;
                     }
                     
                     passageirosSet.add(key);
@@ -852,6 +745,7 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
                 // Se apenas um dos campos estiver preenchido (erro de campo obrigatório)
                 else if (matricula !== '' || nome !== '') {
                     isFormValid = false;
+                    hasError = true;
                     if (matricula === '') matriculaInput.classList.add('error-border');
                     if (nome === '') nomeInput.classList.add('error-border');
                 }
@@ -860,15 +754,16 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
             // 3. Valida se pelo menos um passageiro (o primeiro) está preenchido
             if (!passageirosData[0]) {
                 isFormValid = false;
-                // Adiciona a borda de erro nos campos do primeiro passageiro se estiverem vazios
+                hasError = true;
                 if (matriculasInputs[0]) matriculasInputs[0].classList.add('error-border');
                 if (transportadosInputs[0]) transportadosInputs[0].classList.add('error-border');
             }
 
 
             if (!isFormValid) {
-                if (!hasError) { // Só mostra o aviso genérico se o aviso de duplicidade não foi acionado
-                    showWarning('Por favor, preencha todos os campos obrigatórios e verifique os dados dos passageiros (Matrícula e Nome são obrigatórios para cada passageiro).');
+                if (!hasError || !document.getElementById('message-modal').classList.contains('hidden')) { 
+                    // Mostra aviso genérico se não houve erro de duplicidade que já chamou o modal
+                    showWarning('Por favor, preencha todos os campos obrigatórios e verifique os dados dos passageiros (Matrícula e Nome são obrigatórios para pelo menos 1 passageiro).');
                 }
                 return;
             }
@@ -884,7 +779,7 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
                 motorista: form['motorista'].value,
                 matricula: form['matricula'].value, 
                 transportado: form['transportado'].value, 
-                passageiros_extras: passageirosExtras, // Novo campo para passageiros adicionais
+                passageiros_extras: passageirosExtras, 
                 solicitante: form['solicitante'].value,
                 data: form['data'].value,
                 origem: form['origem'].value,
@@ -909,6 +804,149 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
             passageirosContainer.innerHTML = '';
             addPassageiroRow(true); // Adiciona o primeiro de volta
         });
+        
+        // ... (código para CSV e Modais) ...
+
+        function renderTransportadosList() {
+            const tableBody = document.querySelector('#transportados-table tbody');
+            tableBody.innerHTML = '';
+            transportadosData.forEach((item, index) => {
+                const row = document.createElement('tr');
+                row.className = 'bg-white hover:bg-gray-50 transition-colors duration-100';
+                row.dataset.id = item.id;
+                row.innerHTML = `
+                    <td class="p-4"><input type="checkbox" data-id="${item.id}" class="transportado-checkbox rounded-sm"></td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.matricula}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.nome}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+            populateTransportadosDatalist();
+        }
+        
+        function renderMotoristasList() {
+            const tableBody = document.querySelector('#motoristas-table tbody');
+            tableBody.innerHTML = '';
+            motoristasData.forEach((item, index) => {
+                const row = document.createElement('tr');
+                row.className = 'bg-white hover:bg-gray-50 transition-colors duration-100';
+                row.dataset.id = item.id;
+                row.innerHTML = `
+                    <td class="p-4"><input type="checkbox" data-id="${item.id}" class="motorista-checkbox rounded-sm"></td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.nome}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+            populateMotoristasDatalist();
+        }
+
+        function populateTransportadosDatalist() {
+            const matriculaDatalist = document.querySelector('#transportados-matricula-list') || document.createElement('datalist');
+            matriculaDatalist.id = 'transportados-matricula-list';
+            if (!document.querySelector('#transportados-matricula-list')) {
+                document.body.appendChild(matriculaDatalist);
+            }
+
+            const nomeDatalist = document.querySelector('#transportados-nome-list') || document.createElement('datalist');
+            nomeDatalist.id = 'transportados-nome-list';
+            if (!document.querySelector('#transportados-nome-list')) {
+                document.body.appendChild(nomeDatalist);
+            }
+            
+            matriculaDatalist.innerHTML = '';
+            nomeDatalist.innerHTML = '';
+            transportadosData.forEach(item => {
+                const matriculaOption = document.createElement('option');
+                matriculaOption.value = item.matricula;
+                matriculaDatalist.appendChild(matriculaOption);
+                
+                const nomeOption = document.createElement('option');
+                nomeOption.value = item.nome;
+                nomeDatalist.appendChild(nomeOption);
+            });
+        }
+
+        function populateMotoristasDatalist() {
+            const motoristaDatalist = document.getElementById('motoristas-list');
+            motoristaDatalist.innerHTML = '';
+            motoristasData.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item.nome;
+                motoristaDatalist.appendChild(option);
+            });
+        }
+        
+        document.getElementById('add-transportado').addEventListener('click', async function() {
+            const newMatriculaInput = document.getElementById('new-matricula');
+            const newNomeInput = document.getElementById('new-nome');
+            const newMatricula = newMatriculaInput.value.trim();
+            const newNome = newNomeInput.value.trim();
+
+            if (newMatricula && newNome) 
+            {
+                const existing = transportadosData.find(item => item.matricula === newMatricula || item.nome.toLowerCase() === newNome.toLowerCase());
+                if (existing) {
+                    showWarning('A matrícula ou o nome já existe.');
+                } else {
+                    const transportadosRef = collection(db, 'artifacts', globalAppId, 'public', 'data', 'transportados');
+                    await addDoc(transportadosRef, { matricula: newMatricula, nome: newNome });
+                    newMatriculaInput.value = '';
+                    newNomeInput.value = '';
+                    showWarning('Transportado adicionado com sucesso!');
+                }
+            } else {
+                showWarning('Por favor, preencha a matrícula e o nome.');
+            }
+        });
+
+        document.getElementById('delete-selected-transportados').addEventListener('click', async function() {
+            const checkboxes = document.querySelectorAll('#transportados-table .transportado-checkbox:checked');
+            if (checkboxes.length === 0) {
+                showWarning('Selecione pelo menos um transportado para excluir.');
+                return;
+            }
+      
+            const promises = Array.from(checkboxes).map(cb => {
+                const transportadoDocRef = doc(db, 'artifacts', globalAppId, 'public', 'data', 'transportados', cb.dataset.id);
+                return deleteDoc(transportadoDocRef);
+            });
+            await Promise.all(promises);
+            showWarning(`${checkboxes.length} transportados excluídos com sucesso!`);
+        });
+
+        document.getElementById('add-motorista').addEventListener('click', async function() {
+            const newNomeInput = document.getElementById('new-motorista-nome');
+            const newNome = newNomeInput.value.trim();
+
+            if (newNome) {
+                const existing = motoristasData.find(item => item.nome.toLowerCase() === newNome.toLowerCase());
+                if (existing) {
+                    showWarning('O nome do motorista já existe.');
+                } else {
+                    const motoristasRef = collection(db, 'artifacts', globalAppId, 'public', 'data', 'motoristas');
+                    await addDoc(motoristasRef, { nome: newNome });
+                    newNomeInput.value = '';
+                    showWarning('Motorista adicionado com sucesso!');
+                }
+            } else {
+                showWarning('Por favor, preencha o nome do motorista.');
+            }
+        });
+
+        document.getElementById('delete-selected-motoristas').addEventListener('click', async function() {
+            const checkboxes = document.querySelectorAll('#motoristas-table .motorista-checkbox:checked');
+            if (checkboxes.length === 0) {
+                showWarning('Selecione pelo menos um motorista para excluir.');
+                return;
+            }
+          
+            const promises = Array.from(checkboxes).map(cb => {
+                const motoristaDocRef = doc(db, 'artifacts', globalAppId, 'public', 'data', 'motoristas', cb.dataset.id);
+                return deleteDoc(motoristaDocRef);
+            });
+            await Promise.all(promises);
+            showWarning(`${checkboxes.length} motoristas excluídos com sucesso!`);
+        });
 
         // Evento de navegação com a tecla "Enter"
         const inputs = document.querySelectorAll('#form-corrida input:not([readonly]), #form-corrida textarea');
@@ -918,29 +956,24 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
                     event.preventDefault();
 
                     const currentInputIndex = Array.from(inputs).indexOf(this);
-                    let 
-                    nextInput = null;
+                    let nextInput = null;
 
                     for (let i = currentInputIndex + 1; i < inputs.length; i++) {
                         if (inputs[i].value.trim() === '') {
                             nextInput = inputs[i];
-         
                             break;
                         }
                     }
 
                     if (!nextInput) {
-               
                         for (let i = 0; i < inputs.length; i++) {
                              if (inputs[i].value.trim() === '') {
                                  nextInput = inputs[i];
-              
                                 break;
                              }
                         }
                     }
 
-        
                     if (nextInput) {
                         nextInput.focus();
                     }
@@ -960,16 +993,12 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
 
             const lancamentosRef = collection(db, 'artifacts', globalAppId, 'public', 'data', 'lancamentos');
 
-            // Monta filtros
             let filtros = [];
-            if (startDate) filtros.push(where('data', 
-                '>=', startDate));
+            if (startDate) filtros.push(where('data', '>=', startDate));
             if (endDate) filtros.push(where('data', '<=', endDate));
 
-            // Monta query final
             let q = filtros.length > 0 ? query(lancamentosRef, ...filtros) : lancamentosRef;
 
-            // Busca os dados
             try {
                 const snapshot = await getDocs(q);
                 const allData = snapshot.docs.map(doc => doc.data());
@@ -981,21 +1010,17 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
                     return;
                 }
 
-                // Gerar CSV normalmente
                 const bom = '\uFEFF';
                 
-                // Ajusta cabeçalhos para incluir dados de passageiros extras de forma simples (se houver)
                 let allHeaders = new Set();
                 allData.forEach(obj => {
                     Object.keys(obj).forEach(key => allHeaders.add(key));
                 });
                 
-                // Remove passageiros_extras temporariamente para reprocessamento
                 allHeaders.delete('passageiros_extras'); 
 
                 let finalHeaders = Array.from(allHeaders);
                 
-                // Se houver passageiros extras, adiciona colunas dinâmicas para eles
                 let maxPassageirosExtras = 0;
                 allData.forEach(obj => {
                     if (obj.passageiros_extras && Array.isArray(obj.passageiros_extras)) {
@@ -1008,7 +1033,6 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
                     finalHeaders.push(`transportado_extra_${i+1}`);
                 }
                 
-                // Coloca a observação por último
                 const obsIndex = finalHeaders.indexOf('observacao');
                 if (obsIndex > -1) {
                     finalHeaders.splice(obsIndex, 1);
@@ -1019,11 +1043,10 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
                 const rows = allData.map(obj => headers.map(key => {
                     let value = obj[key] ?? '';
                     
-                    // Trata as colunas de passageiros extras
                     if (key.startsWith('matricula_extra_') || key.startsWith('transportado_extra_')) {
                         const parts = key.split('_');
-                        const index = parseInt(parts[2]) - 1; // index 0, 1, 2...
-                        const type = parts[0]; // matricula ou transportado
+                        const index = parseInt(parts[2]) - 1; 
+                        const type = parts[0]; 
                         
                         if (obj.passageiros_extras && obj.passageiros_extras[index]) {
                             value = obj.passageiros_extras[index][type];
@@ -1060,11 +1083,9 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
                 showWarning('Erro ao gerar relatório. Veja o console para mais detalhes.');
             }
         });
-        // Evento para fechar o modal de aviso
         document.getElementById('close-modal').addEventListener('click', function() {
             hideWarning();
         });
-        // Eventos para abrir e fechar os modais
         document.getElementById('open-transportados-modal').addEventListener('click', function() {
             document.getElementById('transportados-modal').classList.remove('hidden');
         });
@@ -1081,7 +1102,6 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
             document.getElementById('selectAllMotoristas').checked = false;
             document.querySelectorAll('.motorista-checkbox').forEach(cb => cb.checked = false);
         });
-        // Eventos para alteração de ordenação
         document.getElementById('sort-transportados-key').addEventListener('change', function() {
             const sortKey = this.value;
             const sortOrder = document.getElementById('sort-transportados-order').value;
@@ -1096,7 +1116,6 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
             const sortOrder = this.value;
             rebuildMotoristasLookups(sortOrder);
         });
-        // Adiciona event listeners para os checkboxes de seleção
         document.getElementById('transportados-table').addEventListener('change', function(event) {
             if (event.target.id === 'selectAllTransportados') {
                 const checkboxes = document.querySelectorAll('.transportado-checkbox');
@@ -1109,13 +1128,11 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
                 checkboxes.forEach(checkbox => checkbox.checked = event.target.checked);
             }
         });
-        // Evento para selecionar a linha clicando em qualquer lugar da tabela
         document.getElementById('transportados-table').addEventListener('click', function(event) {
             const row = event.target.closest('tr');
             if (row) {
                 const checkbox = row.querySelector('.transportado-checkbox');
                 if (checkbox && event.target !== checkbox) {
-         
                     checkbox.checked = !checkbox.checked;
                 }
             }
@@ -1126,7 +1143,6 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
                 const checkbox = row.querySelector('.motorista-checkbox');
                 if (checkbox && event.target !== checkbox) {
                     checkbox.checked = !checkbox.checked;
-      
                 }
             }
         });
