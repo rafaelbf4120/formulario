@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -27,6 +28,10 @@
                 width: 100%;
             }
         }
+        /* Custom style for larger modal */
+        .modal-lg {
+            max-width: 80rem; /* max-w-6xl */
+        }
     </style>
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
@@ -35,19 +40,16 @@
         <form id="login-form" class="space-y-4">
             <div>
                 <label for="username" class="block text-sm font-medium text-gray-700">Usuário:</label>
-  
                 <input type="text" id="username" name="username" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
             </div>
             <div>
                 <label for="password" class="block text-sm font-medium text-gray-700">Senha:</label>
-                <input type="password" id="password" name="password" class="mt-1 
-block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                <input type="password" id="password" name="password" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
             </div>
             <button type="submit" class="w-full px-6 py-3 bg-blue-600 text-white font-bold rounded-lg shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
                 Entrar
             </button>
-            <p id="login-message" class="text-red-500 text-sm 
-text-center mt-2 hidden">Usuário ou senha inválidos.</p>
+            <p id="login-message" class="text-red-500 text-sm text-center mt-2 hidden">Usuário ou senha inválidos.</p>
         </form>
     </div>
 
@@ -64,16 +66,14 @@ text-center mt-2 hidden">Usuário ou senha inválidos.</p>
         <form id="form-corrida" class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-6 md:mb-8">
             
             <div>
-      
                 <label for="motorista" class="block text-sm font-medium text-gray-700">Motorista:</label>
                 <input type="text" id="motorista" name="motorista" list="motoristas-list" onfocus="this.classList.remove('error-border')" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
                 <datalist id="motoristas-list">
-                    </datalist>
+                </datalist>
             </div>
 
             <div>
                 <label for="solicitante" class="block text-sm font-medium text-gray-700">Solicitante:</label>
-              
                 <input type="text" id="solicitante" name="solicitante" onfocus="this.classList.remove('error-border')" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
             </div>
             
@@ -90,56 +90,47 @@ text-center mt-2 hidden">Usuário ou senha inválidos.</p>
 
             <div>
                 <label for="data" class="block text-sm font-medium text-gray-700">Data:</label>
-                <input type="date" 
-id="data" name="data" onfocus="this.classList.remove('error-border')" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                <input type="date" id="data" name="data" onfocus="this.classList.remove('error-border')" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
             </div>
 
             <div>
                 <label for="origem" class="block text-sm font-medium text-gray-700">Origem:</label>
-                <input type="text" id="origem" name="origem" onfocus="this.classList.remove('error-border')" class="mt-1 
-block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                <input type="text" id="origem" name="origem" onfocus="this.classList.remove('error-border')" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
             </div>
 
             <div>
                 <label for="destino" class="block text-sm font-medium text-gray-700">Destino:</label>
-                <input type="text" id="destino" name="destino" onfocus="this.classList.remove('error-border')" class="mt-1 block w-full px-3 py-2 
-bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                <input type="text" id="destino" name="destino" onfocus="this.classList.remove('error-border')" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
             </div>
             
             <div>
                 <label for="partida" class="block text-sm font-medium text-gray-700">Partida:</label>
-                <input type="time" 
-id="partida" name="partida" onfocus="this.classList.remove('error-border')" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                <input type="time" id="partida" name="partida" onfocus="this.classList.remove('error-border')" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
             </div>
 
             <div>
                 <label for="chegada" class="block text-sm font-medium text-gray-700">Chegada:</label>
-                <input type="time" id="chegada" name="chegada" onfocus="this.classList.remove('error-border')" class="mt-1 
-block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                <input type="time" id="chegada" name="chegada" onfocus="this.classList.remove('error-border')" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
             </div>
 
             <div>
                 <label for="valor" class="block text-sm font-medium text-gray-700">Valor:</label>
                 <div class="relative mt-1">
-        
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3 pr-2 text-gray-400">R$</span>
                     <input type="text" id="valor" name="valor" class="block w-full px-3 py-2 pl-9 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out text-right">
                 </div>
             </div>
 
-           
             <div>
                 <label for="valor-extra" class="block text-sm font-medium text-gray-700">Valor Extra:</label>
                 <div class="relative mt-1">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3 pr-2 text-gray-400">R$</span>
-                
                     <input type="text" id="valor-extra" name="valor-extra" class="block w-full px-3 py-2 pl-9 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out text-right">
                 </div>
             </div>
 
             <div class="md:col-span-2">
-                <label 
-for="observacao" class="block text-sm font-medium text-gray-700">Observação:</label>
+                <label for="observacao" class="block text-sm font-medium text-gray-700">Observação:</label>
                 <textarea id="observacao" name="observacao" rows="4" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out"></textarea>
             </div>
             
@@ -157,18 +148,15 @@ for="observacao" class="block text-sm font-medium text-gray-700">Observação:</
             <h2 class="text-xl font-bold text-gray-800">Gerar Relatório CSV</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                
                     <label for="start-date" class="block text-sm font-medium text-gray-700">Data de Início:</label>
                     <input type="date" id="start-date" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
                 </div>
                 <div>
-                  
                     <label for="end-date" class="block text-sm font-medium text-gray-700">Data de Fim:</label>
                     <input type="date" id="end-date" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
                 </div>
             </div>
-            <button type="button" id="download-csv" class="w-full px-6 py-3 bg-green-600 text-white font-bold rounded-lg shadow-lg hover:bg-green-700 
-focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
+            <button type="button" id="download-csv" class="w-full px-6 py-3 bg-green-600 text-white font-bold rounded-lg shadow-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
                 Baixar Relatório CSV
             </button>
         </div>
@@ -176,17 +164,15 @@ focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-opacity-50 trans
         <hr class="my-6 md:my-8 border-gray-300">
 
         <div class="flex flex-col md:flex-row justify-center gap-4">
-            <button type="button" id="open-lancamentos-modal" class="px-6 py-3 bg-red-600 text-white font-bold rounded-lg shadow-lg hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
+            <button type="button" id="open-lancamentos-modal" class="px-6 py-3 bg-teal-600 text-white font-bold rounded-lg shadow-lg hover:bg-teal-700 focus:outline-none focus:ring-4 focus:ring-teal-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
                 Gerenciar Lançamentos
             </button>
-            <button type="button" id="open-transportados-modal" class="px-6 py-3 bg-purple-600 
-text-white font-bold rounded-lg shadow-lg hover:bg-purple-700 focus:outline-none focus:ring-4 focus:ring-purple-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
+            <button type="button" id="open-transportados-modal" class="px-6 py-3 bg-purple-600 text-white font-bold rounded-lg shadow-lg hover:bg-purple-700 focus:outline-none focus:ring-4 focus:ring-purple-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
                 Gerenciar Transportados
             </button>
             <button type="button" id="open-motoristas-modal" class="px-6 py-3 bg-indigo-600 text-white font-bold rounded-lg shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 transition duration-150 ease-in-out hidden">
                 Gerenciar Motoristas
             </button>
-  
         </div>
     </div>
 
@@ -194,61 +180,47 @@ text-white font-bold rounded-lg shadow-lg hover:bg-purple-700 focus:outline-none
         <div class="bg-white p-6 md:p-8 rounded-2xl shadow-2xl modal-content max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl md:text-2xl font-bold text-gray-800">Gerenciar Transportados</h2>
-               
                 <button id="close-transportados-modal" class="text-gray-500 hover:text-gray-800 text-xl font-bold">&times;</button>
             </div>
-
             <div class="flex flex-col md:flex-row gap-4 items-start md:items-center mb-4 md:mb-6">
                 <span class="text-sm font-medium text-gray-700">Ordenar por:</span>
-                <select id="sort-transportados-key" class="w-full md:w-auto border border-gray-300 rounded-lg py-1 px-2 text-sm focus:outline-none 
-focus:ring-2 focus:ring-blue-500">
+                <select id="sort-transportados-key" class="w-full md:w-auto border border-gray-300 rounded-lg py-1 px-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
                     <option value="nome">Nome</option>
                     <option value="matricula">Matrícula</option>
                 </select>
                 <select id="sort-transportados-order" class="w-full md:w-auto border border-gray-300 rounded-lg py-1 px-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-             
                     <option value="asc">A-Z</option>
                     <option value="desc">Z-A</option>
                 </select>
             </div>
-            
-            <div class="grid 
-grid-cols-1 md:grid-cols-3 gap-4 items-end mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end mb-6">
                 <div>
                     <label for="new-matricula" class="block text-sm font-medium text-gray-700">Nova Matrícula:</label>
                     <input type="text" id="new-matricula" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                 </div>
-   
                 <div>
                     <label for="new-nome" class="block text-sm font-medium text-gray-700">Novo Transportado:</label>
                     <input type="text" id="new-nome" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                 </div>
-          
                 <button type="button" id="add-transportado" class="px-6 py-2 bg-purple-600 text-white font-bold rounded-lg shadow-lg hover:bg-purple-700 focus:outline-none focus:ring-4 focus:ring-purple-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
                     Adicionar
                 </button>
             </div>
-
-            <div class="overflow-x-auto 
-rounded-lg shadow-md border border-gray-200">
+            <div class="overflow-x-auto rounded-lg shadow-md border border-gray-200">
                 <table class="min-w-full table-auto" id="transportados-table">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th scope="col" class="p-4 text-left text-xs 
-font-medium text-gray-500 uppercase tracking-wider">
+                            <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 <input type="checkbox" id="selectAllTransportados" class="rounded-sm">
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs 
-font-medium text-gray-500 uppercase tracking-wider w-1/4">Matrícula</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4">Matrícula</th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-3/4">Nome</th>
                         </tr>
                     </thead>
-              
                     <tbody class="bg-white divide-y divide-gray-200">
-                        </tbody>
+                    </tbody>
                 </table>
             </div>
-          
             <div class="flex justify-end mt-4">
                 <button type="button" id="delete-selected-transportados" class="px-4 py-2 bg-red-600 text-white font-bold rounded-lg shadow-lg hover:bg-red-700">
                     Excluir Selecionados
@@ -256,93 +228,121 @@ font-medium text-gray-500 uppercase tracking-wider w-1/4">Matrícula</th>
             </div>
         </div>
     </div>
-
+    
     <div id="motoristas-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center p-4">
         <div class="bg-white p-6 md:p-8 rounded-2xl shadow-2xl modal-content max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl md:text-2xl font-bold text-gray-800">Gerenciar Motoristas</h2>
                 <button id="close-motoristas-modal" class="text-gray-500 hover:text-gray-800 text-xl font-bold">&times;</button>
-            
             </div>
-            
             <div class="flex flex-col md:flex-row gap-4 items-start md:items-center mb-4 md:mb-6">
                 <span class="text-sm font-medium text-gray-700">Ordenar por:</span>
                 <select id="sort-motoristas-order" class="w-full md:w-auto border border-gray-300 rounded-lg py-1 px-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-     
                     <option value="asc">A-Z</option>
                     <option value="desc">Z-A</option>
                 </select>
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-end 
-mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-end mb-6">
                 <div>
                     <label for="new-motorista-nome" class="block text-sm font-medium text-gray-700">Novo Motorista:</label>
                     <input type="text" id="new-motorista-nome" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                 </div>
-       
                 <button type="button" id="add-motorista" class="px-6 py-2 bg-indigo-600 text-white font-bold rounded-lg shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
                     Adicionar
                 </button>
             </div>
-
             <div class="overflow-x-auto rounded-lg shadow-md border border-gray-200">
                 <table class="min-w-full table-auto" id="motoristas-table">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th scope="col" 
-class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 <input type="checkbox" id="selectAllMotoristas" class="rounded-sm">
                             </th>
-                            <th scope="col" class="px-6 
-py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full">Nome</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full">Nome</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                        </tbody>
+                    </tbody>
                 </table>
             </div>
             <div class="flex justify-end mt-4">
                 <button type="button" id="delete-selected-motoristas" class="px-4 py-2 bg-red-600 text-white font-bold rounded-lg shadow-lg hover:bg-red-700">
-    
                     Excluir Selecionados
                 </button>
             </div>
         </div>
     </div>
-
+    
     <div id="lancamentos-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white p-6 md:p-8 rounded-2xl shadow-2xl modal-content max-h-[90vh] overflow-y-auto">
+        <div class="bg-white p-6 md:p-8 rounded-2xl shadow-2xl modal-content modal-lg max-h-[90vh] flex flex-col">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl md:text-2xl font-bold text-gray-800">Gerenciar Lançamentos</h2>
                 <button id="close-lancamentos-modal" class="text-gray-500 hover:text-gray-800 text-xl font-bold">&times;</button>
             </div>
-            <p id="lancamentos-modal-filter-info" class="text-sm text-gray-600 mb-4"></p>
-
-            <div class="overflow-x-auto rounded-lg shadow-md border border-gray-200">
+            <div class="overflow-y-auto flex-grow">
                 <table class="min-w-full table-auto" id="lancamentos-table">
-                    <thead class="bg-gray-50">
+                    <thead class="bg-gray-50 sticky top-0">
                         <tr>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Motorista</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Destino</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Valor</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Motorista</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Transportado</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Origem</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Destino</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Valor</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                         </tbody>
                 </table>
             </div>
-            <div class="flex justify-end mt-4">
-                </div>
         </div>
+    </div>
+    
+    <div id="edit-lancamento-modal" class="fixed inset-0 bg-gray-800 bg-opacity-75 hidden flex items-center justify-center p-4 z-50">
+      <div class="bg-white p-6 md:p-8 rounded-2xl shadow-2xl modal-content max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl md:text-2xl font-bold text-gray-800">Editar Lançamento</h2>
+          <button id="close-edit-lancamento-modal" class="text-gray-500 hover:text-gray-800 text-xl font-bold">&times;</button>
+        </div>
+        <form id="edit-lancamento-form" class="space-y-4">
+          <input type="hidden" id="edit-lancamento-id">
+          <div>
+            <label for="edit-motorista" class="block text-sm font-medium text-gray-700">Motorista:</label>
+            <input type="text" id="edit-motorista" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg">
+          </div>
+           <div>
+            <label for="edit-transportado" class="block text-sm font-medium text-gray-700">Transportado:</label>
+            <input type="text" id="edit-transportado" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg">
+          </div>
+          <div>
+            <label for="edit-data" class="block text-sm font-medium text-gray-700">Data:</label>
+            <input type="date" id="edit-data" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg">
+          </div>
+          <div>
+            <label for="edit-origem" class="block text-sm font-medium text-gray-700">Origem:</label>
+            <input type="text" id="edit-origem" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg">
+          </div>
+           <div>
+            <label for="edit-destino" class="block text-sm font-medium text-gray-700">Destino:</label>
+            <input type="text" id="edit-destino" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg">
+          </div>
+          <div>
+            <label for="edit-valor" class="block text-sm font-medium text-gray-700">Valor:</label>
+            <input type="text" id="edit-valor" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg">
+          </div>
+          <div class="flex justify-end gap-4 mt-6">
+            <button type="button" id="cancel-edit-btn" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400">Cancelar</button>
+            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Salvar Alterações</button>
+          </div>
+        </form>
+      </div>
     </div>
 
 
     <div id="message-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center">
         <div class="bg-white p-6 rounded-lg shadow-2xl max-w-sm w-full">
-    
-                <h2 class="text-xl font-bold mb-4">Aviso</h2>
+            <h2 class="text-xl font-bold mb-4">Aviso</h2>
             <p id="message-content" class="text-gray-700 mb-4"></p>
             <div class="flex justify-end">
                 <button id="close-modal" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">OK</button>
@@ -354,8 +354,8 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
         // IMPORTAÇÕES
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, addDoc, deleteDoc, onSnapshot, collection, doc, query, where, getDocs, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        
+        import { getFirestore, addDoc, deleteDoc, onSnapshot, collection, doc, query, where, getDocs, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
         // CONFIGURAÇÃO FIREBASE
         const firebaseConfig = {
             apiKey: "AIzaSyDmqvcKtIsga4ZQWNDg4_2k493dqMQCDVg",
@@ -370,13 +370,13 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         const auth = getAuth(app);
-        setLogLevel('debug');
 
         const globalAppId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
         let globalUserId = null;
-
-        // ESTADO GLOBAL DO USUÁRIO LOGADO
-        let currentUserData = null; 
+        let currentUser = {
+            username: null,
+            isAdmin: false,
+        };
 
         // ELEMENTOS DOM
         const loginForm = document.getElementById('login-form');
@@ -385,44 +385,32 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
         const loginMessage = document.getElementById('login-message');
         const userIdDisplay = document.getElementById('user-id-display');
         const logoutButton = document.getElementById('logout-btn');
-        const motoristaInput = document.getElementById('motorista'); 
-        const openMotoristasBtn = document.getElementById('open-motoristas-modal'); 
-        const openLancamentosBtn = document.getElementById('open-lancamentos-modal');
-
-        const matriculaInputHidden = document.getElementById('matricula'); 
-        const transportadoInputHidden = document.getElementById('transportado');
-
+        const motoristaInput = document.getElementById('motorista');
+        const openMotoristasBtn = document.getElementById('open-motoristas-modal');
         const passageirosContainer = document.getElementById('passageiros-campos-container');
         const addPassageiroBtn = document.getElementById('add-passageiro-btn');
-
         const valorInput = document.getElementById('valor');
         const valorExtraInput = document.getElementById('valor-extra');
-        const downloadCsvBtn = document.getElementById('download-csv');
-        
+
         // === CONFIGURAÇÃO DE USUÁRIOS ===
         const users = [
             { username: 'admin', password: 'rafael22' },
             { username: 'gerente', password: 'senha123' },
             { username: 'motorista1', password: 'senha123' }
         ];
-        
-        // Mapeamento de usuários para nome de motorista fixo e permissão
         const motoristaUsers = {
-            'admin': { nome: 'Administrador Principal', is_admin: true, is_motorista_fixo: false }, 
-            'gerente': { nome: 'Gerente Operacional', is_admin: true, is_motorista_fixo: false }, 
-            
-            // MOTORISTA COMUM: Tem NOME FIXO
-            'motorista1': { nome: 'João da Silva', is_admin: false, is_motorista_fixo: true }, 
+            'admin': { nome: 'Administrador Principal', is_admin: true, is_motorista_fixo: false },
+            'gerente': { nome: 'Gerente Operacional', is_admin: true, is_motorista_fixo: false },
+            'motorista1': { nome: 'João da Silva', is_admin: false, is_motorista_fixo: true },
         };
 
         let transportadosData = [];
         let motoristasData = [];
         let lancamentosData = [];
-        
         let matriculaToNome = {};
         let nomeToMatricula = {};
 
-        // === FUNÇÕES DE PERMISSÃO E UI ===
+        // === FUNÇÕES DE VALIDAÇÃO E INTERFACE ===
 
         function showWarning(message) {
             document.getElementById('message-content').innerText = message;
@@ -435,60 +423,39 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
         
         function setMotoristaReadOnly(username) {
             const userData = motoristaUsers[username];
-            
-            // ATUALIZA ESTADO GLOBAL
-            currentUserData = userData; 
+            currentUser.username = username;
+            currentUser.isAdmin = userData ? userData.is_admin : false;
 
-            // 1. Gerencia a visibilidade dos botões de administração
             if (userData && userData.is_admin) {
                 openMotoristasBtn.classList.remove('hidden');
-                downloadCsvBtn.classList.remove('hidden');
             } else {
                 openMotoristasBtn.classList.add('hidden');
-                downloadCsvBtn.classList.add('hidden'); // Oculta CSV para não-admins
             }
-            openLancamentosBtn.classList.remove('hidden'); // Todos podem gerenciar lançamentos (filtrados)
-
             
-            // 2. Lógica para preencher/bloquear o campo Motorista
             if (userData && userData.is_motorista_fixo) {
-                // Se for um motorista fixo: BLOQUEIA E PREENCHE
                 motoristaInput.value = userData.nome;
-                
-                // Torna o campo somente leitura e altera estilo
                 motoristaInput.setAttribute('readonly', 'readonly');
-                motoristaInput.classList.remove('bg-gray-50');
-                motoristaInput.classList.add('bg-gray-200'); 
+                motoristaInput.classList.add('bg-gray-200');
             } else {
-                // Se for Admin, Gerente ou outro usuário sem nome fixo: DEIXA EDITÁVEL
                 motoristaInput.removeAttribute('readonly');
                 motoristaInput.classList.remove('bg-gray-200');
-                motoristaInput.classList.add('bg-gray-50');
-                
-                // Pré-preenche com o nome de usuário (útil para admins/gerentes)
-                if (userData) {
+                 if (userData) {
                      motoristaInput.value = userData.nome;
-                } else {
+                 } else {
                      motoristaInput.value = '';
-                }
+                 }
             }
         }
 
-
-        // Função para checar duplicidade na tela (em tempo real)
         function checkPassageiroDuplicidade(sourceInput) {
             const rows = document.querySelectorAll('#passageiros-campos-container .passageiro-row');
-            
-            // Localiza os campos na linha atual
             const row = sourceInput.closest('.passageiro-row');
             const currentMatriculaInput = row.querySelector('input[name="matriculas[]"]');
             const currentNomeInput = row.querySelector('input[name="transportados[]"]');
-
             const currentMatricula = currentMatriculaInput.value.trim();
             const currentNome = currentNomeInput.value.trim();
 
             if (currentMatricula === '' || currentNome === '') {
-                // Remove borda se a linha está incompleta
                 currentMatriculaInput.classList.remove('error-border');
                 currentNomeInput.classList.remove('error-border');
                 return false; 
@@ -497,48 +464,37 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
             const currentKey = `${currentMatricula}_${currentNome.toLowerCase()}`;
             let isDuplicated = false;
 
-            // Limpa bordas de todas as linhas que podem ter sido corrigidas (preventivamente)
             rows.forEach(r => {
                 r.querySelector('input[name="matriculas[]"]').classList.remove('error-border');
                 r.querySelector('input[name="transportados[]"]').classList.remove('error-border');
             });
 
-
             rows.forEach(rowToCheck => {
                 const rowMatricula = rowToCheck.querySelector('input[name="matriculas[]"]').value.trim();
                 const rowNome = rowToCheck.querySelector('input[name="transportados[]"]').value.trim();
-
                 const rowKey = `${rowMatricula}_${rowNome.toLowerCase()}`;
-
-                // Verifica se é a mesma linha de entrada para ignorar a si mesma
                 const isSameRow = (rowToCheck === row);
 
                 if (rowKey === currentKey && !isSameRow) {
                     isDuplicated = true;
-                    // Aplica borda de erro também na linha duplicada
                     rowToCheck.querySelector('input[name="matriculas[]"]').classList.add('error-border');
                     rowToCheck.querySelector('input[name="transportados[]"]').classList.add('error-border');
                 }
             });
 
             if (isDuplicated) {
-                // Aplica borda de erro nos campos duplicados que acabaram de ser preenchidos
                 currentMatriculaInput.classList.add('error-border');
                 currentNomeInput.classList.add('error-border');
-                showWarning(`Passageiro duplicado encontrado: Matrícula ${currentMatricula} e Nome ${currentNome}. Por favor, remova ou edite a duplicidade.`);
+                showWarning(`Passageiro duplicado encontrado: Matrícula ${currentMatricula} e Nome ${currentNome}.`);
             }
 
             return isDuplicated;
         }
 
-        // Função de preenchimento automático DINÂMICA com checagem de duplicidade
         function handleAutofillDynamic(sourceInput, targetInput, sourceType) {
             const value = sourceInput.value.trim();
-            
-            // 1. Lógica de Autofill
             if (value !== '') {
                 let targetValue = '';
-                
                 if (sourceType === 'matricula') {
                     targetValue = matriculaToNome[value];
                 } else if (sourceType === 'nome') {
@@ -552,36 +508,27 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
                     targetInput.value = '';
                 }
             } else {
-                // Se o campo for limpo, limpa o campo oposto para evitar dados parciais
                 targetInput.value = '';
             }
 
-            // 2. Lógica de Validação Imediata (Duplicidade)
-            setTimeout(() => {
-                // Checa a duplicidade no elemento que está sendo focado (o sourceInput)
-                checkPassageiroDuplicidade(sourceInput);
-            }, 50); 
+            setTimeout(() => checkPassageiroDuplicidade(sourceInput), 50);
         }
 
-        // Função para reordenar a numeração (P1, P2, P3...) após remoção ou adição
         function updatePassageiroLabels() {
             const rows = document.querySelectorAll('#passageiros-campos-container .passageiro-row');
             rows.forEach((row, index) => {
                 const pNum = index + 1;
-                
-                // Atualiza os labels
                 const matriculaLabel = row.querySelector(`label[for^="matricula-"]`);
                 const transportadoLabel = row.querySelector(`label[for^="transportado-"]`);
                 
                 if(matriculaLabel) matriculaLabel.textContent = `Matrícula (P${pNum}):`;
                 if(transportadoLabel) transportadoLabel.textContent = `Transportado (P${pNum}):`;
                 
-                // Atualiza o listener de remoção
                 const removeBtn = row.querySelector('.remove-passageiro-btn');
                 if (removeBtn) {
                     removeBtn.onclick = () => {
                         row.remove();
-                        updatePassageiroLabels(); // Chama recursivamente para reordenar o restante
+                        updatePassageiroLabels();
                     };
                 }
             });
@@ -590,7 +537,7 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
         function createPassageiroInput(index, isRequired = true) {
             const fieldset = document.createElement('div');
             fieldset.className = 'passageiro-row grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6';
-            fieldset.dataset.index = index; 
+            fieldset.dataset.index = index;
             fieldset.innerHTML = `
                 <div>
                     <label for="matricula-${index}" class="block text-sm font-medium text-gray-700">Matrícula (P${index + 1}):</label>
@@ -598,7 +545,6 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
                         onfocus="this.classList.remove('error-border')"
                         class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
                 </div>
-
                 <div class="flex items-end">
                     <div class="flex-grow">
                         <label for="transportado-${index}" class="block text-sm font-medium text-gray-700">Transportado (P${index + 1}):</label>
@@ -609,85 +555,143 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
                     ${!isRequired ? `<button type="button" class="ml-2 px-3 py-2 bg-red-500 text-white font-bold rounded-lg shadow-md hover:bg-red-600 remove-passageiro-btn">-</button>` : ''}
                 </div>
             `;
-            
             return fieldset;
         }
 
         function addPassageiroRow(isRequired = false) {
-            const newIndex = Date.now(); 
+            const newIndex = Date.now();
             const newRow = createPassageiroInput(newIndex, isRequired);
             passageirosContainer.appendChild(newRow);
-            
             updatePassageiroLabels(); 
         }
 
-        // NOVO: LÓGICA DE GERENCIAR LANÇAMENTOS
-        
-        function renderLancamentosList() {
-            const tableBody = document.querySelector('#lancamentos-table tbody');
-            const filterInfo = document.getElementById('lancamentos-modal-filter-info');
-            tableBody.innerHTML = '';
+        window.onload = () => {
+            function bindPassageiroListeners() {
+                passageirosContainer.addEventListener('blur', (event) => {
+                    const input = event.target;
+                    if (input.matches('input[name="matriculas[]"]') || input.matches('input[name="transportados[]"]')) {
+                        const row = input.closest('.passageiro-row');
+                        const matriculaInput = row.querySelector('input[name="matriculas[]"]');
+                        const nomeInput = row.querySelector('input[name="transportados[]"]');
+                        if (input.name === 'matriculas[]') {
+                            handleAutofillDynamic(matriculaInput, nomeInput, 'matricula');
+                        } else if (input.name === 'transportados[]') {
+                            handleAutofillDynamic(nomeInput, matriculaInput, 'nome');
+                        }
+                    }
+                }, true);
+            }
 
-            let dataToDisplay = lancamentosData;
+            addPassageiroRow(true);
+            bindPassageiroListeners();
+            addPassageiroBtn.addEventListener('click', () => addPassageiroRow(false));
             
-            // FILTRAGEM DE PERMISSÃO
-            if (currentUserData && !currentUserData.is_admin) {
-                const motoristaNome = currentUserData.nome;
-                dataToDisplay = lancamentosData.filter(l => l.motorista === motoristaNome);
-                filterInfo.textContent = `Visualizando apenas seus lançamentos como "${motoristaNome}".`;
+            valorInput.addEventListener('input', () => formatCurrencyInput(valorInput));
+            valorExtraInput.addEventListener('input', () => formatCurrencyInput(valorExtraInput));
+            valorInput.addEventListener('focus', () => { if (valorInput.value === '0,00') valorInput.value = ''; });
+            valorExtraInput.addEventListener('focus', () => { if (valorExtraInput.value === '0,00') valorExtraInput.value = ''; });
+            valorInput.addEventListener('blur', () => { if (valorInput.value === '') valorInput.value = '0,00'; });
+            valorExtraInput.addEventListener('blur', () => { if (valorExtraInput.value === '') valorExtraInput.value = '0,00'; });
+            
+            onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                    globalUserId = user.uid;
+                    userIdDisplay.innerText = `ID do Usuário: ${globalUserId}`;
+                    startFirestoreListeners();
+                } else {
+                    loginPage.classList.remove('hidden');
+                    appPage.classList.add('hidden');
+                }
+            });
+
+            signInAnonymously(auth).catch((error) => console.error("Erro no login anônimo:", error));
+        };
+
+        loginForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const foundUser = users.find(user => user.username === username && user.password === password);
+            if (foundUser) {
+                loginPage.classList.add('hidden');
+                appPage.classList.remove('hidden');
+                setMotoristaReadOnly(username);
             } else {
-                filterInfo.textContent = `Visualizando todos os lançamentos.`;
+                loginMessage.classList.remove('hidden');
             }
-            
-            if (dataToDisplay.length === 0) {
-                tableBody.innerHTML = '<tr><td colspan="4" class="p-4 text-center text-gray-500">Nenhum lançamento encontrado.</td></tr>';
-                return;
-            }
+        });
 
-            dataToDisplay.forEach(item => {
-                const row = document.createElement('tr');
-                row.className = 'bg-white hover:bg-gray-100 transition-colors duration-100';
-                row.dataset.id = item.id;
-                
-                // Formatação simples para a tabela de gerenciamento
-                const formattedDate = item.data.split('-').reverse().join('/');
-                const formattedValue = `R$ ${item.valor ? item.valor.toFixed(2).replace('.', ',') : '0,00'}`;
-                
-                row.innerHTML = `
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${formattedDate}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.motorista}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.destino}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${formattedValue}</td>
-                `;
-                tableBody.appendChild(row);
+        logoutButton.addEventListener('click', () => {
+            signOut(auth).then(() => {
+                 window.location.reload();
+            });
+        });
+
+        function startFirestoreListeners() {
+            const transportadosRef = collection(db, 'artifacts', globalAppId, 'public', 'data', 'transportados');
+            onSnapshot(transportadosRef, (snapshot) => {
+                transportadosData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                rebuildTransportadosLookups();
+            });
+
+            const motoristasRef = collection(db, 'artifacts', globalAppId, 'public', 'data', 'motoristas');
+            onSnapshot(motoristasRef, (snapshot) => {
+                motoristasData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                rebuildMotoristasLookups();
+            });
+            
+            const lancamentosRef = collection(db, 'artifacts', globalAppId, 'public', 'data', 'lancamentos');
+            onSnapshot(lancamentosRef, (snapshot) => {
+                lancamentosData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
             });
         }
         
-        // ... (Funções de CRUD de modais) ...
+        function rebuildTransportadosLookups(sortKey = 'nome', sortOrder = 'asc') {
+            transportadosData.sort((a, b) => {
+                let valA = a[sortKey] || '';
+                let valB = b[sortKey] || '';
+                return sortOrder === 'asc' ? valA.localeCompare(valB, undefined, { numeric: true }) : valB.localeCompare(valA, undefined, { numeric: true });
+            });
+            matriculaToNome = {};
+            nomeToMatricula = {};
+            transportadosData.forEach(item => {
+                matriculaToNome[item.matricula] = item.nome;
+                nomeToMatricula[item.nome.toLowerCase()] = item.matricula;
+            });
+            renderTransportadosList();
+        }
 
-        // Evento de envio do formulário (Lógica para Múltiplos Passageiros, Duplicidade e Validação)
+        function rebuildMotoristasLookups(sortOrder = 'asc') {
+            motoristasData.sort((a, b) => sortOrder === 'asc' ? a.nome.localeCompare(b.nome) : b.nome.localeCompare(a.nome));
+            renderMotoristasList();
+            populateMotoristasDatalist();
+        }
+        
+        function formatCurrencyInput(input) {
+            let value = input.value.replace(/\D/g, '');
+            if (value === '') return;
+            value = value.padStart(3, '0');
+            const integerPart = value.slice(0, -2);
+            const decimalPart = value.slice(-2);
+            const formattedInteger = parseInt(integerPart, 10).toLocaleString('pt-BR');
+            input.value = `${formattedInteger},${decimalPart}`;
+        }
+        
+        function parseCurrencyValue(value) {
+            return parseFloat(value.replace(/\./g, '').replace(',', '.'));
+        }
+
         document.getElementById('form-corrida').addEventListener('submit', async function(event) {
             event.preventDefault();
-
             const form = event.target;
-            const requiredFields = [
-                'motorista', 'solicitante', 'data',
-                'origem', 'partida', 'destino', 'chegada',
-                'valor'
-            ];
-            
+            const requiredFields = ['motorista', 'solicitante', 'data', 'origem', 'partida', 'destino', 'chegada', 'valor'];
             const matriculasInputs = document.querySelectorAll('#passageiros-campos-container input[name="matriculas[]"]');
             const transportadosInputs = document.querySelectorAll('#passageiros-campos-container input[name="transportados[]"]');
-
             const passageirosData = [];
             let isFormValid = true;
-            
-            // Conjunto para verificar duplicidade: { 'matricula_nome' }
             const passageirosSet = new Set();
-            let hasError = false; 
-
-            // 1. Validação dos campos únicos obrigatórios
-            for (const field of requiredFields) {
+            
+            requiredFields.forEach(field => {
                 const input = form[field];
                 if (input.value.trim() === '') {
                     isFormValid = false;
@@ -695,72 +699,53 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
                 } else {
                     input.classList.remove('error-border');
                 }
-            }
+            });
             
-            // 2. Coleta, validação e verificação de duplicidade dos passageiros
             for (let i = 0; i < matriculasInputs.length; i++) {
                 const matriculaInput = matriculasInputs[i];
                 const nomeInput = transportadosInputs[i];
-
                 const matricula = matriculaInput.value.trim();
                 const nome = nomeInput.value.trim();
                 
                 matriculaInput.classList.remove('error-border');
                 nomeInput.classList.remove('error-border');
-                
-                // Se o par tiver dados preenchidos
+
                 if (matricula !== '' && nome !== '') {
                     const key = `${matricula}_${nome.toLowerCase()}`;
-                    
                     if (passageirosSet.has(key)) {
                         isFormValid = false;
-                        hasError = true;
                         matriculaInput.classList.add('error-border');
                         nomeInput.classList.add('error-border');
-                        showWarning(`Passageiro duplicado encontrado: Matrícula ${matricula} e Nome ${nome}. Por favor, remova ou edite a duplicidade.`);
+                        showWarning(`Passageiro duplicado: ${nome}.`);
                         return;
                     }
-                    
                     passageirosSet.add(key);
                     passageirosData.push({ matricula: matricula, nome: nome });
-                } 
-                // Se apenas um dos campos estiver preenchido (erro de campo obrigatório)
-                else if (matricula !== '' || nome !== '') {
+                } else if (matricula !== '' || nome !== '') {
                     isFormValid = false;
-                    hasError = true;
                     if (matricula === '') matriculaInput.classList.add('error-border');
                     if (nome === '') nomeInput.classList.add('error-border');
                 }
             }
             
-            // 3. Valida se pelo menos um passageiro (o primeiro) está preenchido
-            if (!passageirosData[0]) {
+            if (passageirosData.length === 0) {
                 isFormValid = false;
-                hasError = true;
                 if (matriculasInputs[0]) matriculasInputs[0].classList.add('error-border');
                 if (transportadosInputs[0]) transportadosInputs[0].classList.add('error-border');
             }
 
-
             if (!isFormValid) {
-                if (!hasError || !document.getElementById('message-modal').classList.contains('hidden')) { 
-                    showWarning('Por favor, preencha todos os campos obrigatórios e verifique os dados dos passageiros (Matrícula e Nome são obrigatórios para pelo menos 1 passageiro).');
-                }
+                showWarning('Preencha todos os campos obrigatórios.');
                 return;
             }
 
-            // Preenche os campos hidden com o primeiro passageiro para compatibilidade com o backend/CSV
-            matriculaInputHidden.value = passageirosData[0].matricula;
-            transportadoInputHidden.value = passageirosData[0].nome;
-
-            // Cria o campo de passageiros extras (se houver mais de um)
-            const passageirosExtras = passageirosData.length > 1 ? passageirosData.slice(1) : null;
-
             const newEntry = {
+                userId: globalUserId,
+                createdBy: currentUser.username,
                 motorista: form['motorista'].value,
-                matricula: form['matricula'].value, 
-                transportado: form['transportado'].value, 
-                passageiros_extras: passageirosExtras, 
+                matricula: passageirosData[0].matricula,
+                transportado: passageirosData[0].nome,
+                passageiros_extras: passageirosData.length > 1 ? passageirosData.slice(1) : null,
                 solicitante: form['solicitante'].value,
                 data: form['data'].value,
                 origem: form['origem'].value,
@@ -768,11 +753,11 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
                 destino: form['destino'].value,
                 chegada: form['chegada'].value,
                 valor: parseCurrencyValue(form['valor'].value),
-                valorExtra: form['valor-extra'].value ?
-                    parseCurrencyValue(form['valor-extra'].value) : null,
-                observacao: form['observacao'].value
+                valorExtra: form['valor-extra'].value ? parseCurrencyValue(form['valor-extra'].value) : null,
+                observacao: form['observacao'].value,
+                createdAt: serverTimestamp()
             };
-
+            
             const lancamentosRef = collection(db, 'artifacts', globalAppId, 'public', 'data', 'lancamentos');
             await addDoc(lancamentosRef, newEntry);
 
@@ -780,20 +765,11 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
             form.reset();
             document.getElementById('valor').value = '0,00';
             document.getElementById('valor-extra').value = '0,00';
-            
-            // Limpa e reinicializa os campos de passageiros
             passageirosContainer.innerHTML = '';
-            addPassageiroRow(true); // Adiciona o primeiro de volta
+            addPassageiroRow(true);
         });
 
-        // Evento do botão de download - CORRIGIDO PARA ORDENAR E TRATAR ERROS
         document.getElementById('download-csv').addEventListener('click', async function() {
-            // Verifica se é admin antes de prosseguir (redundante, mas seguro)
-            if (!currentUserData || !currentUserData.is_admin) {
-                 showWarning('Acesso negado. Apenas administradores podem baixar o relatório CSV.');
-                 return;
-            }
-
             const startDate = document.getElementById('start-date').value;
             const endDate = document.getElementById('end-date').value;
 
@@ -802,150 +778,269 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
                 return;
             }
 
-            const lancamentosRef = collection(db, 'artifacts', globalAppId, 'public', 'data', 'lancamentos');
-
-            let filtros = [];
-            if (startDate) filtros.push(where('data', '>=', startDate));
-            if (endDate) filtros.push(where('data', '<=', endDate));
-
-            let q = filtros.length > 0 ? query(lancamentosRef, ...filtros) : lancamentosRef;
-
-            try {
-                const snapshot = await getDocs(q);
-                const allData = snapshot.docs.map(doc => doc.data());
-
-                if (allData.length === 0) {
-                    showWarning('Nenhum dado encontrado para este período.');
-                    return;
-                }
-
-                const bom = '\uFEFF';
-                
-                // 1. Define a lista de todas as chaves únicas no Firestore
-                let allKeys = new Set();
-                allData.forEach(obj => {
-                    Object.keys(obj).forEach(key => allKeys.add(key));
+            let dataToDownload = lancamentosData;
+            // Filtra por data
+            if (startDate || endDate) {
+                dataToDownload = dataToDownload.filter(item => {
+                    const itemDate = new Date(item.data);
+                    const start = startDate ? new Date(startDate) : null;
+                    const end = endDate ? new Date(endDate) : null;
+                    if(start && itemDate < start) return false;
+                    if(end && itemDate > end) return false;
+                    return true;
                 });
-                
-                // 2. Define a Ordem Desejada para as colunas principais
-                const orderedKeys = [
-                    'motorista', 'solicitante', 
-                    'matricula', 'transportado', 
-                    'data', 'origem', 'destino', 
-                    'partida', 'chegada', 
-                    'valor', 'valorExtra', 'observacao'
-                ];
-
-                let finalHeaders = [];
-                let maxPassageirosExtras = 0;
-                
-                // 3. Determina o máximo de extras para saber quantas colunas dinâmicas criar
-                allData.forEach(obj => {
-                    if (obj.passageiros_extras && Array.isArray(obj.passageiros_extras)) {
-                        maxPassageirosExtras = Math.max(maxPassageirosExtras, obj.passageiros_extras.length);
-                    }
-                });
-
-                // 4. Constrói o cabeçalho final na ordem correta
-                orderedKeys.forEach(key => {
-                    if (allKeys.has(key)) {
-                        finalHeaders.push(key);
-                    }
-                    
-                    // Se for o campo 'transportado', insere os pares extras logo após ele
-                    if (key === 'transportado') {
-                        for (let i = 0; i < maxPassageirosExtras; i++) {
-                            finalHeaders.push(`matricula_extra_${i+1}`);
-                            finalHeaders.push(`transportado_extra_${i+1}`);
-                        }
-                    }
-                });
-                
-                // Garante que 'passageiros_extras' não vá para o cabeçalho, mas sim as colunas que acabamos de criar
-                finalHeaders = finalHeaders.filter(header => header !== 'passageiros_extras');
-
-
-                // 5. Mapeamento dos Dados
-                const headers = finalHeaders;
-                const rows = allData.map(obj => headers.map(key => {
-                    let value = obj[key] ?? '';
-                    
-                    if (key.startsWith('matricula_extra_') || key.startsWith('transportado_extra_')) {
-                        const parts = key.split('_');
-                        const index = parseInt(parts[2]) - 1; 
-                        const type = parts[0] === 'matricula' ? 'matricula' : 'nome'; 
-                        
-                        if (obj.passageiros_extras && obj.passageiros_extras[index]) {
-                            value = obj.passageiros_extras[index][type] ?? ''; 
-                        } else {
-                            value = '';
-                        }
-                    }
-
-                    if (key === 'valor' || key === 'valorExtra') {
-                        let numValue = parseFloat(value);
-                        value = isNaN(numValue) || numValue === 0 ? '' : `R$ ${numValue.toFixed(2).replace('.', ',')}`;
-                    }
-                    
-                    return `"${String(value).replace(/"/g, '""')}"`;
-      
-                }).join(';'));
-
-                const csvContent = `${headers.join(';')}\n${rows.join('\n')}`;
-                const blob = new Blob([bom + csvContent], { type: 'text/csv;charset=utf-8;' });
-                const url = URL.createObjectURL(blob);
-                const link = document.createElement('a');
-                link.href = url;
-
-                const now = new Date();
-                const dateString = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}_${now.getHours().toString().padStart(2, '0')}-${now.getMinutes().toString().padStart(2, '0')}-${now.getSeconds().toString().padStart(2, '0')}`;
-       
-                link.download = `lancamentos_de_corridas_${dateString}.csv`;
-
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-
-                showWarning('Relatório CSV baixado com sucesso!');
-            } catch (err) {
-                console.error("Erro ao buscar dados:", err);
-                showWarning('Erro ao gerar relatório. Veja o console para mais detalhes.');
             }
-        });
 
-        // Funções de renderização de modais (simplificadas)
-        function renderTransportadosList() { /* ... */ }
-        function renderMotoristasList() { /* ... */ }
-        function populateTransportadosDatalist() { /* ... */ }
-        function populateMotoristasDatalist() { /* ... */ }
+            // Filtra por usuário se não for admin
+            if (!currentUser.isAdmin) {
+                dataToDownload = dataToDownload.filter(item => item.userId === globalUserId);
+            }
+            
+            if (dataToDownload.length === 0) {
+                showWarning('Nenhum dado encontrado para este período/permissão.');
+                return;
+            }
+            
+            const bom = '\uFEFF';
+            const headers = ['data', 'motorista', 'transportado', 'matricula', 'origem', 'destino', 'valor'];
+            const rows = dataToDownload.map(obj => headers.map(key => `"${obj[key] ?? ''}"`).join(';')).join('\n');
+            const csvContent = `${headers.join(';')}\n${rows}`;
+            const blob = new Blob([bom + csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `lancamentos_${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
         
-        document.getElementById('add-transportado').addEventListener('click', async function() { /* ... */ });
-        document.getElementById('delete-selected-transportados').addEventListener('click', async function() { /* ... */ });
-        document.getElementById('add-motorista').addEventListener('click', async function() { /* ... */ });
-        document.getElementById('delete-selected-motoristas').addEventListener('click', async function() { /* ... */ });
+        // --- LÓGICA DO MODAL DE LANÇAMENTOS ---
         
-        document.getElementById('close-modal').addEventListener('click', function() { hideWarning(); });
-        document.getElementById('open-transportados-modal').addEventListener('click', function() { document.getElementById('transportados-modal').classList.remove('hidden'); });
-        document.getElementById('close-transportados-modal').addEventListener('click', function() { document.getElementById('transportados-modal').classList.add('hidden'); });
-        document.getElementById('open-motoristas-modal').addEventListener('click', function() { document.getElementById('motoristas-modal').classList.remove('hidden'); });
-        document.getElementById('close-motoristas-modal').addEventListener('click', function() { document.getElementById('motoristas-modal').classList.add('hidden'); });
-        
-        // Eventos do modal de Lançamentos
-        document.getElementById('open-lancamentos-modal').addEventListener('click', function() {
-            renderLancamentosList(); // Carrega os dados na abertura
+        document.getElementById('open-lancamentos-modal').addEventListener('click', () => {
+            renderLancamentosList();
             document.getElementById('lancamentos-modal').classList.remove('hidden');
         });
-        document.getElementById('close-lancamentos-modal').addEventListener('click', function() {
+        
+        document.getElementById('close-lancamentos-modal').addEventListener('click', () => {
             document.getElementById('lancamentos-modal').classList.add('hidden');
         });
+        
+        function renderLancamentosList() {
+            const tableBody = document.querySelector('#lancamentos-table tbody');
+            tableBody.innerHTML = '';
+            
+            let dataToShow = lancamentosData;
 
-        document.getElementById('sort-transportados-key').addEventListener('change', function() { /* ... */ });
-        document.getElementById('sort-transportados-order').addEventListener('change', function() { /* ... */ });
-        document.getElementById('sort-motoristas-order').addEventListener('change', function() { /* ... */ });
-        document.getElementById('transportados-table').addEventListener('change', function(event) { /* ... */ });
-        document.getElementById('motoristas-table').addEventListener('change', function(event) { /* ... */ });
-        document.getElementById('transportados-table').addEventListener('click', function(event) { /* ... */ });
-        document.getElementById('motoristas-table').addEventListener('click', function(event) { /* ... */ });
+            if (!currentUser.isAdmin) {
+                dataToShow = lancamentosData.filter(lanc => lanc.userId === globalUserId);
+            }
+            
+            // Ordena por data mais recente
+            dataToShow.sort((a,b) => new Date(b.data) - new Date(a.data));
+            
+            if(dataToShow.length === 0){
+                tableBody.innerHTML = '<tr><td colspan="7" class="text-center p-4">Nenhum lançamento encontrado.</td></tr>';
+                return;
+            }
+            
+            dataToShow.forEach(item => {
+                const row = document.createElement('tr');
+                row.className = 'bg-white hover:bg-gray-50';
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.data}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.motorista}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.transportado}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.origem}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.destino}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">R$ ${item.valor.toFixed(2).replace('.',',')}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <button data-id="${item.id}" class="edit-lancamento-btn text-blue-600 hover:text-blue-900">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" /><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" /></svg>
+                        </button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+        
+        // Event listener para abrir o modal de edição
+        document.getElementById('lancamentos-table').addEventListener('click', function(event) {
+            const editButton = event.target.closest('.edit-lancamento-btn');
+            if (editButton) {
+                const lancamentoId = editButton.dataset.id;
+                openEditLancamentoModal(lancamentoId);
+            }
+        });
+        
+        function openEditLancamentoModal(id) {
+            const lancamento = lancamentosData.find(l => l.id === id);
+            if (!lancamento) return;
+            
+            document.getElementById('edit-lancamento-id').value = id;
+            document.getElementById('edit-motorista').value = lancamento.motorista;
+            document.getElementById('edit-transportado').value = lancamento.transportado;
+            document.getElementById('edit-data').value = lancamento.data;
+            document.getElementById('edit-origem').value = lancamento.origem;
+            document.getElementById('edit-destino').value = lancamento.destino;
+            document.getElementById('edit-valor').value = lancamento.valor.toFixed(2).replace('.',',');
+
+            document.getElementById('edit-lancamento-modal').classList.remove('hidden');
+        }
+        
+        // Listeners para fechar o modal de edição
+        document.getElementById('close-edit-lancamento-modal').addEventListener('click', () => {
+            document.getElementById('edit-lancamento-modal').classList.add('hidden');
+        });
+        document.getElementById('cancel-edit-btn').addEventListener('click', () => {
+            document.getElementById('edit-lancamento-modal').classList.add('hidden');
+        });
+        
+        // Salvar alterações do lançamento
+        document.getElementById('edit-lancamento-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const id = document.getElementById('edit-lancamento-id').value;
+            const updatedData = {
+                motorista: document.getElementById('edit-motorista').value,
+                transportado: document.getElementById('edit-transportado').value,
+                data: document.getElementById('edit-data').value,
+                origem: document.getElementById('edit-origem').value,
+                destino: document.getElementById('edit-destino').value,
+                valor: parseCurrencyValue(document.getElementById('edit-valor').value)
+            };
+            
+            const docRef = doc(db, 'artifacts', globalAppId, 'public', 'data', 'lancamentos', id);
+            await updateDoc(docRef, updatedData);
+            
+            showWarning('Lançamento atualizado com sucesso!');
+            document.getElementById('edit-lancamento-modal').classList.add('hidden');
+            renderLancamentosList(); // Atualiza a lista
+        });
+        
+        // --- Funções CRUD e Renderização dos Modais Antigos ---
+        function renderTransportadosList() {
+            const tableBody = document.querySelector('#transportados-table tbody');
+            tableBody.innerHTML = '';
+            transportadosData.forEach(item => {
+                const row = document.createElement('tr');
+                row.className = 'bg-white hover:bg-gray-50';
+                row.innerHTML = `
+                    <td class="p-4"><input type="checkbox" data-id="${item.id}" class="transportado-checkbox rounded-sm"></td>
+                    <td class="px-6 py-4">${item.matricula}</td>
+                    <td class="px-6 py-4">${item.nome}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+            populateTransportadosDatalist();
+        }
+        
+        function renderMotoristasList() {
+            const tableBody = document.querySelector('#motoristas-table tbody');
+            tableBody.innerHTML = '';
+            motoristasData.forEach(item => {
+                const row = document.createElement('tr');
+                row.className = 'bg-white hover:bg-gray-50';
+                row.innerHTML = `
+                    <td class="p-4"><input type="checkbox" data-id="${item.id}" class="motorista-checkbox rounded-sm"></td>
+                    <td class="px-6 py-4">${item.nome}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+        
+        function populateTransportadosDatalist() {
+            const matriculaDatalist = document.querySelector('#transportados-matricula-list') || document.createElement('datalist');
+            matriculaDatalist.id = 'transportados-matricula-list';
+            const nomeDatalist = document.querySelector('#transportados-nome-list') || document.createElement('datalist');
+            nomeDatalist.id = 'transportados-nome-list';
+            if (!document.body.contains(matriculaDatalist)) document.body.appendChild(matriculaDatalist);
+            if (!document.body.contains(nomeDatalist)) document.body.appendChild(nomeDatalist);
+            
+            matriculaDatalist.innerHTML = '';
+            nomeDatalist.innerHTML = '';
+            transportadosData.forEach(item => {
+                matriculaDatalist.innerHTML += `<option value="${item.matricula}">`;
+                nomeDatalist.innerHTML += `<option value="${item.nome}">`;
+            });
+        }
+        
+        function populateMotoristasDatalist() {
+            const datalist = document.getElementById('motoristas-list');
+            datalist.innerHTML = '';
+            motoristasData.forEach(item => datalist.innerHTML += `<option value="${item.nome}">`);
+        }
+        
+        document.getElementById('add-transportado').addEventListener('click', async () => {
+            const newMatricula = document.getElementById('new-matricula').value.trim();
+            const newNome = document.getElementById('new-nome').value.trim();
+            if (newMatricula && newNome) {
+                const existing = transportadosData.find(item => item.matricula === newMatricula || item.nome.toLowerCase() === newNome.toLowerCase());
+                if (existing) {
+                    showWarning('Matrícula ou nome já existe.');
+                } else {
+                    await addDoc(collection(db, 'artifacts', globalAppId, 'public', 'data', 'transportados'), { matricula: newMatricula, nome: newNome });
+                    document.getElementById('new-matricula').value = '';
+                    document.getElementById('new-nome').value = '';
+                    showWarning('Transportado adicionado.');
+                }
+            } else {
+                showWarning('Preencha matrícula e nome.');
+            }
+        });
+        
+        document.getElementById('delete-selected-transportados').addEventListener('click', async () => {
+            const checkboxes = document.querySelectorAll('#transportados-table .transportado-checkbox:checked');
+            if (checkboxes.length === 0) {
+                showWarning('Selecione ao menos um transportado.');
+                return;
+            }
+            const promises = Array.from(checkboxes).map(cb => deleteDoc(doc(db, 'artifacts', globalAppId, 'public', 'data', 'transportados', cb.dataset.id)));
+            await Promise.all(promises);
+            showWarning(`${checkboxes.length} transportados excluídos.`);
+        });
+        
+        document.getElementById('add-motorista').addEventListener('click', async () => {
+            const newNome = document.getElementById('new-motorista-nome').value.trim();
+            if (newNome) {
+                if (motoristasData.find(item => item.nome.toLowerCase() === newNome.toLowerCase())) {
+                    showWarning('Motorista já existe.');
+                } else {
+                    await addDoc(collection(db, 'artifacts', globalAppId, 'public', 'data', 'motoristas'), { nome: newNome });
+                    document.getElementById('new-motorista-nome').value = '';
+                    showWarning('Motorista adicionado.');
+                }
+            } else {
+                showWarning('Preencha o nome do motorista.');
+            }
+        });
+        
+        document.getElementById('delete-selected-motoristas').addEventListener('click', async () => {
+            const checkboxes = document.querySelectorAll('#motoristas-table .motorista-checkbox:checked');
+            if (checkboxes.length === 0) {
+                showWarning('Selecione ao menos um motorista.');
+                return;
+            }
+            const promises = Array.from(checkboxes).map(cb => deleteDoc(doc(db, 'artifacts', globalAppId, 'public', 'data', 'motoristas', cb.dataset.id)));
+            await Promise.all(promises);
+            showWarning(`${checkboxes.length} motoristas excluídos.`);
+        });
+        
+        // --- Eventos de UI restantes ---
+        document.getElementById('close-modal').addEventListener('click', hideWarning);
+        document.getElementById('open-transportados-modal').addEventListener('click', () => document.getElementById('transportados-modal').classList.remove('hidden'));
+        document.getElementById('close-transportados-modal').addEventListener('click', () => document.getElementById('transportados-modal').classList.add('hidden'));
+        document.getElementById('open-motoristas-modal').addEventListener('click', () => document.getElementById('motoristas-modal').classList.remove('hidden'));
+        document.getElementById('close-motoristas-modal').addEventListener('click', () => document.getElementById('motoristas-modal').classList.add('hidden'));
+        
+        document.getElementById('sort-transportados-key').addEventListener('change', function() {
+            rebuildTransportadosLookups(this.value, document.getElementById('sort-transportados-order').value);
+        });
+        document.getElementById('sort-transportados-order').addEventListener('change', function() {
+            rebuildTransportadosLookups(document.getElementById('sort-transportados-key').value, this.value);
+        });
+        document.getElementById('sort-motoristas-order').addEventListener('change', function() {
+            rebuildMotoristasLookups(this.value);
+        });
     </script>
 </body>
 </html>
