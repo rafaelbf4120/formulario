@@ -408,11 +408,10 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
         
         // Mapeamento de usuários para nome de motorista fixo e permissão
         const motoristaUsers = {
-            // ADMIN e GERENTE: Têm permissão de admin, MAS NÃO TÊM NOME FIXO
             'admin': { nome: 'Administrador Principal', is_admin: true, is_motorista_fixo: false }, 
             'gerente': { nome: 'Gerente Operacional', is_admin: true, is_motorista_fixo: false }, 
             
-            // MOTORISTA COMUM: Não tem permissão de admin, MAS TEM NOME FIXO
+            // MOTORISTA COMUM: Tem NOME FIXO
             'motorista1': { nome: 'João da Silva', is_admin: false, is_motorista_fixo: true }, 
         };
 
@@ -440,7 +439,7 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
             // ATUALIZA ESTADO GLOBAL
             currentUserData = userData; 
 
-            // 1. Gerencia a visibilidade dos botões
+            // 1. Gerencia a visibilidade dos botões de administração
             if (userData && userData.is_admin) {
                 openMotoristasBtn.classList.remove('hidden');
                 downloadCsvBtn.classList.remove('hidden');
@@ -622,6 +621,48 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
             updatePassageiroLabels(); 
         }
 
+        // NOVO: LÓGICA DE GERENCIAR LANÇAMENTOS
+        
+        function renderLancamentosList() {
+            const tableBody = document.querySelector('#lancamentos-table tbody');
+            const filterInfo = document.getElementById('lancamentos-modal-filter-info');
+            tableBody.innerHTML = '';
+
+            let dataToDisplay = lancamentosData;
+            
+            // FILTRAGEM DE PERMISSÃO
+            if (currentUserData && !currentUserData.is_admin) {
+                const motoristaNome = currentUserData.nome;
+                dataToDisplay = lancamentosData.filter(l => l.motorista === motoristaNome);
+                filterInfo.textContent = `Visualizando apenas seus lançamentos como "${motoristaNome}".`;
+            } else {
+                filterInfo.textContent = `Visualizando todos os lançamentos.`;
+            }
+            
+            if (dataToDisplay.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="4" class="p-4 text-center text-gray-500">Nenhum lançamento encontrado.</td></tr>';
+                return;
+            }
+
+            dataToDisplay.forEach(item => {
+                const row = document.createElement('tr');
+                row.className = 'bg-white hover:bg-gray-100 transition-colors duration-100';
+                row.dataset.id = item.id;
+                
+                // Formatação simples para a tabela de gerenciamento
+                const formattedDate = item.data.split('-').reverse().join('/');
+                const formattedValue = `R$ ${item.valor ? item.valor.toFixed(2).replace('.', ',') : '0,00'}`;
+                
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${formattedDate}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.motorista}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.destino}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${formattedValue}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+        
         // ... (Funções de CRUD de modais) ...
 
         // Evento de envio do formulário (Lógica para Múltiplos Passageiros, Duplicidade e Validação)
@@ -780,34 +821,51 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
 
                 const bom = '\uFEFF';
                 
-                // 1. Definição da Ordem Desejada (Baseado na Ordem do Formulário)
+                // 1. Define a lista de todas as chaves únicas no Firestore
+                let allKeys = new Set();
+                allData.forEach(obj => {
+                    Object.keys(obj).forEach(key => allKeys.add(key));
+                });
+                
+                // 2. Define a Ordem Desejada para as colunas principais
                 const orderedKeys = [
                     'motorista', 'solicitante', 
-                    'matricula', 'transportado', // Primeiro passageiro (compatibilidade)
+                    'matricula', 'transportado', 
                     'data', 'origem', 'destino', 
                     'partida', 'chegada', 
                     'valor', 'valorExtra', 'observacao'
                 ];
 
-                let finalHeaders = [...orderedKeys];
-                
-                // 2. Determinação do Máximo de Passageiros Extras
+                let finalHeaders = [];
                 let maxPassageirosExtras = 0;
+                
+                // 3. Determina o máximo de extras para saber quantas colunas dinâmicas criar
                 allData.forEach(obj => {
                     if (obj.passageiros_extras && Array.isArray(obj.passageiros_extras)) {
                         maxPassageirosExtras = Math.max(maxPassageirosExtras, obj.passageiros_extras.length);
                     }
                 });
 
-                // 3. Adição das Colunas Dinâmicas dos Passageiros Extras (na ordem correta)
-                // A chave 'transportado' é o ponto de inserção para o primeiro par extra.
-                const insertionPoint = finalHeaders.indexOf('transportado');
-                for (let i = 0; i < maxPassageirosExtras; i++) {
-                    finalHeaders.splice(insertionPoint + 1 + i * 2, 0, `matricula_extra_${i+1}`);
-                    finalHeaders.splice(insertionPoint + 2 + i * 2, 0, `transportado_extra_${i+1}`);
-                }
+                // 4. Constrói o cabeçalho final na ordem correta
+                orderedKeys.forEach(key => {
+                    if (allKeys.has(key)) {
+                        finalHeaders.push(key);
+                    }
+                    
+                    // Se for o campo 'transportado', insere os pares extras logo após ele
+                    if (key === 'transportado') {
+                        for (let i = 0; i < maxPassageirosExtras; i++) {
+                            finalHeaders.push(`matricula_extra_${i+1}`);
+                            finalHeaders.push(`transportado_extra_${i+1}`);
+                        }
+                    }
+                });
                 
-                // 4. Mapeamento dos Dados na Ordem e Tratamento de Nulos/Formatos
+                // Garante que 'passageiros_extras' não vá para o cabeçalho, mas sim as colunas que acabamos de criar
+                finalHeaders = finalHeaders.filter(header => header !== 'passageiros_extras');
+
+
+                // 5. Mapeamento dos Dados
                 const headers = finalHeaders;
                 const rows = allData.map(obj => headers.map(key => {
                     let value = obj[key] ?? '';
@@ -815,7 +873,7 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
                     if (key.startsWith('matricula_extra_') || key.startsWith('transportado_extra_')) {
                         const parts = key.split('_');
                         const index = parseInt(parts[2]) - 1; 
-                        const type = parts[0] === 'matricula' ? 'matricula' : 'nome'; // Mapeia para a chave no objeto
+                        const type = parts[0] === 'matricula' ? 'matricula' : 'nome'; 
                         
                         if (obj.passageiros_extras && obj.passageiros_extras[index]) {
                             value = obj.passageiros_extras[index][type] ?? ''; 
@@ -855,7 +913,7 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
             }
         });
 
-        // Funções de renderização de modais (omitidas para brevidade, mantendo a função principal)
+        // Funções de renderização de modais (simplificadas)
         function renderTransportadosList() { /* ... */ }
         function renderMotoristasList() { /* ... */ }
         function populateTransportadosDatalist() { /* ... */ }
@@ -872,7 +930,7 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
         document.getElementById('open-motoristas-modal').addEventListener('click', function() { document.getElementById('motoristas-modal').classList.remove('hidden'); });
         document.getElementById('close-motoristas-modal').addEventListener('click', function() { document.getElementById('motoristas-modal').classList.add('hidden'); });
         
-        // NOVO: Eventos do modal de Lançamentos
+        // Eventos do modal de Lançamentos
         document.getElementById('open-lancamentos-modal').addEventListener('click', function() {
             renderLancamentosList(); // Carrega os dados na abertura
             document.getElementById('lancamentos-modal').classList.remove('hidden');
@@ -880,7 +938,7 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
         document.getElementById('close-lancamentos-modal').addEventListener('click', function() {
             document.getElementById('lancamentos-modal').classList.add('hidden');
         });
-        
+
         document.getElementById('sort-transportados-key').addEventListener('change', function() { /* ... */ });
         document.getElementById('sort-transportados-order').addEventListener('change', function() { /* ... */ });
         document.getElementById('sort-motoristas-order').addEventListener('change', function() { /* ... */ });
