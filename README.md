@@ -180,7 +180,7 @@ focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-opacity-50 trans
 text-white font-bold rounded-lg shadow-lg hover:bg-purple-700 focus:outline-none focus:ring-4 focus:ring-purple-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
                 Gerenciar Transportados
             </button>
-            <button type="button" id="open-motoristas-modal" class="px-6 py-3 bg-indigo-600 text-white font-bold rounded-lg shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
+            <button type="button" id="open-motoristas-modal" class="px-6 py-3 bg-indigo-600 text-white font-bold rounded-lg shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 transition duration-150 ease-in-out hidden">
                 Gerenciar Motoristas
             </button>
   
@@ -351,7 +351,8 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
         const loginMessage = document.getElementById('login-message');
         const userIdDisplay = document.getElementById('user-id-display');
         const logoutButton = document.getElementById('logout-btn');
-        const motoristaInput = document.getElementById('motorista'); // NOVO: Campo Motorista
+        const motoristaInput = document.getElementById('motorista'); // Campo Motorista
+        const openMotoristasBtn = document.getElementById('open-motoristas-modal'); // Botão Gerenciar Motoristas
 
         const matriculaInputHidden = document.getElementById('matricula'); 
         const transportadoInputHidden = document.getElementById('transportado');
@@ -364,15 +365,15 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
 
         // === CONFIGURAÇÃO DE USUÁRIOS ===
         const users = [
-            { username: 'admin', password: 'admin' },
-            { username: 'Admin', password: 'admin' },
-            { username: 'Teste Número 01', password: 'admin' }
+            { username: 'admin', password: 'rafael22' },
+            { username: 'gerente', password: 'senha123' }
         ];
         
-        // Mapeamento de usuários para nome de motorista fixo
+        // Mapeamento de usuários para nome de motorista fixo e permissão
         const motoristaUsers = {
-            'teste': { nome: 'Teste Número 01', id: 'mot-001' },
-            // Adicione outros usuários que devem ser fixos e não editáveis aqui
+            'admin': { nome: 'Administrador Principal', is_admin: true }, 
+            'gerente': { nome: 'Gerente Operacional', is_admin: true }, 
+            'usuario_comum': { nome: 'João da Silva', is_admin: false }, // Exemplo de motorista comum
         };
 
         let transportadosData = [];
@@ -393,10 +394,17 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
             document.getElementById('message-modal').classList.add('hidden');
         }
         
-        // NOVO: Função para definir o nome do motorista e bloquear o campo
+        // Função para definir o nome do motorista e bloquear o campo
         function setMotoristaReadOnly(username) {
             const userData = motoristaUsers[username];
             
+            // Gerencia a visibilidade do botão Gerenciar Motoristas
+            if (userData && userData.is_admin) {
+                openMotoristasBtn.classList.remove('hidden');
+            } else {
+                openMotoristasBtn.classList.add('hidden');
+            }
+
             if (userData) {
                 // 1. Define o nome
                 motoristaInput.value = userData.nome;
@@ -406,7 +414,6 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
                 motoristaInput.classList.remove('bg-gray-50');
                 motoristaInput.classList.add('bg-gray-200'); // Estilo visual de bloqueado
                 
-                motoristaInput.dataset.userId = userData.id;
             } else {
                 // Se o usuário não estiver na lista fixa, o campo fica editável normalmente
                 motoristaInput.value = '';
