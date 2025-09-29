@@ -698,7 +698,7 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
             
             // Conjunto para verificar duplicidade: { 'matricula_nome' }
             const passageirosSet = new Set();
-            let hasError = false; // Flag para rastrear erros de campo ou duplicidade
+            let hasError = false; 
 
             // 1. Validação dos campos únicos obrigatórios
             for (const field of requiredFields) {
@@ -800,6 +800,111 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
             // Limpa e reinicializa os campos de passageiros
             passageirosContainer.innerHTML = '';
             addPassageiroRow(true); // Adiciona o primeiro de volta
+        });
+
+        // Evento do botão de download - CORRIGIDO PARA ORDENAR E TRATAR ERROS
+        document.getElementById('download-csv').addEventListener('click', async function() {
+            const startDate = document.getElementById('start-date').value;
+            const endDate = document.getElementById('end-date').value;
+
+            if (startDate && endDate && new Date(startDate) > new Date(endDate)) {
+                showWarning('A data de início não pode ser posterior à data de fim.');
+                return;
+            }
+
+            const lancamentosRef = collection(db, 'artifacts', globalAppId, 'public', 'data', 'lancamentos');
+
+            let filtros = [];
+            if (startDate) filtros.push(where('data', '>=', startDate));
+            if (endDate) filtros.push(where('data', '<=', endDate));
+
+            let q = filtros.length > 0 ? query(lancamentosRef, ...filtros) : lancamentosRef;
+
+            try {
+                const snapshot = await getDocs(q);
+                const allData = snapshot.docs.map(doc => doc.data());
+
+                if (allData.length === 0) {
+                    showWarning('Nenhum dado encontrado para este período.');
+                    return;
+                }
+
+                const bom = '\uFEFF';
+                
+                // 1. Definição da Ordem Desejada (Baseado na Ordem do Formulário)
+                const orderedKeys = [
+                    'motorista', 'solicitante', 
+                    'matricula', 'transportado', // Primeiro passageiro (compatibilidade)
+                    'data', 'origem', 'destino', 
+                    'partida', 'chegada', 
+                    'valor', 'valorExtra', 'observacao'
+                ];
+
+                let finalHeaders = [...orderedKeys];
+                
+                // 2. Determinação do Máximo de Passageiros Extras
+                let maxPassageirosExtras = 0;
+                allData.forEach(obj => {
+                    if (obj.passageiros_extras && Array.isArray(obj.passageiros_extras)) {
+                        maxPassageirosExtras = Math.max(maxPassageirosExtras, obj.passageiros_extras.length);
+                    }
+                });
+
+                // 3. Adição das Colunas Dinâmicas dos Passageiros Extras (na ordem correta)
+                for (let i = 0; i < maxPassageirosExtras; i++) {
+                    finalHeaders.splice(finalHeaders.indexOf('matricula') + 1 + i * 2, 0, `matricula_extra_${i+1}`);
+                    finalHeaders.splice(finalHeaders.indexOf('matricula') + 2 + i * 2, 0, `transportado_extra_${i+1}`);
+                }
+                
+                // 4. Mapeamento dos Dados na Ordem e Tratamento de Nulos/Formatos
+                const headers = finalHeaders;
+                const rows = allData.map(obj => headers.map(key => {
+                    let value = obj[key] ?? '';
+                    
+                    if (key.startsWith('matricula_extra_') || key.startsWith('transportado_extra_')) {
+                        const parts = key.split('_');
+                        const index = parseInt(parts[2]) - 1; 
+                        const type = parts[0] === 'matricula' ? 'matricula' : 'nome'; // Mapeia para a chave no objeto
+                        
+                        if (obj.passageiros_extras && obj.passageiros_extras[index]) {
+                            // Correção para o erro: garante que o valor da subpropriedade existe
+                            value = obj.passageiros_extras[index][type] ?? ''; 
+                        } else {
+                            value = '';
+                        }
+                    }
+
+                    if (key === 'valor' || key === 'valorExtra') {
+                        let numValue = parseFloat(value);
+                        // Garante que o formato é R$ ou vazio se for nulo/zero
+                        value = isNaN(numValue) || numValue === 0 ? '' : `R$ ${numValue.toFixed(2).replace('.', ',')}`;
+                    }
+                    
+                    // CORREÇÃO FINAL: Garante que o valor é uma string antes do replace
+                    return `"${String(value).replace(/"/g, '""')}"`;
+      
+                }).join(';'));
+
+                const csvContent = `${headers.join(';')}\n${rows.join('\n')}`;
+                const blob = new Blob([bom + csvContent], { type: 'text/csv;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+
+                const now = new Date();
+                const dateString = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}_${now.getHours().toString().padStart(2, '0')}-${now.getMinutes().toString().padStart(2, '0')}-${now.getSeconds().toString().padStart(2, '0')}`;
+       
+                link.download = `lancamentos_de_corridas_${dateString}.csv`;
+
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                showWarning('Relatório CSV baixado com sucesso!');
+            } catch (err) {
+                console.error("Erro ao buscar dados:", err);
+                showWarning('Erro ao gerar relatório. Veja o console para mais detalhes.');
+            }
         });
 
         // Funções de renderização e CRUD de modais (mantidas para funcionalidade completa)
@@ -977,108 +1082,6 @@ py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full
             });
         });
 
-        // Evento do botão de download
-        document.getElementById('download-csv').addEventListener('click', async function() {
-            const startDate = document.getElementById('start-date').value;
-            const endDate = document.getElementById('end-date').value;
-
-            if (startDate && endDate && new Date(startDate) > new Date(endDate)) {
-                showWarning('A data de início não pode ser posterior à data de fim.');
-                return;
-            }
-
-            const lancamentosRef = collection(db, 'artifacts', globalAppId, 'public', 'data', 'lancamentos');
-
-            let filtros = [];
-            if (startDate) filtros.push(where('data', '>=', startDate));
-            if (endDate) filtros.push(where('data', '<=', endDate));
-
-            let q = filtros.length > 0 ? query(lancamentosRef, ...filtros) : lancamentosRef;
-
-            try {
-                const snapshot = await getDocs(q);
-                const allData = snapshot.docs.map(doc => doc.data());
-
-                console.log("Dados recebidos do Firestore:", allData);
-
-                if (allData.length === 0) {
-                    showWarning('Nenhum dado encontrado para este período.');
-                    return;
-                }
-
-                const bom = '\uFEFF';
-                
-                let allHeaders = new Set();
-                allData.forEach(obj => {
-                    Object.keys(obj).forEach(key => allHeaders.add(key));
-                });
-                
-                allHeaders.delete('passageiros_extras'); 
-
-                let finalHeaders = Array.from(allHeaders);
-                
-                let maxPassageirosExtras = 0;
-                allData.forEach(obj => {
-                    if (obj.passageiros_extras && Array.isArray(obj.passageiros_extras)) {
-                        maxPassageirosExtras = Math.max(maxPassageirosExtras, obj.passageiros_extras.length);
-                    }
-                });
-
-                for (let i = 0; i < maxPassageirosExtras; i++) {
-                    finalHeaders.push(`matricula_extra_${i+1}`);
-                    finalHeaders.push(`transportado_extra_${i+1}`);
-                }
-                
-                const obsIndex = finalHeaders.indexOf('observacao');
-                if (obsIndex > -1) {
-                    finalHeaders.splice(obsIndex, 1);
-                    finalHeaders.push('observacao');
-                }
-
-                const headers = finalHeaders;
-                const rows = allData.map(obj => headers.map(key => {
-                    let value = obj[key] ?? '';
-                    
-                    if (key.startsWith('matricula_extra_') || key.startsWith('transportado_extra_')) {
-                        const parts = key.split('_');
-                        const index = parseInt(parts[2]) - 1; 
-                        const type = parts[0]; 
-                        
-                        if (obj.passageiros_extras && obj.passageiros_extras[index]) {
-                            value = obj.passageiros_extras[index][type];
-                        } else {
-                            value = '';
-                        }
-                    }
-
-                    if (key === 'valor' || key === 'valorExtra') {
-                        value = `R$ ${parseFloat(value).toFixed(2).replace('.', ',')}`;
-                    }
-                    return `"${value.toString().replace(/"/g, '""')}"`;
-      
-                }).join(';'));
-
-                const csvContent = `${headers.join(';')}\n${rows.join('\n')}`;
-                const blob = new Blob([bom + csvContent], { type: 'text/csv;charset=utf-8;' });
-                const url = URL.createObjectURL(blob);
-                const link = document.createElement('a');
-                link.href = url;
-
-                const now = new Date();
-                const dateString = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}_${now.getHours().toString().padStart(2, '0')}-${now.getMinutes().toString().padStart(2, '0')}-${now.getSeconds().toString().padStart(2, '0')}`;
-       
-                link.download = `lancamentos_de_corridas_${dateString}.csv`;
-
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-
-                showWarning('Relatório CSV baixado com sucesso!');
-            } catch (err) {
-                console.error("Erro ao buscar dados:", err);
-                showWarning('Erro ao gerar relatório. Veja o console para mais detalhes.');
-            }
-        });
         document.getElementById('close-modal').addEventListener('click', function() {
             hideWarning();
         });
