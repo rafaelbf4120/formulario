@@ -112,10 +112,10 @@ border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-
                 </div>
             </div>
 
-
-            <div id="solicitante-campos-container" class="grid grid-cols-1 gap-4 md:gap-6">
+            <div id="solicitante-campos-container" class="space-y-4">
             </div>
-            <div class="md:col-span-1 flex justify-center md:justify-start">
+
+            <div class="md:col-span-2 flex justify-center md:justify-start">
                 <button type="button" id="add-solicitante-btn"
                     class="w-full md:w-auto px-4 py-2 bg-gray-200 text-gray-800 font-medium rounded-lg hover:bg-gray-300 transition duration-150 ease-in-out">
                     + Adicionar Outro Solicitante
@@ -124,7 +124,6 @@ border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-
 
 
             <div id="passageiros-campos-container" class="md:col-span-2 grid grid-cols-1 gap-4 md:gap-6">
-
                 <input type="hidden" id="matricula" name="matricula">
                 <input type="hidden" id="transportado" name="transportado">
             </div>
@@ -153,15 +152,10 @@ duration-150 ease-in-out">
                 </div>
             </div>
 
-            <div id="destino-campos-container" class="md:col-span-2 grid grid-cols-1 gap-4 md:gap-6">
+            <div class="space-y-4">
+                <div id="destino-campos-container">
+                </div>
             </div>
-            <div class="md:col-span-2 flex justify-center md:justify-start">
-                <button type="button" id="add-destino-btn"
-                    class="w-full md:w-auto px-4 py-2 bg-gray-200 text-gray-800 font-medium rounded-lg hover:bg-gray-300 transition duration-150 ease-in-out">
-                    + Adicionar Outro Destino
-                </button>
-            </div>
-
 
             <div class="form-row-align">
                 <div class="flex-grow">
@@ -169,6 +163,13 @@ duration-150 ease-in-out">
                     <input type="time" id="partida" name="partida" onfocus="this.classList.remove('error-border')"
                         class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
                 </div>
+            </div>
+
+            <div class="md:col-span-2 flex justify-center md:justify-start">
+                <button type="button" id="add-destino-btn"
+                    class="w-full md:w-auto px-4 py-2 bg-gray-200 text-gray-800 font-medium rounded-lg hover:bg-gray-300 transition duration-150 ease-in-out">
+                    + Adicionar Outro Destino
+                </button>
             </div>
 
 
@@ -203,7 +204,7 @@ duration-150 ease-in-out">
                 </div>
             </div>
 
-            <div class="md:col-span-2">
+            <div class="md:col-span-1">
                 <label for="observacao" class="block
 text-sm font-medium text-gray-700">Observação:</label>
                 <textarea id="observacao" name="observacao" rows="4"
@@ -527,36 +528,33 @@ uppercase tracking-wider">Data</th>
             <form id="edit-lancamento-form" class="space-y-4">
                 <input type="hidden" id="edit-lancamento-id">
 
-                <div>
-                    <label for="edit-motorista" class="block text-sm font-medium text-gray-700">Motorista:</label>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="edit-motorista" class="block text-sm font-medium text-gray-700">Motorista:</label>
 
-                    <input type="text" id="edit-motorista" list="motoristas-list" class="mt-1 block w-full px-3 py-2
+                        <input type="text" id="edit-motorista" list="motoristas-list" class="mt-1 block w-full px-3 py-2
 bg-gray-50 border border-gray-300 rounded-lg">
-                </div>
+                    </div>
 
-                <div>
-                    <label for="edit-data" class="block text-sm
+                    <div>
+                        <label for="edit-data" class="block text-sm
 font-medium text-gray-700">Data:</label>
 
-                    <input type="date" id="edit-data"
-                        class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg">
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div id="edit-solicitante-campos-container" class="grid grid-cols-1 gap-4">
-                        <div class="edit-solicitante-row form-row-align">
-                            <div class="flex-grow">
-                                <label class="block text-sm font-medium text-gray-700">Solicitante (P1):</label>
-                                <input type="text" id="edit-solicitante-p1" name="edit-solicitantes[]"
-                                    class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg">
-                            </div>
-                        </div>
+                        <input type="date" id="edit-data"
+                            class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg">
                     </div>
                 </div>
 
-                <div class="flex justify-start">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div></div>
+
+                    <div id="edit-solicitante-campos-container" class="space-y-4">
+                    </div>
+                </div>
+
+                <div class="md:col-span-2 flex justify-center md:justify-start">
                     <button type="button" id="add-edit-solicitante-btn"
-                        class="px-4 py-2 bg-gray-200 text-gray-800 font-medium rounded-lg hover:bg-gray-300 transition duration-150 ease-in-out">
+                        class="w-full md:w-auto px-4 py-2 bg-gray-200 text-gray-800 font-medium rounded-lg hover:bg-gray-300 transition duration-150 ease-in-out">
                         + Adicionar Outro Solicitante
                     </button>
                 </div>
@@ -602,20 +600,13 @@ py-2 bg-gray-50 border border-gray-300 rounded-lg">
                         </div>
                     </div>
 
-                    <div id="edit-destino-campos-container" class="grid grid-cols-1 gap-4">
-                        <div class="edit-destino-row form-row-align">
-                            <div class="flex-grow">
-                                <label class="block text-sm font-medium text-gray-700">Destino (P1):</label>
-                                <input type="text" id="edit-destino-p1" name="edit-destinos[]"
-                                    class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg">
-                            </div>
-                        </div>
+                    <div id="edit-destino-campos-container" class="space-y-4">
                     </div>
                 </div>
 
-                <div class="flex justify-start">
+                <div class="md:col-span-2 flex justify-center md:justify-start">
                     <button type="button" id="add-edit-destino-btn"
-                        class="px-4 py-2 bg-gray-200 text-gray-800 font-medium rounded-lg hover:bg-gray-300 transition duration-150 ease-in-out">
+                        class="w-full md:w-auto px-4 py-2 bg-gray-200 text-gray-800 font-medium rounded-lg hover:bg-gray-300 transition duration-150 ease-in-out">
                         + Adicionar Outro Destino
                     </button>
                 </div>
@@ -860,12 +851,23 @@ rounded-lg text-right">
             rows.forEach((row, index) => {
                 const pNum = index + 1;
                 const label = row.querySelector('label');
+                const input = row.querySelector('input');
+
                 if (label) {
-                    label.textContent = `${baseLabel} (P${pNum}):`;
-                    if (index === 0) {
-                        label.textContent = `${baseLabel}:`; // O primeiro não tem P1 no rótulo
-                    }
+                    // O primeiro não tem P(n) no rótulo, apenas o nome base
+                    label.textContent = index === 0 ? baseLabel + ':' : `${baseLabel} (P${pNum}):`;
                 }
+
+                // Atualiza o ID do campo principal do solicitante para que ele seja encontrado na validação
+                if (containerId === 'solicitante-campos-container' && index === 0 && input) {
+                    input.id = 'solicitante';
+                    input.name = 'solicitantes[]';
+                }
+                if (containerId === 'destino-campos-container' && index === 0 && input) {
+                    input.id = 'destino';
+                    input.name = 'destinos[]';
+                }
+
 
                 const removeBtn = row.querySelector('.remove-dynamic-btn');
                 if (removeBtn) {
@@ -885,14 +887,16 @@ rounded-lg text-right">
 
         function createDynamicInput(containerId, inputName, baseLabel, isRequired = true) {
             const fieldset = document.createElement('div');
+            // O dynamic-row aqui é para o JS, e o form-row-align para o CSS
             fieldset.className = 'dynamic-row form-row-align';
 
             const index = Date.now();
-            const labelText = isRequired ? baseLabel : `${baseLabel} (P${document.querySelectorAll(`#${containerId} .dynamic-row`).length + 1})`;
+            const pNum = document.querySelectorAll(`#${containerId} .dynamic-row`).length + 1;
+            const labelText = isRequired ? baseLabel + ':' : `${baseLabel} (P${pNum}):`;
 
             fieldset.innerHTML = `
                 <div class="flex-grow">
-                    <label for="${inputName}-${index}" class="block text-sm font-medium text-gray-700">${labelText}:</label>
+                    <label for="${inputName}-${index}" class="block text-sm font-medium text-gray-700">${labelText}</label>
                     <input type="text" id="${inputName}-${index}" name="${inputName}s[]"
                         onfocus="this.classList.remove('error-border')"
                         class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
@@ -902,8 +906,8 @@ rounded-lg text-right">
                 </button>
             `;
 
-            if (!isRequired) {
-                const removeBtn = fieldset.querySelector('.remove-dynamic-btn');
+            const removeBtn = fieldset.querySelector('.remove-dynamic-btn');
+            if (removeBtn && !isRequired) {
                 removeBtn.onclick = () => {
                     fieldset.remove();
                     updateDynamicLabels(containerId, inputName, baseLabel);
@@ -972,8 +976,9 @@ rounded-lg text-right">
                        
      class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
                     </div>
-                    ${!isRequired ?
-                    `<button type="button" class="ml-2 px-3 py-2 bg-red-500 text-white font-bold rounded-lg shadow-md hover:bg-red-600 remove-passageiro-btn">-</button>` : ''}
+                    <button type="button" class="ml-2 px-3 py-2 bg-gray-300 text-gray-800 font-bold rounded-lg shadow-md hover:bg-gray-400 remove-passageiro-btn ${isRequired ? 'hidden' : ''}">
+                    -
+                </button>
                 </div>
             `;
             return fieldset;
@@ -1134,7 +1139,7 @@ rounded-lg text-right">
 
             let isFormValid = true;
 
-            // Validação de campos obrigatórios
+            // Validação de campos obrigatórios (motorista, data, etc.)
             requiredFields.forEach(field => {
                 const input = form[field];
                 if
@@ -1407,8 +1412,18 @@ rounded-lg text-right">
             rows.forEach((row, index) => {
                 const pNum = index + 1;
                 const label = row.querySelector('label');
+                const input = row.querySelector('input');
+
                 if (label) {
                     label.textContent = `${baseLabel} (P${pNum}):`;
+                }
+
+                // Define o ID do P1 para ser encontrado no submit
+                if (containerId === 'edit-solicitante-campos-container' && index === 0 && input) {
+                    input.id = 'edit-solicitante-p1';
+                }
+                if (containerId === 'edit-destino-campos-container' && index === 0 && input) {
+                    input.id = 'edit-destino-p1';
                 }
 
                 const removeBtn = row.querySelector('.remove-edit-dynamic-btn');
@@ -1527,10 +1542,10 @@ rounded-lg text-right">
 
             const removeBtn = fieldset.querySelector('.remove-edit-passageiro-btn');
             if (removeBtn) {
-                removeBtn.addEventListener('click', () => {
+                removeBtn.onclick = () => {
                     fieldset.remove();
                     updateEditPassageiroLabels();
-                });
+                };
             }
 
             return fieldset;
@@ -1575,13 +1590,7 @@ rounded-lg text-right">
             editSolicitanteContainer.innerHTML = '';
 
             // Solicitante Principal (P1)
-            const p1SolicitanteInput = editSolicitanteContainer.querySelector('input[name="edit-solicitantes[]"]') || document.getElementById('edit-solicitante-p1');
-            if (p1SolicitanteInput) {
-                p1SolicitanteInput.value = lancamento.solicitante || '';
-            } else {
-                // Se P1 não existe (devido ao innerHTML=''), cria
-                editSolicitanteContainer.appendChild(createEditDynamicInput('edit-solicitante-campos-container', 'solicitante', 'Solicitante', lancamento.solicitante || ''));
-            }
+            addEditDynamicRow('edit-solicitante-campos-container', 'solicitante', 'Solicitante', lancamento.solicitante || '');
 
             // Solicitantes Extras
             if (lancamento.solicitantes_extras && lancamento.solicitantes_extras.length > 0) {
@@ -1597,13 +1606,7 @@ rounded-lg text-right">
             editDestinoContainer.innerHTML = '';
 
             // Destino Principal (P1)
-            const p1DestinoInput = editDestinoContainer.querySelector('input[name="edit-destinos[]"]') || document.getElementById('edit-destino-p1');
-            if (p1DestinoInput) {
-                p1DestinoInput.value = lancamento.destino || '';
-            } else {
-                // Se P1 não existe (devido ao innerHTML=''), cria
-                editDestinoContainer.appendChild(createEditDynamicInput('edit-destino-campos-container', 'destino', 'Destino', lancamento.destino || ''));
-            }
+            addEditDynamicRow('edit-destino-campos-container', 'destino', 'Destino', lancamento.destino || '');
 
             // Destinos Extras
             if (lancamento.destinos_extras && lancamento.destinos_extras.length > 0) {
@@ -1688,7 +1691,9 @@ rounded-lg text-right">
 
             if (solicitantesEdit.length === 0) {
                 showWarning('O solicitante principal (P1) deve estar preenchido.');
-                document.getElementById('edit-solicitante-p1').classList.add('error-border');
+                // Adiciona a borda de erro ao primeiro campo de solicitante.
+                const p1SolicitanteInput = document.getElementById('edit-solicitante-campos-container').querySelector('input');
+                if (p1SolicitanteInput) p1SolicitanteInput.classList.add('error-border');
                 return;
             }
 
@@ -1699,7 +1704,9 @@ rounded-lg text-right">
 
             if (destinosEdit.length === 0) {
                 showWarning('O destino principal (P1) deve estar preenchido.');
-                document.getElementById('edit-destino-p1').classList.add('error-border');
+                // Adiciona a borda de erro ao primeiro campo de destino.
+                const p1DestinoInput = document.getElementById('edit-destino-campos-container').querySelector('input');
+                if (p1DestinoInput) p1DestinoInput.classList.add('error-border');
                 return;
             }
 
@@ -1781,8 +1788,7 @@ rounded-lg text-right">
                 row.className = 'bg-white hover:bg-gray-50';
                 row.innerHTML = `
                     <td class="p-4"><input type="checkbox" data-id="${item.id}" class="transportado-checkbox rounded-sm"></td>
-  
-             
+
       <td class="px-6 py-4">${item.matricula}</td>
                     <td class="px-6 py-4">${item.nome}</td>
                 `;
@@ -1799,8 +1805,7 @@ rounded-lg text-right">
                 row.className = 'bg-white hover:bg-gray-50';
                 row.innerHTML = `
                     <td class="p-4"><input type="checkbox" data-id="${item.id}" class="motorista-checkbox rounded-sm"></td>
-  
-             
+
       <td class="px-6 py-4">${item.nome}</td>
                 `;
                 tableBody.appendChild(row);
