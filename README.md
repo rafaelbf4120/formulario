@@ -152,11 +152,6 @@ duration-150 ease-in-out">
                 </div>
             </div>
 
-            <div class="space-y-4">
-                <div id="destino-campos-container">
-                </div>
-            </div>
-
             <div class="form-row-align">
                 <div class="flex-grow">
                     <label for="partida" class="block text-sm font-medium text-gray-700">Partida:</label>
@@ -165,46 +160,35 @@ duration-150 ease-in-out">
                 </div>
             </div>
 
-            <div class="md:col-span-2 flex justify-center md:justify-start">
-                <button type="button" id="add-destino-btn"
-                    class="w-full md:w-auto px-4 py-2 bg-gray-200 text-gray-800 font-medium rounded-lg hover:bg-gray-300 transition duration-150 ease-in-out">
-                    + Adicionar Outro Destino
-                </button>
-            </div>
+            <div></div>
 
 
-            <div class="form-row-align">
-                <div class="flex-grow">
-                    <label for="chegada" class="block text-sm font-medium text-gray-700">Chegada:</label>
+            <div id="destino-campos-container-wrapper" class="md:col-span-2 space-y-4">
+                <div id="destino-campos-container" class="grid grid-cols-1 gap-4 md:gap-6">
+                </div>
 
-                    <input type="time" id="chegada" name="chegada" onfocus="this.classList.remove('error-border')"
-                        class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                <div class="flex justify-center md:justify-start">
+                    <button type="button" id="add-destino-btn"
+                        class="w-full md:w-auto px-4 py-2 bg-gray-200 text-gray-800 font-medium rounded-lg hover:bg-gray-300 transition duration-150 ease-in-out">
+                        + Adicionar Outro Destino
+                    </button>
                 </div>
             </div>
 
-            <div>
 
-                <label for="valor" class="block text-sm font-medium text-gray-700">Valor:</label>
-                <div class="relative mt-1">
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 pr-2 text-gray-400">R$</span>
-                    <input type="text" id="valor" name="valor"
-                        class="block w-full px-3 py-2 pl-9 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out text-right">
-
+            <div id="valor-campos-container-wrapper" class="md:col-span-2 space-y-4">
+                <div id="valor-campos-container" class="grid grid-cols-1 gap-4 md:gap-6">
+                </div>
+                <div class="flex justify-center md:justify-start">
+                    <button type="button" id="add-valor-btn"
+                        class="w-full md:w-auto px-4 py-2 bg-gray-200 text-gray-800 font-medium rounded-lg hover:bg-gray-300 transition duration-150 ease-in-out">
+                        + Adicionar Valor
+                    </button>
                 </div>
             </div>
 
-            <div>
 
-                <label for="valor-extra" class="block text-sm font-medium text-gray-700">Valor Extra:</label>
-                <div class="relative mt-1">
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 pr-2 text-gray-400">R$</span>
-
-                    <input type="text" id="valor-extra" name="valor-extra"
-                        class="block w-full px-3 py-2 pl-9 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out text-right">
-                </div>
-            </div>
-
-            <div class="md:col-span-1">
+            <div class="md:col-span-2">
                 <label for="observacao" class="block
 text-sm font-medium text-gray-700">Observação:</label>
                 <textarea id="observacao" name="observacao" rows="4"
@@ -246,8 +230,8 @@ bg-blue-600 text-white font-bold rounded-lg shadow-lg hover:bg-blue-700 focus:ou
 
                 </div>
             </div>
-            <button type="button" id="download-csv"
-                class="w-full px-6 py-3 bg-green-600 text-white font-bold rounded-lg shadow-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
+            <button type="button" id="download-csv" class="w-full px-6 py-3 bg-green-600 text-white font-bold rounded-lg shadow-lg hover:bg-green-700 focus:outline-none focus:ring-4
+focus:ring-green-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
 
                 Baixar Relatório CSV
 
@@ -257,8 +241,8 @@ bg-blue-600 text-white font-bold rounded-lg shadow-lg hover:bg-blue-700 focus:ou
         <hr class="my-6 md:my-8 border-gray-300">
 
         <div class="flex flex-col md:flex-row justify-center gap-4">
-            <button type="button" id="open-lancamentos-modal"
-                class="px-6 py-3 bg-teal-600 text-white font-bold rounded-lg shadow-lg hover:bg-teal-700 focus:outline-none focus:ring-4 focus:ring-teal-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
+            <button type="button" id="open-lancamentos-modal" class="px-6 py-3 bg-teal-600 text-white font-bold rounded-lg shadow-lg hover:bg-teal-700 focus:outline-none focus:ring-4
+focus:ring-teal-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
                 Gerenciar Lançamentos
             </button>
 
@@ -266,8 +250,8 @@ bg-blue-600 text-white font-bold rounded-lg shadow-lg hover:bg-blue-700 focus:ou
 focus:ring-purple-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
                 Gerenciar Transportados
             </button>
-            <button type="button" id="open-motoristas-modal"
-                class="px-6 py-3 bg-indigo-600 text-white font-bold rounded-lg shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 transition duration-150 ease-in-out hidden">
+            <button type="button" id="open-motoristas-modal" class="px-6 py-3 bg-indigo-600 text-white font-bold rounded-lg shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-4
+focus:ring-indigo-500 focus:ring-opacity-50 transition duration-150 ease-in-out hidden">
 
 
                 Gerenciar Motoristas
@@ -394,8 +378,8 @@ hover:text-gray-800 text-xl font-bold">&times;</button>
                     <input type="text" id="new-motorista-nome"
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                 </div>
-                <button type="button" id="add-motorista"
-                    class="px-6 py-2 bg-indigo-600 text-white font-bold rounded-lg shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
+                <button type="button" id="add-motorista" class="px-6 py-2 bg-indigo-600 text-white font-bold rounded-lg shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-4
+focus:ring-indigo-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
 
 
                     Adicionar
@@ -477,30 +461,32 @@ hover:text-gray-800 text-xl font-bold">&times;</button>
                     <thead class="bg-gray-50 sticky top-0">
 
                         <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 
+uppercase tracking-wider hidden">ID</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 
 uppercase tracking-wider">Data</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Motorista</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Transportado</th>
-
-
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Origem</th>
-
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Destino</th>
-
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-
-                                Valor</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-
-                                Status</th>
-
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-
-                                Ações</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 
+uppercase tracking-wider">Motorista</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 
+uppercase tracking-wider">Solicitante(s)</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 
+uppercase tracking-wider">Transportado(s)</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 
+uppercase tracking-wider">Origem</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 
+uppercase tracking-wider">Destino(s)</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 
+uppercase tracking-wider">Partida</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 
+uppercase tracking-wider">Valor</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 
+uppercase tracking-wider">Valor Extra</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 
+uppercase tracking-wider">Observação</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 
+uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 
+uppercase tracking-wider">Ações</th>
                         </tr>
                     </thead>
 
@@ -600,7 +586,17 @@ py-2 bg-gray-50 border border-gray-300 rounded-lg">
                         </div>
                     </div>
 
-                    <div id="edit-destino-campos-container" class="space-y-4">
+                    <div class="form-row-align">
+                        <div class="flex-grow">
+                            <label for="edit-partida" class="block text-sm font-medium text-gray-700">Partida:</label>
+                            <input type="time" id="edit-partida" name="edit-partida"
+                                class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div id="edit-destino-campos-container" class="md:col-span-2 space-y-4">
                     </div>
                 </div>
 
@@ -612,29 +608,16 @@ py-2 bg-gray-50 border border-gray-300 rounded-lg">
                 </div>
 
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-
-                        <label for="edit-valor" class="block text-sm font-medium text-gray-700">Valor:</label>
-                        <div class="relative mt-1">
-                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 pr-2 text-gray-400">R$</span>
-                            <input type="text" id="edit-valor" class="block w-full px-3 py-2 pl-9 bg-gray-50 border border-gray-300
-rounded-lg text-right">
-                        </div>
-                    </div>
-                    <div>
-
-                        <label for="edit-valor-extra" class="block text-sm font-medium text-gray-700">Valor
-                            Extra:</label>
-                        <div class="relative mt-1">
-
-                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 pr-2 text-gray-400">R$</span>
-                            <input type="text" id="edit-valor-extra"
-                                class="block w-full px-3 py-2 pl-9 bg-gray-50 border border-gray-300 rounded-lg text-right">
-                        </div>
-                    </div>
+                <div id="edit-valor-campos-container" class="md:col-span-2 space-y-4">
                 </div>
 
+
+                <div class="md:col-span-2 flex justify-center md:justify-start">
+                    <button type="button" id="add-edit-valor-btn"
+                        class="w-full md:w-auto px-4 py-2 bg-gray-200 text-gray-800 font-medium rounded-lg hover:bg-gray-300 transition duration-150 ease-in-out">
+                        + Adicionar Valor
+                    </button>
+                </div>
 
                 <div>
                     <label for="edit-observacao" class="block text-sm font-medium text-gray-700">Observação:</label>
@@ -708,8 +691,6 @@ rounded-lg text-right">
         const openMotoristasBtn = document.getElementById('open-motoristas-modal');
         const passageirosContainer = document.getElementById('passageiros-campos-container');
         const addPassageiroBtn = document.getElementById('add-passageiro-btn');
-        const valorInput = document.getElementById('valor');
-        const valorExtraInput = document.getElementById('valor-extra');
         const downloadCsvBtn = document.getElementById('download-csv');
         const csvReportDiv = downloadCsvBtn.closest('.flex-col'); // A div que contém o título e os campos de CSV
 
@@ -718,6 +699,9 @@ rounded-lg text-right">
         const addSolicitanteBtn = document.getElementById('add-solicitante-btn');
         const destinoContainer = document.getElementById('destino-campos-container');
         const addDestinoBtn = document.getElementById('add-destino-btn');
+        const valorContainer = document.getElementById('valor-campos-container'); // Novo contêiner de valores
+        const addValorBtn = document.getElementById('add-valor-btn'); // Botão de adicionar valor principal
+        const editValorBtn = document.getElementById('add-edit-valor-btn'); // Botão de adicionar valor principal (edição)
 
         // === CONFIGURAÇÃO DE USUÁRIOS ===
         const users = [
@@ -844,7 +828,7 @@ rounded-lg text-right">
             setTimeout(() => checkPassageiroDuplicidade(sourceInput), 50);
         }
 
-        // --- Lógica Solicitante/Destino Dinâmico (Página Principal) ---
+        // --- Lógica Solicitante/Destino/Valor Dinâmico (Página Principal) ---
 
         function updateDynamicLabels(containerId, inputName, baseLabel) {
             const rows = document.querySelectorAll(`#${containerId} .dynamic-row`);
@@ -863,11 +847,51 @@ rounded-lg text-right">
                     input.id = 'solicitante';
                     input.name = 'solicitantes[]';
                 }
-                if (containerId === 'destino-campos-container' && index === 0 && input) {
-                    input.id = 'destino';
-                    input.name = 'destinos[]';
+                // O campo destino principal não é mais o input com id="destino", ele é dinâmico.
+                // Mas garantimos que o primeiro campo de destino tenha o nome correto para o backend:
+                if (containerId === 'destino-campos-container' && index === 0) {
+                    // O primeiro input é o Destino
+                    const destinoInput = row.querySelector('input[name="destinos[]"]');
+                    if (destinoInput) destinoInput.id = 'destino';
+
+                    // O segundo input é a Chegada, deve ter o nome correto
+                    const chegadaInput = row.querySelector('input[name="chegadas_destino[]"]');
+                    if (chegadaInput) chegadaInput.id = 'chegada_destino_p1';
                 }
 
+                // Lógica de Valor
+                if (containerId === 'valor-campos-container') {
+                    const valorInput = row.querySelector('input[name="valores[]"]');
+                    const valorExtraInput = row.querySelector('input[name="valores_extra[]"]');
+
+                    if (valorInput) {
+                        valorInput.id = index === 0 ? 'valor' : `valor-${pNum}`;
+                        valorInput.name = 'valores[]';
+                        valorInput.classList.remove('error-border'); // Limpa a borda de erro
+
+                        // Rebinding de eventos de moeda
+                        valorInput.addEventListener('input', () => formatCurrencyInput(valorInput));
+                        valorInput.addEventListener('focus', () => { if (valorInput.value === '0,00') valorInput.value = ''; });
+                        valorInput.addEventListener('blur', () => { if (valorInput.value === '') valorInput.value = '0,00'; });
+
+                        // Define o valor padrão em foco/blur
+                        if (valorInput.value === '') valorInput.value = '0,00';
+                    }
+
+                    if (valorExtraInput) {
+                        valorExtraInput.id = index === 0 ? 'valor-extra' : `valor-extra-${pNum}`;
+                        valorExtraInput.name = 'valores_extra[]';
+                        valorExtraInput.classList.remove('error-border'); // Limpa a borda de erro
+
+                        // Rebinding de eventos de moeda
+                        valorExtraInput.addEventListener('input', () => formatCurrencyInput(valorExtraInput));
+                        valorExtraInput.addEventListener('focus', () => { if (valorExtraInput.value === '0,00') valorExtraInput.value = ''; });
+                        valorExtraInput.addEventListener('blur', () => { if (valorExtraInput.value === '') valorExtraInput.value = '0,00'; });
+
+                        // Define o valor padrão em foco/blur
+                        if (valorExtraInput.value === '') valorExtraInput.value = '0,00';
+                    }
+                }
 
                 const removeBtn = row.querySelector('.remove-dynamic-btn');
                 if (removeBtn) {
@@ -879,25 +903,28 @@ rounded-lg text-right">
                         removeBtn.onclick = () => {
                             row.remove();
                             updateDynamicLabels(containerId, inputName, baseLabel);
+                            // Se remover um destino, deve remover o valor correspondente.
+                            if (containerId === 'destino-campos-container') {
+                                // A sincronização de valores foi removida, então nada de remoção automática aqui.
+                            }
                         };
                     }
                 }
             });
+            // A sincronização de valores foi removida, o botão de valor é totalmente manual.
         }
 
-        function createDynamicInput(containerId, inputName, baseLabel, isRequired = true) {
+        function createSolicitanteInput(index, isRequired = true) {
             const fieldset = document.createElement('div');
-            // O dynamic-row aqui é para o JS, e o form-row-align para o CSS
             fieldset.className = 'dynamic-row form-row-align';
 
-            const index = Date.now();
-            const pNum = document.querySelectorAll(`#${containerId} .dynamic-row`).length + 1;
-            const labelText = isRequired ? baseLabel + ':' : `${baseLabel} (P${pNum}):`;
+            const pNum = document.querySelectorAll(`#solicitante-campos-container .dynamic-row`).length + 1;
+            const labelText = isRequired ? 'Solicitante:' : `Solicitante (P${pNum}):`;
 
             fieldset.innerHTML = `
                 <div class="flex-grow">
-                    <label for="${inputName}-${index}" class="block text-sm font-medium text-gray-700">${labelText}</label>
-                    <input type="text" id="${inputName}-${index}" name="${inputName}s[]"
+                    <label for="solicitante-${index}" class="block text-sm font-medium text-gray-700">${labelText}</label>
+                    <input type="text" id="solicitante-${index}" name="solicitantes[]"
                         onfocus="this.classList.remove('error-border')"
                         class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
                 </div>
@@ -910,18 +937,182 @@ rounded-lg text-right">
             if (removeBtn && !isRequired) {
                 removeBtn.onclick = () => {
                     fieldset.remove();
-                    updateDynamicLabels(containerId, inputName, baseLabel);
+                    updateDynamicLabels(containerId, 'solicitante', 'Solicitante');
                 };
             }
             return fieldset;
         }
 
+        function createDestinoInput(index, isRequired = true) {
+            const fieldset = document.createElement('div');
+            // O dynamic-row aqui é para o JS. Usamos grid grid-cols-2 aqui
+            fieldset.className = 'dynamic-row grid grid-cols-2 gap-4 md:gap-6';
+            fieldset.dataset.pNum = (document.querySelectorAll(`#destino-campos-container .dynamic-row`).length + 1);
+
+            const pNum = fieldset.dataset.pNum;
+            const labelText = isRequired ? 'Destino:' : `Destino (P${pNum}):`;
+            const labelTime = isRequired ? 'Chegada (Horário):' : `Chegada (P${pNum}):`;
+
+            fieldset.innerHTML = `
+                <div class="form-row-align">
+                    <div class="flex-grow">
+                        <label for="destino-${index}" class="block text-sm font-medium text-gray-700">${labelText}</label>
+                        <input type="text" id="destino-${index}" name="destinos[]"
+                            onfocus="this.classList.remove('error-border')"
+                            class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                    </div>
+                    <button type="button" class="ml-2 px-3 py-2 bg-gray-300 text-gray-800 font-bold rounded-lg shadow-md hover:bg-gray-400 remove-dynamic-btn ${isRequired ? 'hidden' : ''}">
+                        -
+                    </button>
+                </div>
+                <div class="form-row-align">
+                    <div class="flex-grow">
+                        <label for="chegada-destino-${index}" class="block text-sm font-medium text-gray-700">${labelTime}</label>
+                        <input type="time" id="chegada-destino-${index}" name="chegadas_destino[]"
+                            onfocus="this.classList.remove('error-border')"
+                            class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                    </div>
+                </div>
+            `;
+
+            const removeBtn = fieldset.querySelector('.remove-dynamic-btn');
+            if (removeBtn && !isRequired) {
+                removeBtn.onclick = () => {
+                    const pNumToRemove = fieldset.dataset.pNum;
+                    fieldset.remove();
+                    updateDynamicLabels(containerId, 'destino', 'Destino');
+                };
+            }
+            return fieldset;
+        }
+
+        // Lógica de Valor Dinâmico (Página Principal)
+        function createValorInput(pNum, isRequired = true) {
+            const fieldset = document.createElement('div');
+            fieldset.className = 'dynamic-row grid grid-cols-2 gap-4 md:gap-6 valor-row';
+            fieldset.dataset.pNum = pNum;
+            const isP1 = pNum === 1;
+
+            const labelValor = pNum === 1 ? 'Valor P1:' : `Valor P${pNum}:`;
+            const labelValorExtra = pNum === 1 ? 'Valor Extra P1:' : `Valor Extra P${pNum}:`;
+            const inputIdValor = pNum === 1 ? 'valor' : `valor-${pNum}`;
+            const inputIdValorExtra = pNum === 1 ? 'valor-extra' : `valor-extra-${pNum}`;
+
+            fieldset.innerHTML = `
+                <div>
+                    <label for="${inputIdValor}" class="block text-sm font-medium text-gray-700">${labelValor}</label>
+                    <div class="relative mt-1">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 pr-2 text-gray-400">R$</span>
+                        <input type="text" id="${inputIdValor}" name="valores[]"
+                            class="block w-full px-3 py-2 pl-9 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out text-right">
+                    </div>
+                </div>
+                <div class="form-row-align">
+                    <div class="flex-grow">
+                        <label for="${inputIdValorExtra}" class="block text-sm font-medium text-gray-700">${labelValorExtra}</label>
+                        <div class="relative mt-1">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 pr-2 text-gray-400">R$</span>
+                            <input type="text" id="${inputIdValorExtra}" name="valores_extra[]"
+                                class="block w-full px-3 py-2 pl-9 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:focus:border-blue-500 transition duration-150 ease-in-out text-right">
+                        </div>
+                    </div>
+                    <button type="button" class="ml-2 px-3 py-2 bg-gray-300 text-gray-800 font-bold rounded-lg shadow-md hover:bg-gray-400 remove-valor-btn ${isP1 ? 'hidden' : ''}">
+                        -
+                    </button>
+                </div>
+            `;
+
+            const removeBtn = fieldset.querySelector('.remove-valor-btn');
+            if (removeBtn && !isP1) {
+                removeBtn.onclick = () => {
+                    fieldset.remove();
+                    updateValueLabels();
+                };
+            }
+
+            return fieldset;
+        }
+
+        // Função para remover um campo de Valor específico
+        function removeValueRow(pNumToRemove) {
+            const rowToRemove = document.querySelector(`#valor-campos-container .valor-row[data-p-num="${pNumToRemove}"]`);
+            if (rowToRemove) {
+                rowToRemove.remove();
+                // Reorganiza os rótulos de Valor e Valor Extra após a remoção
+                updateValueLabels();
+            }
+        }
+
+        // Função para atualizar os rótulos de Valor após adição/remoção
+        function updateValueLabels() {
+            const rows = document.querySelectorAll(`#valor-campos-container .valor-row`);
+            rows.forEach((row, index) => {
+                const pNum = index + 1;
+                row.dataset.pNum = pNum;
+
+                const labelValor = row.querySelector(`label[for^="valor"]`);
+                const labelValorExtra = row.querySelector(`label[for^="valor-extra"]`);
+                const inputValor = row.querySelector('input[name="valores[]"]');
+                const inputValorExtra = row.querySelector('input[name="valores_extra[]"]');
+                const removeBtn = row.querySelector('.remove-valor-btn');
+
+                // Atualiza rótulos
+                if (labelValor) labelValor.textContent = pNum === 1 ? 'Valor P1:' : `Valor P${pNum}:`;
+                if (labelValorExtra) labelValorExtra.textContent = pNum === 1 ? 'Valor Extra P1:' : `Valor Extra P${pNum}:`;
+
+                // Atualiza IDs (essencial para formatCurrencyInput funcionar e para o submit)
+                if (inputValor) inputValor.id = pNum === 1 ? 'valor' : `valor-${pNum}`;
+                if (inputValorExtra) inputValorExtra.id = pNum === 1 ? 'valor-extra' : `valor-extra-${pNum}`;
+
+                // Revalida a exibição do botão de remoção
+                if (removeBtn) {
+                    if (pNum === 1) removeBtn.classList.add('hidden');
+                    else removeBtn.classList.remove('hidden');
+                }
+
+                // Adiciona/reforça eventos de moeda
+                if (inputValor) {
+                    inputValor.removeEventListener('input', formatCurrencyInput);
+                    inputValor.addEventListener('input', () => formatCurrencyInput(inputValor));
+                    inputValor.removeEventListener('focus', () => { if (inputValor.value === '0,00') inputValor.value = ''; });
+                    inputValor.addEventListener('focus', () => { if (inputValor.value === '0,00') inputValor.value = ''; });
+                    inputValor.removeEventListener('blur', () => { if (inputValor.value === '') inputValor.value = '0,00'; });
+                    inputValor.addEventListener('blur', () => { if (inputValor.value === '') inputValor.value = '0,00'; });
+                }
+                if (inputValorExtra) {
+                    inputValorExtra.removeEventListener('input', formatCurrencyInput);
+                    inputValorExtra.addEventListener('input', () => formatCurrencyInput(inputValorExtra));
+                    inputValorExtra.removeEventListener('focus', () => { if (inputValorExtra.value === '0,00') inputValorExtra.value = ''; });
+                    inputValorExtra.addEventListener('focus', () => { if (inputValorExtra.value === '0,00') inputValorExtra.value = ''; });
+                    inputValorExtra.removeEventListener('blur', () => { if (inputValorExtra.value === '') inputValorExtra.value = '0,00'; });
+                    inputValorExtra.addEventListener('blur', () => { if (inputValorExtra.value === '') inputValorExtra.value = '0,00'; });
+                }
+
+            });
+        }
+
+        // Função principal para adicionar linhas dinâmicas
         function addDynamicRow(containerId, inputName, baseLabel, isRequired = false) {
             const container = document.getElementById(containerId);
-            const newRow = createDynamicInput(containerId, inputName, baseLabel, isRequired);
-            container.appendChild(newRow);
-            updateDynamicLabels(containerId, inputName, baseLabel);
+            let newRow;
+
+            if (inputName === 'destino') {
+                newRow = createDestinoInput(Date.now(), isRequired);
+            } else if (inputName === 'solicitante') {
+                newRow = createSolicitanteInput(Date.now(), isRequired);
+            } else if (inputName === 'valor') {
+                // A adição de valor é sempre opcional (não-obrigatória)
+                newRow = createValorInput(document.querySelectorAll(`#valor-campos-container .valor-row`).length + 1, false);
+            }
+
+            if (newRow) {
+                container.appendChild(newRow);
+                updateDynamicLabels(containerId, inputName, baseLabel);
+            }
         }
+
+        // Associa o botão de adicionar valor à função de adicionar Valor
+        addValorBtn.addEventListener('click', () => addDynamicRow('valor-campos-container', 'valor', 'Valor', false));
 
 
         // --- Lógica Passageiros (Transportados) ---
@@ -1021,19 +1212,19 @@ rounded-lg text-right">
             // Inicialização dos campos dinâmicos na página de lançamento
             addDynamicRow('solicitante-campos-container', 'solicitante', 'Solicitante', true);
             addDynamicRow('destino-campos-container', 'destino', 'Destino', true);
+            // Inicia o valor P1 e Valor Extra P1
+            addDynamicRow('valor-campos-container', 'valor', 'Valor', true);
             addPassageiroRow(true);
 
             bindPassageiroListeners();
             addPassageiroBtn.addEventListener('click', () => addPassageiroRow(false));
             addSolicitanteBtn.addEventListener('click', () => addDynamicRow('solicitante-campos-container', 'solicitante', 'Solicitante', false));
-            addDestinoBtn.addEventListener('click', () => addDynamicRow('destino-campos-container', 'destino', 'Destino', false));
+            // O botão de Destino não precisa mais sincronizar os valores
+            addDestinoBtn.addEventListener('click', () => {
+                addDynamicRow('destino-campos-container', 'destino', 'Destino', false);
+            });
 
-            valorInput.addEventListener('input', () => formatCurrencyInput(valorInput));
-            valorExtraInput.addEventListener('input', () => formatCurrencyInput(valorExtraInput));
-            valorInput.addEventListener('focus', () => { if (valorInput.value === '0,00') valorInput.value = ''; });
-            valorExtraInput.addEventListener('focus', () => { if (valorExtraInput.value === '0,00') valorExtraInput.value = ''; });
-            valorInput.addEventListener('blur', () => { if (valorInput.value === '') valorInput.value = '0,00'; });
-            valorExtraInput.addEventListener('blur', () => { if (valorExtraInput.value === '') valorExtraInput.value = '0,00'; });
+
             onAuthStateChanged(auth, async (user) => {
                 // Aqui o user.uid é o ID anônimo/Firebase, mas usamos o globalUserId simulado
                 if (user) {
@@ -1130,10 +1321,14 @@ rounded-lg text-right">
         document.getElementById('form-corrida').addEventListener('submit', async function (event) {
             event.preventDefault();
             const form = event.target;
-            const requiredFields = ['motorista', 'data', 'origem', 'partida', 'chegada', 'valor'];
+            // 'chegada' foi removido, agora é 'chegada_destino'
+            const requiredFields = ['motorista', 'data', 'origem', 'partida', 'valor'];
 
             const solicitantesInputs = document.querySelectorAll('#solicitante-campos-container input[name="solicitantes[]"]');
             const destinosInputs = document.querySelectorAll('#destino-campos-container input[name="destinos[]"]');
+            const chegadasDestinoInputs = document.querySelectorAll('#destino-campos-container input[name="chegadas_destino[]"]'); // Novo para capturar a hora de chegada do destino
+            const valoresInputs = document.querySelectorAll('#valor-campos-container input[name="valores[]"]'); // Novos
+            const valoresExtraInputs = document.querySelectorAll('#valor-campos-container input[name="valores_extra[]"]'); // Novos
             const matriculasInputs = document.querySelectorAll('#passageiros-campos-container input[name="matriculas[]"]');
             const transportadosInputs = document.querySelectorAll('#passageiros-campos-container input[name="transportados[]"]');
 
@@ -1166,19 +1361,49 @@ rounded-lg text-right">
                 solicitantesInputs[0].classList.remove('error-border');
             }
 
-            // Coleta e validação de Destinos
+            // Coleta e validação de Destinos e Chegadas
             const destinosData = [];
-            destinosInputs.forEach(input => {
-                const value = input.value.trim();
-                if (value !== '') {
-                    destinosData.push(value);
+            const chegadasDestinoData = [];
+            let destinoChegadaIncompleto = false;
+
+            for (let i = 0; i < destinosInputs.length; i++) {
+                const destino = destinosInputs[i].value.trim();
+                const chegada = chegadasDestinoInputs[i].value.trim();
+
+                if (destino !== '' && chegada !== '') {
+                    destinosData.push(destino);
+                    chegadasDestinoData.push(chegada);
+                } else if (destino !== '' || chegada !== '') {
+                    destinoChegadaIncompleto = true;
+                    destinosInputs[i].classList.add('error-border');
+                    chegadasDestinoInputs[i].classList.add('error-border');
                 }
-            });
+            }
+
+            if (destinoChegadaIncompleto) {
+                isFormValid = false;
+            }
+
             if (destinosData.length === 0) {
                 isFormValid = false;
                 if (destinosInputs[0]) destinosInputs[0].classList.add('error-border');
+                if (chegadasDestinoInputs[0]) chegadasDestinoInputs[0].classList.add('error-border');
             } else {
                 destinosInputs[0].classList.remove('error-border');
+                chegadasDestinoInputs[0].classList.remove('error-border');
+            }
+
+            // Coleta e validação de Valores
+            const valoresData = [];
+            const valoresExtraData = [];
+            // O número de valores é independente dos destinos (exceto P1), então coletamos todos os valores preenchidos.
+            for (let i = 0; i < valoresInputs.length; i++) {
+                const valor = parseCurrencyValue(valoresInputs[i].value);
+                const valorExtra = parseCurrencyValue(valoresExtraInputs[i].value);
+
+                // Assume que o valor 0 é aceitável, mas coleta todos para manter o alinhamento
+                valoresData.push(valor);
+                valoresExtraData.push(valorExtra);
             }
 
             // Coleta e validação de Passageiros
@@ -1223,6 +1448,25 @@ rounded-lg text-right">
                 return;
             }
 
+            // Estrutura para salvar Destinos e Chegadas Extras
+            const destinosExtras = [];
+            // O número de destinos extras deve ser igual ao número de valores extras - 1 (P1).
+            const numDestinosExtras = destinosData.length - 1;
+            const numValoresExtras = valoresData.length - 1;
+
+            // Garantir que a menor quantidade de dados seja usada para evitar erros.
+            const extraCount = Math.min(numDestinosExtras, numValoresExtras);
+
+            for (let i = 1; i <= extraCount; i++) {
+                destinosExtras.push({
+                    destino: destinosData[i],
+                    chegada: chegadasDestinoData[i],
+                    valor: valoresData[i],
+                    valorExtra: valoresExtraData[i]
+                });
+            }
+
+
             const newEntry = {
                 userId: globalUserId,
                 createdBy: currentUser.username,
@@ -1239,13 +1483,12 @@ rounded-lg text-right">
                 origem: form['origem'].value,
 
                 destino: destinosData[0],
-                destinos_extras: destinosData.length > 1 ? destinosData.slice(1) : [],
+                chegada_destino: chegadasDestinoData[0], // Chegada do primeiro destino
+                valor: valoresData[0],
+                valorExtra: valoresExtraData[0],
+                destinos_extras: destinosExtras,
 
                 partida: form['partida'].value,
-                chegada: form['chegada'].value,
-                valor: parseCurrencyValue(form['valor'].value),
-                valorExtra: form['valor-extra'].value ?
-                    parseCurrencyValue(form['valor-extra'].value) : 0,
                 observacao: form['observacao'].value,
                 createdAt: serverTimestamp()
             };
@@ -1254,15 +1497,14 @@ rounded-lg text-right">
 
             showWarning('Lançamento salvo com sucesso!');
             form.reset();
-            document.getElementById('valor').value = '0,00';
-            document.getElementById('valor-extra').value = '0,00';
 
             // Re-inicializa campos dinâmicos
             solicitanteContainer.innerHTML = '';
             addDynamicRow('solicitante-campos-container', 'solicitante', 'Solicitante', true);
             destinoContainer.innerHTML = '';
+            valorContainer.innerHTML = ''; // Limpa e reinicia o container de valor
             addDynamicRow('destino-campos-container', 'destino', 'Destino', true);
-            passageirosContainer.innerHTML = '';
+            addDynamicRow('valor-campos-container', 'valor', 'Valor', true); // Adiciona valor P1
             addPassageiroRow(true);
         });
 
@@ -1304,9 +1546,104 @@ rounded-lg text-right">
             }
 
             const bom = '\uFEFF';
-            const headers = ['data', 'motorista', 'transportado', 'matricula', 'origem', 'destino', 'valor'];
-            const rows = dataToDownload.map(obj => headers.map(key => `"${obj[key] ?? ''}"`).join(';')).join('\n');
-            const csvContent = `${headers.join(';')}\n${rows}`;
+
+            // --- Lógica de Geração de Cabeçalhos Dinâmicos ---
+            let maxSolicitantes = 1;
+            let maxPassageiros = 1;
+            let maxDestinos = 1;
+
+            dataToDownload.forEach(item => {
+                const currentSolicitantes = 1 + (item.solicitantes_extras ? item.solicitantes_extras.length : 0);
+                const currentPassageiros = 1 + (item.passageiros_extras ? item.passageiros_extras.length : 0);
+                // A contagem de destinos deve incluir o principal e os extras
+                const currentDestinos = 1 + (item.destinos_extras ? item.destinos_extras.length : 0);
+
+                if (currentSolicitantes > maxSolicitantes) maxSolicitantes = currentSolicitantes;
+                if (currentPassageiros > maxPassageiros) maxPassageiros = currentPassageiros;
+                if (currentDestinos > maxDestinos) maxDestinos = currentDestinos;
+            });
+
+            // 1. Cabeçalhos Fixos (P1)
+            const csvHeaders = [
+                'Data', 'Motorista', 'Partida', 'Origem',
+                'Solicitante P1',
+                'Transportado P1',
+                'Destino P1', 'Chegada P1',
+                'Valor P1', 'Valor Extra P1',
+                'Observação'
+            ];
+
+            // 2. Cabeçalhos Dinâmicos (Extras) - Matrícula e Valor Extra P1 estão inclusos em P1
+            const extraHeaders = [];
+
+            for (let i = 1; i < maxSolicitantes; i++) {
+                extraHeaders.push(`Solicitante Extra ${i}`);
+            }
+            for (let i = 1; i < maxPassageiros; i++) {
+                extraHeaders.push(`Transportado Extra ${i}`);
+            }
+            for (let i = 1; i < maxDestinos; i++) {
+                extraHeaders.push(`Destino Extra ${i}`);
+                extraHeaders.push(`Chegada Extra ${i}`);
+                extraHeaders.push(`Valor P${i + 1}`);
+                extraHeaders.push(`Valor Extra P${i + 1}`);
+            }
+
+            const finalHeaders = [...csvHeaders, ...extraHeaders];
+
+
+            // --- Mapeamento de Dados ---
+            const rows = dataToDownload.map(obj => {
+                const rowData = [
+                    obj.data || '',
+                    obj.motorista || '',
+                    obj.partida || '',
+                    obj.origem || '',
+
+                    obj.solicitante || '', // Solicitante P1
+
+                    obj.transportado || '', // Transportado P1
+
+                    obj.destino || '', // Destino P1
+                    obj.chegada_destino || '', // Chegada P1
+
+                    (obj.valor || 0).toFixed(2).replace('.', ','), // Valor P1
+                    (obj.valorExtra || 0).toFixed(2).replace('.', ','), // Valor Extra P1
+
+                    obj.observacao || ''
+                ];
+
+                const extraData = [];
+
+                // Solicitantes Extras
+                const solicitantesExtras = obj.solicitantes_extras || [];
+                for (let i = 0; i < maxSolicitantes - 1; i++) {
+                    extraData.push(solicitantesExtras[i] || '');
+                }
+
+                // Passageiros Extras
+                const passageirosExtras = obj.passageiros_extras || [];
+                for (let i = 0; i < maxPassageiros - 1; i++) {
+                    const p = passageirosExtras[i];
+                    extraData.push(p ? p.nome : '');
+                }
+
+                // Destinos/Valores Extras
+                const destinosExtras = obj.destinos_extras || [];
+                for (let i = 0; i < maxDestinos - 1; i++) {
+                    const d = destinosExtras[i];
+                    extraData.push(d ? d.destino : '');
+                    extraData.push(d ? d.chegada : '');
+                    extraData.push(d ? (d.valor || 0).toFixed(2).replace('.', ',') : '');
+                    extraData.push(d ? (d.valorExtra || 0).toFixed(2).replace('.', ',') : '');
+                }
+
+                // Combina dados e garante que estejam em aspas duplas e escapados
+                return [...rowData, ...extraData].map(value => `"${String(value).replace(/"/g, '""')}"`).join(';');
+            }).join('\n');
+
+
+            const csvContent = `${finalHeaders.join(';')}\n${rows}`;
             const blob = new Blob([bom + csvContent], { type: 'text/csv;charset=utf-8;' });
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
@@ -1318,21 +1655,39 @@ rounded-lg text-right">
         });
         // --- LÓGICA DO MODAL DE LANÇAMENTOS ---
 
-        document.getElementById('open-lancamentos-modal').addEventListener('click', () => {
-            document.getElementById('filter-start-date').value = '';
-            document.getElementById('filter-end-date').value = '';
-            renderLancamentosList();
-            document.getElementById('lancamentos-modal').classList.remove('hidden');
+        function formatMultipleValues(principal, extras, isPassageiro = false) {
+            let result = principal || '';
+            if (extras && extras.length > 0) {
+                const extraList = extras.map(e => isPassageiro ? e.nome : e);
+                result += ' (' + extraList.join(', ') + ')';
+            }
+            return result;
+        }
 
-        });
-        document.getElementById('close-lancamentos-modal').addEventListener('click', () => {
-            document.getElementById('lancamentos-modal').classList.add('hidden');
-        });
-        document.getElementById('filter-lancamentos-btn').addEventListener('click', renderLancamentosList);
+        function formatDestinosChegadas(principalDestino, principalChegada, extras) {
+            let result = principalDestino || '';
+            if (principalChegada) {
+                result += ` (${principalChegada})`;
+            }
+
+            if (extras && extras.length > 0) {
+                const extraList = extras.map(e => `${e.destino || ''}${e.chegada ? ` (${e.chegada})` : ''}`).filter(s => s !== '');
+                if (extraList.length > 0) {
+                    result += ' (' + extraList.join(', ') + ')';
+                }
+            }
+            return result;
+        }
+
 
         function renderLancamentosList() {
+            const modal = document.getElementById('lancamentos-modal');
             const tableBody = document.querySelector('#lancamentos-table tbody');
             tableBody.innerHTML = '';
+
+            // Acessa os campos de filtro dentro do modal
+            const startDate = modal.querySelector('#filter-start-date').value;
+            const endDate = modal.querySelector('#filter-end-date').value;
 
             let dataToShow = lancamentosData;
 
@@ -1342,9 +1697,6 @@ rounded-lg text-right">
                 dataToShow = lancamentosData.filter(lanc => lanc.userId === globalUserId);
             }
 
-            const startDate = document.getElementById('filter-start-date').value;
-            const endDate = document.getElementById('filter-end-date').value;
-
             if (startDate || endDate) {
                 dataToShow = dataToShow.filter(item => {
                     if (!item.data) return false;
@@ -1352,48 +1704,68 @@ rounded-lg text-right">
 
                     const start = startDate ? new Date(startDate + "T00:00:00") : null;
                     const end = endDate ? new Date(endDate + "T00:00:00") : null;
-                    if (start && itemDate < start) return false;
 
+                    if (start && itemDate < start) return false;
                     if (end && itemDate > end) return false;
+
                     return true;
                 });
             }
 
             dataToShow.sort((a, b) => new Date(b.data) - new Date(a.data));
             if (dataToShow.length === 0) {
-                tableBody.innerHTML = '<tr><td colspan="8" class="text-center p-4">Nenhum lançamento encontrado.</td></tr>';
+                tableBody.innerHTML = '<tr><td colspan="13" class="text-center p-4">Nenhum lançamento encontrado.</td></tr>';
                 return;
             }
 
             dataToShow.forEach(item => {
                 const row = document.createElement('tr');
                 row.className = 'bg-white hover:bg-gray-50';
+
+                const transportadoFull = formatMultipleValues(item.transportado, item.passageiros_extras, true);
+                const solicitanteFull = formatMultipleValues(item.solicitante, item.solicitantes_extras, false);
+                const destinoFull = formatDestinosChegadas(item.destino, item.chegada_destino, item.destinos_extras);
+
                 const statusText = item.editedBy ? `<span class="text-xs text-gray-500">Editado por ${item.editedBy}</span>` : '';
 
                 row.innerHTML = `
-                 
-   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.data}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.motorista}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.transportado}</td>
-       
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.origem}</td>
-                 
-   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.destino}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">R$ ${(item.valor || 0).toFixed(2).replace('.', ',')}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${statusText}</td>
-   
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 hidden">${item.id || ''}</td>
+                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.data || ''}</td>
+                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.motorista || ''}</td>
+                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${solicitanteFull}</td>
+                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${transportadoFull}</td>
+                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.origem || ''}</td>
+                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${destinoFull}</td>
+                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.partida || ''}</td>
+                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">R$ ${(item.valor || 0).toFixed(2).replace('.', ',')}</td>
+                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">R$ ${(item.valorExtra || 0).toFixed(2).replace('.', ',')}</td>
+                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.observacao || ''}</td>
+                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${statusText}</td>
+                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                         <button data-id="${item.id}" class="edit-lancamento-btn text-blue-600 hover:text-blue-900">
-             
-               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" /><path fill-rule="evenodd" d="M2 
- 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" /></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" /><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" /></svg>
                         </button>
-                   
- </td>
+                    </td>
                 `;
                 tableBody.appendChild(row);
             });
         }
+
+        document.getElementById('open-lancamentos-modal').addEventListener('click', () => {
+            document.getElementById('filter-start-date').value = '';
+            document.getElementById('filter-end-date').value = '';
+            renderLancamentosList();
+            document.getElementById('lancamentos-modal').classList.remove('hidden');
+
+        });
+
+        // CORREÇÃO: Função de fechar o modal de gerenciamento de lançamentos.
+        document.getElementById('close-lancamentos-modal').addEventListener('click', () => {
+            document.getElementById('lancamentos-modal').classList.add('hidden');
+        });
+
+        document.getElementById('filter-lancamentos-btn').addEventListener('click', renderLancamentosList);
+
 
         document.getElementById('lancamentos-table').addEventListener('click', function (event) {
             const editButton = event.target.closest('.edit-lancamento-btn');
@@ -1422,9 +1794,41 @@ rounded-lg text-right">
                 if (containerId === 'edit-solicitante-campos-container' && index === 0 && input) {
                     input.id = 'edit-solicitante-p1';
                 }
-                if (containerId === 'edit-destino-campos-container' && index === 0 && input) {
-                    input.id = 'edit-destino-p1';
+
+                // Os campos de Destino/Chegada precisam ser tratados como um grupo
+                if (containerId === 'edit-destino-campos-container') {
+                    const destinoLabel = row.querySelector('label[for^="edit-destino-"]');
+                    const chegadaLabel = row.querySelector('label[for^="edit-chegada-destino-"]');
+                    const destinoInput = row.querySelector('input[name="edit-destinos[]"]');
+
+                    if (destinoLabel) destinoLabel.textContent = `Destino (P${pNum}):`;
+                    if (chegadaLabel) chegadaLabel.textContent = `Chegada (P${pNum}):`;
+
+                    if (index === 0) {
+                        if (destinoInput) destinoInput.id = 'edit-destino-p1'; // ID para validação
+                    }
                 }
+
+                // Lógica de Valor Dinâmico (Edit Modal)
+                if (containerId === 'edit-valor-campos-container') {
+                    const labelValor = row.querySelector('label[for^="edit-valor-"]');
+                    const labelValorExtra = row.querySelector('label[for^="edit-valor-extra-"]');
+                    const inputValor = row.querySelector('input[name="edit-valores[]"]');
+                    const inputValorExtra = row.querySelector('input[name="edit-valores_extra[]"]');
+
+                    // Atualiza rótulos
+                    if (labelValor) labelValor.textContent = pNum === 1 ? 'Valor P1:' : `Valor P${pNum}:`;
+                    if (labelValorExtra) labelValorExtra.textContent = pNum === 1 ? 'Valor Extra P1:' : `Valor Extra P${pNum}:`;
+
+                    // Atualiza IDs (essencial para formatCurrencyInput funcionar e para o submit)
+                    if (inputValor) inputValor.id = pNum === 1 ? 'edit-valor' : `edit-valor-${pNum}`;
+                    if (inputValorExtra) inputValorExtra.id = pNum === 1 ? 'edit-valor-extra' : `edit-valor-extra-${pNum}`;
+
+                    // Garante que a formatação da moeda está ativa
+                    if (inputValor) formatCurrencyInput(inputValor);
+                    if (inputValorExtra) formatCurrencyInput(inputValorExtra);
+                }
+
 
                 const removeBtn = row.querySelector('.remove-edit-dynamic-btn');
                 if (removeBtn) {
@@ -1436,12 +1840,17 @@ rounded-lg text-right">
                         removeBtn.onclick = () => {
                             row.remove();
                             updateEditDynamicLabels(containerId, inputName, baseLabel);
+                            // Se remover um destino, deve remover o valor correspondente.
+                            if (containerId === 'edit-destino-campos-container') {
+                                removeEditValueRow(pNum);
+                            }
                         };
                     }
                 }
             });
         }
 
+        // Função genérica para criar campos dinâmicos (Solicitante)
         function createEditDynamicInput(containerId, inputName, baseLabel, value = '') {
             const fieldset = document.createElement('div');
             fieldset.className = 'edit-dynamic-row form-row-align';
@@ -1471,15 +1880,137 @@ rounded-lg text-right">
             return fieldset;
         }
 
-        function addEditDynamicRow(containerId, inputName, baseLabel, value = '') {
+        // Nova função para criar Destino + Chegada no modal de edição
+        function createEditDestinoChegadaInput(destinoValue = '', chegadaValue = '') {
+            const containerId = 'edit-destino-campos-container';
+            const fieldset = document.createElement('div');
+            // Alinhamento de 2 colunas para Destino e Chegada no modal
+            fieldset.className = 'edit-dynamic-row grid grid-cols-2 gap-4';
+
+            const index = Date.now();
+            const pNum = document.querySelectorAll(`#${containerId} .edit-dynamic-row`).length + 1;
+            const isP1 = pNum === 1;
+
+            // Estrutura interna para Destino e Chegada
+            fieldset.innerHTML = `
+                <div class="form-row-align">
+                    <div class="flex-grow">
+                        <label for="edit-destino-${index}" class="block text-sm font-medium text-gray-700">Destino (P${pNum}):</label>
+                        <input type="text" id="edit-destino-${index}" name="edit-destinos[]" value="${destinoValue}"
+                            class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg">
+                    </div>
+                    <button type="button" class="ml-2 px-3 py-2 bg-gray-300 text-gray-800 font-bold rounded-lg shadow-md hover:bg-gray-400 remove-edit-dynamic-btn ${isP1 ? 'hidden' : ''}">
+                        -
+                    </button>
+                </div>
+                <div class="form-row-align">
+                    <div class="flex-grow">
+                        <label for="edit-chegada-destino-${index}" class="block text-sm font-medium text-gray-700">Chegada (P${pNum}):</label>
+                        <input type="time" id="edit-chegada-destino-${index}" name="edit-chegadas_destino[]" value="${chegadaValue}"
+                            class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg">
+                    </div>
+                </div>
+            `;
+
+            if (!isP1) {
+                const removeBtn = fieldset.querySelector('.remove-edit-dynamic-btn');
+                removeBtn.onclick = () => {
+                    fieldset.remove();
+                    updateEditDynamicLabels(containerId, 'destino', 'Destino');
+                    // Garante que o valor associado também seja removido
+                    removeEditValueRow(pNum);
+                };
+            }
+            return fieldset;
+        }
+
+
+        // Valor Dinâmico (Modal de Edição)
+        function createEditValorInput(pNum, valorValue = '0,00', valorExtraValue = '0,00') {
+            const fieldset = document.createElement('div');
+            fieldset.className = 'edit-dynamic-row grid grid-cols-2 gap-4 valor-row';
+            fieldset.dataset.pNum = pNum;
+
+            const labelValor = pNum === 1 ? 'Valor P1:' : `Valor P${pNum}:`;
+            const labelValorExtra = pNum === 1 ? 'Valor Extra P1:' : `Valor Extra P${pNum}:`;
+            const inputIdValor = pNum === 1 ? 'edit-valor' : `edit-valor-${pNum}`;
+            const inputIdValorExtra = pNum === 1 ? 'edit-valor-extra' : `edit-valor-extra-${pNum}`;
+
+            fieldset.innerHTML = `
+                <div>
+                    <label for="${inputIdValor}" class="block text-sm font-medium text-gray-700">${labelValor}</label>
+                    <div class="relative mt-1">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 pr-2 text-gray-400">R$</span>
+                        <input type="text" id="${inputIdValor}" name="edit-valores[]" value="${valorValue}"
+                            class="block w-full px-3 py-2 pl-9 bg-gray-50 border border-gray-300 rounded-lg text-right">
+                    </div>
+                </div>
+                <div>
+                    <label for="${inputIdValorExtra}" class="block text-sm font-medium text-gray-700">${labelValorExtra}</label>
+                    <div class="relative mt-1">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 pr-2 text-gray-400">R$</span>
+                        <input type="text" id="${inputIdValorExtra}" name="edit-valores_extra[]" value="${valorExtraValue}"
+                            class="block w-full px-3 py-2 pl-9 bg-gray-50 border border-gray-300 rounded-lg text-right">
+                    </div>
+                </div>
+            `;
+            // Adiciona a formatação da moeda
+            const valorInput = fieldset.querySelector('input[name="edit-valores[]"]');
+            const valorExtraInput = fieldset.querySelector('input[name="edit-valores_extra[]"]');
+            if (valorInput) {
+                valorInput.addEventListener('input', () => formatCurrencyInput(valorInput));
+                // Define o valor padrão em blur
+                valorInput.addEventListener('blur', () => { if (valorInput.value === '') valorInput.value = '0,00'; });
+            }
+            if (valorExtraInput) {
+                valorExtraInput.addEventListener('input', () => formatCurrencyInput(valorExtraInput));
+                // Define o valor padrão em blur
+                valorExtraInput.addEventListener('blur', () => { if (valorExtraInput.value === '') valorExtraInput.value = '0,00'; });
+            }
+
+            return fieldset;
+        }
+
+        function removeEditValueRow(pNumToRemove) {
+            const rowToRemove = document.querySelector(`#edit-valor-campos-container .valor-row[data-p-num="${pNumToRemove}"]`);
+            if (rowToRemove) {
+                rowToRemove.remove();
+                // Reorganiza os rótulos de Valor e Valor Extra após a remoção
+                updateEditDynamicLabels('edit-valor-campos-container', 'valor', 'Valor');
+            }
+        }
+
+
+        function addEditDynamicRow(containerId, inputName, baseLabel, value = '', value2 = null, value3 = 0, value4 = 0) {
             const container = document.getElementById(containerId);
-            const newRow = createEditDynamicInput(containerId, inputName, baseLabel, value);
-            container.appendChild(newRow);
-            updateEditDynamicLabels(containerId, inputName, baseLabel);
+            let newRow;
+
+            if (inputName === 'destino') {
+                newRow = createEditDestinoChegadaInput(value, value2);
+                // NOTA: A adição de valor/valor extra foi desvinculada do destino.
+            } else if (inputName === 'solicitante') {
+                newRow = createEditDynamicInput(containerId, inputName, baseLabel, value);
+            } else if (inputName === 'valor') {
+                // Adição de valor manual
+                const pNum = document.querySelectorAll(`#${containerId} .edit-dynamic-row`).length + 1;
+                const valorContainer = document.getElementById('edit-valor-campos-container');
+
+                // value e value2 são passados como valores pré-formatados ou '0,00'
+                const valorFmt = (value || 0).toFixed(2).replace('.', ',');
+                const valorExtraFmt = (value2 || 0).toFixed(2).replace('.', ',');
+
+                newRow = createEditValorInput(pNum, valorFmt, valorExtraFmt);
+            }
+
+            if (newRow) {
+                container.appendChild(newRow);
+                updateEditDynamicLabels(containerId, inputName, baseLabel);
+            }
         }
 
         document.getElementById('add-edit-solicitante-btn').addEventListener('click', () => addEditDynamicRow('edit-solicitante-campos-container', 'solicitante', 'Solicitante'));
-        document.getElementById('add-edit-destino-btn').addEventListener('click', () => addEditDynamicRow('edit-destino-campos-container', 'destino', 'Destino'));
+        document.getElementById('add-edit-destino-btn').addEventListener('click', () => addEditDynamicRow('edit-destino-campos-container', 'destino', 'Destino', '', ''));
+        document.getElementById('add-edit-valor-btn').addEventListener('click', () => addEditDynamicRow('edit-valor-campos-container', 'valor', 'Valor', 0, 0)); // Adiciona um novo par Valor/Valor Extra
 
 
         // --- Lógica Passageiros (Transportados) Edit ---
@@ -1574,6 +2105,10 @@ rounded-lg text-right">
             document.getElementById('edit-origem').value = lancamento.origem;
             document.getElementById('edit-observacao').value = lancamento.observacao || '';
 
+            // Adicionado campo Partida de Edição
+            document.getElementById('edit-partida').value = lancamento.partida || '';
+
+
             // --- Motorista (read-only se não for admin) ---
             const motoristaInput = document.getElementById('edit-motorista');
             motoristaInput.value = lancamento.motorista;
@@ -1601,20 +2136,41 @@ rounded-lg text-right">
             updateEditDynamicLabels('edit-solicitante-campos-container', 'solicitante', 'Solicitante');
 
 
-            // --- Destinos (Dinâmico) ---
+            // --- Destinos/Chegadas (Dinâmico) ---
             const editDestinoContainer = document.getElementById('edit-destino-campos-container');
             editDestinoContainer.innerHTML = '';
 
-            // Destino Principal (P1)
-            addEditDynamicRow('edit-destino-campos-container', 'destino', 'Destino', lancamento.destino || '');
-
-            // Destinos Extras
+            const destinosParaEdicao = [{ destino: lancamento.destino || '', chegada: lancamento.chegada_destino || '' }];
             if (lancamento.destinos_extras && lancamento.destinos_extras.length > 0) {
-                lancamento.destinos_extras.forEach((d) => {
-                    addEditDynamicRow('edit-destino-campos-container', 'destino', 'Destino', d);
-                });
+                lancamento.destinos_extras.forEach(d => destinosParaEdicao.push({ destino: d.destino || '', chegada: d.chegada || '' }));
             }
-            updateEditDynamicLabels('edit-destino-campos-container', 'destino', 'Destino');
+
+            destinosParaEdicao.forEach(d => {
+                // Ao adicionar o destino, o valor correspondente é criado automaticamente
+                addEditDynamicRow('edit-destino-campos-container', 'destino', 'Destino', d.destino, d.chegada);
+            });
+
+
+            // --- Valores (Dinâmico) ---
+            const editValorContainer = document.getElementById('edit-valor-campos-container');
+            editValorContainer.innerHTML = '';
+
+            const valoresParaEdicao = [{ valor: lancamento.valor || 0, valorExtra: lancamento.valorExtra || 0 }];
+            if (lancamento.destinos_extras && lancamento.destinos_extras.length > 0) {
+                // Adiciona os valores extras (Valor e Valor Extra) do array destinos_extras
+                lancamento.destinos_extras.forEach(d => valoresParaEdicao.push({ valor: d.valor || 0, valorExtra: d.valorExtra || 0 }));
+            }
+
+            valoresParaEdicao.forEach((v, index) => {
+                const pNum = index + 1;
+                // Formata os valores para exibição de moeda (R$ 0,00) antes de criar o input
+                const valorFmt = (v.valor || 0).toFixed(2).replace('.', ',');
+                const valorExtraFmt = (v.valorExtra || 0).toFixed(2).replace('.', ',');
+
+                const newRow = createEditValorInput(pNum, valorFmt, valorExtraFmt);
+                editValorContainer.appendChild(newRow);
+            });
+            updateEditDynamicLabels('edit-valor-campos-container', 'valor', 'Valor');
 
 
             // --- Passageiros (Transportados) ---
@@ -1629,15 +2185,6 @@ rounded-lg text-right">
                 });
             }
             updateEditPassageiroLabels(); // Garante que os rótulos estão corretos
-
-            // --- Valores ---
-            const valorInput = document.getElementById('edit-valor');
-            valorInput.value = (lancamento.valor || 0).toFixed(2).replace('.', ',');
-            formatCurrencyInput(valorInput);
-            const valorExtraInput = document.getElementById('edit-valor-extra');
-            valorExtraInput.value = (lancamento.valorExtra || 0).toFixed(2).replace('.', ',');
-            formatCurrencyInput(valorExtraInput);
-
 
             document.getElementById('edit-lancamento-modal').classList.remove('hidden');
         }
@@ -1668,10 +2215,7 @@ rounded-lg text-right">
 
                 }
             }, true);
-            const valorEditInput = document.getElementById('edit-valor');
-            const valorExtraEditInput = document.getElementById('edit-valor-extra');
-            valorEditInput.addEventListener('input', () => formatCurrencyInput(valorEditInput));
-            valorExtraEditInput.addEventListener('input', () => formatCurrencyInput(valorExtraEditInput));
+            // Os event listeners de moeda agora são adicionados dinamicamente em createEditValorInput/updateValueLabels
         }
         setupEditModalAutofill();
         document.getElementById('close-edit-lancamento-modal').addEventListener('click', () => {
@@ -1697,18 +2241,50 @@ rounded-lg text-right">
                 return;
             }
 
-            // Coleta de Destinos
-            const destinosEdit = Array.from(document.querySelectorAll('#edit-destino-campos-container input[name="edit-destinos[]"]'))
-                .map(input => input.value.trim())
-                .filter(value => value !== '');
+            // Coleta de Destinos e Chegadas
+            const destinosInputs = document.querySelectorAll('#edit-destino-campos-container input[name="edit-destinos[]"]');
+            const chegadasDestinoInputs = document.querySelectorAll('#edit-destino-campos-container input[name="edit-chegadas_destino[]"]');
+            const valoresInputs = document.querySelectorAll('#edit-valor-campos-container input[name="edit-valores[]"]');
+            const valoresExtraInputs = document.querySelectorAll('#edit-valor-campos-container input[name="edit-valores_extra[]"]');
 
-            if (destinosEdit.length === 0) {
-                showWarning('O destino principal (P1) deve estar preenchido.');
-                // Adiciona a borda de erro ao primeiro campo de destino.
-                const p1DestinoInput = document.getElementById('edit-destino-campos-container').querySelector('input');
-                if (p1DestinoInput) p1DestinoInput.classList.add('error-border');
+            const destinosChegadasValoresEdit = [];
+            let destinoChegadaIncompleto = false;
+
+            // Assumimos que o número de Destinos/Chegadas e Valores é o mesmo, mas verificamos a consistência dos campos de Destino/Chegada
+            const count = Math.max(destinosInputs.length, valoresInputs.length);
+
+            for (let i = 0; i < count; i++) {
+                const destino = (destinosInputs[i] ? destinosInputs[i].value.trim() : '');
+                const chegada = (chegadasDestinoInputs[i] ? chegadasDestinoInputs[i].value.trim() : '');
+                const valor = (valoresInputs[i] ? parseCurrencyValue(valoresInputs[i].value) : 0);
+                const valorExtra = (valoresExtraInputs[i] ? parseCurrencyValue(valoresExtraInputs[i].value) : 0);
+
+                // Apenas verifica a consistência de Destino/Chegada, pois Valor/ValorExtra podem ser 0.
+                if (destino !== '' && chegada !== '') {
+                    destinosChegadasValoresEdit.push({ destino: destino, chegada: chegada, valor: valor, valorExtra: valorExtra });
+                } else if (destino !== '' || chegada !== '') {
+                    destinoChegadaIncompleto = true;
+                    if (destinosInputs[i]) destinosInputs[i].classList.add('error-border');
+                    if (chegadasDestinoInputs[i]) chegadasDestinoInputs[i].classList.add('error-border');
+                }
+            }
+
+            if (destinoChegadaIncompleto) {
+                showWarning('Preencha os campos de Destino e Chegada (Horário) ou deixe ambos vazios.');
                 return;
             }
+
+            if (destinosChegadasValoresEdit.length === 0) {
+                showWarning('O destino principal (P1) deve estar preenchido.');
+                const p1DestinoInput = document.getElementById('edit-destino-campos-container').querySelector('input[name="edit-destinos[]"]');
+                const p1ChegadaInput = document.getElementById('edit-destino-campos-container').querySelector('input[name="edit-chegadas_destino[]"]');
+                if (p1DestinoInput) p1DestinoInput.classList.add('error-border');
+                if (p1ChegadaInput) p1ChegadaInput.classList.add('error-border');
+                return;
+            }
+
+            const destinosExtrasEdit = destinosChegadasValoresEdit.length > 1 ? destinosChegadasValoresEdit.slice(1) : [];
+
 
             // Lógica para coletar P1 e Passageiros extras.
             const p1Matricula = document.getElementById('edit-matricula').value.trim();
@@ -1752,6 +2328,7 @@ rounded-lg text-right">
 
                 motorista: document.getElementById('edit-motorista').value,
                 data: document.getElementById('edit-data').value,
+                partida: document.getElementById('edit-partida').value, // Adicionado Partida
 
                 solicitante: solicitantesEdit[0],
                 solicitantes_extras: solicitantesEdit.length > 1 ? solicitantesEdit.slice(1) : [],
@@ -1762,11 +2339,12 @@ rounded-lg text-right">
 
                 origem: document.getElementById('edit-origem').value,
 
-                destino: destinosEdit[0],
-                destinos_extras: destinosEdit.length > 1 ? destinosEdit.slice(1) : [],
+                destino: destinosChegadasValoresEdit[0].destino,
+                chegada_destino: destinosChegadasValoresEdit[0].chegada, // Chegada do primeiro destino
+                valor: destinosChegadasValoresEdit[0].valor,
+                valorExtra: destinosChegadasValoresEdit[0].valorExtra,
+                destinos_extras: destinosExtrasEdit,
 
-                valor: parseCurrencyValue(document.getElementById('edit-valor').value),
-                valorExtra: parseCurrencyValue(document.getElementById('edit-valor-extra').value),
                 observacao: document.getElementById('edit-observacao').value,
 
                 editedBy: currentUser.username,
